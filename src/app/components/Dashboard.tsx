@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import LearnCard from "./LearnCard";
 
 const Dashboard: React.FC = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
@@ -11,7 +12,7 @@ const Dashboard: React.FC = () => {
       {/* Sidebar */}
       <aside
         id="logo-sidebar"
-        className={`fixed top-0 left-0 z-40 w-64 h-full bg-white dark:bg-gray-800 transition-transform ${
+        className={`fixed top-0 left-0 z-40 w-72 h-full bg-white dark:bg-gray-800 transition-transform ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
         } sm:translate-x-0`}
         aria-label="Sidebar"
@@ -174,9 +175,45 @@ const Dashboard: React.FC = () => {
             ></path>
           </svg>
         </button>
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">
-          Admin Dashboard
-        </h1>
+        
+        <div className="flex flex-wrap justify-center gap-4 p-4">
+        <LearnCard
+            imageSrc="/LearnImage/Cyber.png"
+            title="Cyber Security Campaign"
+            lessons="6 Lessons"
+            buttonText="Learn"
+          />
+          <LearnCard
+            imageSrc="/LearnImage/Traffic.png"
+            title="Traffic Rules and Road Safety"
+            lessons="5 Lessons"
+            buttonText="Learn"
+          />
+          <LearnCard
+            imageSrc="/LearnImage/Terrorist.png"
+            title="Anti Terrorist"
+            lessons="8 Lessons"
+            buttonText="Learn"
+          />
+          <LearnCard
+            imageSrc="/LearnImage/Drugs.png"
+            title="Anti Drug Campaign"
+            lessons="6 Lessons"
+            buttonText="Learn"
+          />
+          <LearnCard
+            imageSrc="/LearnImage/Vote.png"
+            title="Election Prohibited Act"
+            lessons="6 Lessons"
+            buttonText="Learn"
+          />
+          <LearnCard
+            imageSrc="/LearnImage/CaseFiling.png"
+            title="Case Filing"
+            lessons="6 Lessons"
+            buttonText="Learn"
+          />
+        </div>
       </div>
     </div>
   );

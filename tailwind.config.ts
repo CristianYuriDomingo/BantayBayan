@@ -14,6 +14,15 @@ module.exports = {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      keyframes: {
+        scroll: {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(-1750px)" }, // Adjust based on total image width
+        },
+      },
+      animation: {
+        scroll: "scroll 40s linear infinite",
+      },
     },
   },
   plugins: [flowbite.plugin()],
