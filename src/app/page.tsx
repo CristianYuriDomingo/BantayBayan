@@ -1,19 +1,16 @@
 
 import Image from "next/image";
-import Header from "./components/Header";
-import Dashboard from "./components/Dashboard";
+import Dashboard from "./components/Learn";
 import Slider from "./components/Slider";
 import Modal from "./components/Modal";
+import HomePage from "./components/HomePage";
 
 
 
 export default function Home() {
   return (
-    <>
-      <Dashboard/>
-     
-     
-      
-    </>
+   <>
+   <HomePage/>
+   </>
   );
 }
