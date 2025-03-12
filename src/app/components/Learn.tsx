@@ -177,42 +177,213 @@ const Learn: React.FC = () => {
         </button>
         
         <div className="flex flex-wrap justify-center gap-4 p-4">
-        <LearnCard
+          <LearnCard
             imageSrc="/LearnImage/Cyber.png"
             title="Cyber Security Campaign"
             lessons="4 Lessons"
             buttonText="Learn"
+            modalContent={
+              <div>
+                <h3 className="text-xl font-semibold">Cyber Security</h3>
+                <p className="text-gray-600 mb-4">Pumili ng Lesson</p>
+                <ul className="space-y-3">
+                  <li>
+                    <button className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300">
+                      Internet Safety Tips
+                    </button>
+                  </li>
+                  <li>
+                    <button className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300">
+                      Online Scams & Phishing Awareness
+                    </button>
+                  </li>
+                  <li>
+                    <button className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300">
+                      Financial Fraud & Investment Scams
+                    </button>
+                  </li>
+                  <li>
+                    <button className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300">
+                      Identity Theft Prevention
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            }
           />
           <LearnCard
             imageSrc="/LearnImage/Traffic.png"
             title="Traffic Rules and Road Safety"
             lessons="5 Lessons"
             buttonText="Learn"
+            modalContent={
+              <div>
+                <h3 className="text-xl font-semibold">Traffic Rules and Road Safety</h3>
+                <p className="text-gray-600 mb-4">Pumili ng Lesson</p>
+                <ul className="space-y-3">
+                  <li>
+                    <button className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300">
+                      Basic Traffic Rules
+                    </button>
+                  </li>
+                  <li>
+                    <button className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300">
+                      Road Safety Tips
+                    </button>
+                  </li>
+                  <li>
+                    <button className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300">
+                      Pedestrian Safety
+                    </button>
+                  </li>
+                  <li>
+                    <button className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300">
+                      Driving Under Influence
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            }
+          />
+        
+           
+           <LearnCard
+            imageSrc="/LearnImage/CaseFiling.png"
+            title="Traffic Rules and Road Safety"
+            lessons="5 Lessons"
+            buttonText="Learn"
+            modalContent={
+              <div>
+                <h3 className="text-xl font-semibold">Traffic Rules and Road Safety</h3>
+                <p className="text-gray-600 mb-4">Pumili ng Lesson</p>
+                <ul className="space-y-3">
+                  <li>
+                    <button className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300">
+                      Basic Traffic Rules
+                    </button>
+                  </li>
+                  <li>
+                    <button className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300">
+                      Road Safety Tips
+                    </button>
+                  </li>
+                  <li>
+                    <button className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300">
+                      Pedestrian Safety
+                    </button>
+                  </li>
+                  <li>
+                    <button className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300">
+                      Driving Under Influence
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            }
+          />
+           <LearnCard
+            imageSrc="/LearnImage/Drugs.png"
+            title="Traffic Rules and Road Safety"
+            lessons="5 Lessons"
+            buttonText="Learn"
+            modalContent={
+              <div>
+                <h3 className="text-xl font-semibold">Traffic Rules and Road Safety</h3>
+                <p className="text-gray-600 mb-4">Pumili ng Lesson</p>
+                <ul className="space-y-3">
+                  <li>
+                    <button className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300">
+                      Basic Traffic Rules
+                    </button>
+                  </li>
+                  <li>
+                    <button className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300">
+                      Road Safety Tips
+                    </button>
+                  </li>
+                  <li>
+                    <button className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300">
+                      Pedestrian Safety
+                    </button>
+                  </li>
+                  <li>
+                    <button className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300">
+                      Driving Under Influence
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            }
           />
           <LearnCard
             imageSrc="/LearnImage/Terrorist.png"
-            title="Anti Terrorist Campaign"
-            lessons="8 Lessons"
+            title="Traffic Rules and Road Safety"
+            lessons="5 Lessons"
             buttonText="Learn"
+            modalContent={
+              <div>
+                <h3 className="text-xl font-semibold">Traffic Rules and Road Safety</h3>
+                <p className="text-gray-600 mb-4">Pumili ng Lesson</p>
+                <ul className="space-y-3">
+                  <li>
+                    <button className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300">
+                      Basic Traffic Rules
+                    </button>
+                  </li>
+                  <li>
+                    <button className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300">
+                      Road Safety Tips
+                    </button>
+                  </li>
+                  <li>
+                    <button className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300">
+                      Pedestrian Safety
+                    </button>
+                  </li>
+                  <li>
+                    <button className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300">
+                      Driving Under Influence
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            }
           />
-          <LearnCard
-            imageSrc="/LearnImage/Drugs.png"
-            title="Anti Drug Campaign"
-            lessons="6 Lessons"
-            buttonText="Learn"
-          />
-          <LearnCard
+           <LearnCard
             imageSrc="/LearnImage/Vote.png"
-            title="Election Prohibited Act"
-            lessons="6 Lessons"
+            title="Traffic Rules and Road Safety"
+            lessons="5 Lessons"
             buttonText="Learn"
+            modalContent={
+              <div>
+                <h3 className="text-xl font-semibold">Traffic Rules and Road Safety</h3>
+                <p className="text-gray-600 mb-4">Pumili ng Lesson</p>
+                <ul className="space-y-3">
+                  <li>
+                    <button className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300">
+                      Basic Traffic Rules
+                    </button>
+                  </li>
+                  <li>
+                    <button className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300">
+                      Road Safety Tips
+                    </button>
+                  </li>
+                  <li>
+                    <button className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300">
+                      Pedestrian Safety
+                    </button>
+                  </li>
+                  <li>
+                    <button className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300">
+                      Driving Under Influence
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            }
           />
-          <LearnCard
-            imageSrc="/LearnImage/CaseFiling.png"
-            title="Case Filing"
-            lessons="6 Lessons"
-            buttonText="Learn"
-          />
+          {/* Add more LearnCard components with different modalContent as needed */}
         </div>
       </div>
     </div>

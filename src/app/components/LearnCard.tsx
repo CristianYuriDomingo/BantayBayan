@@ -7,9 +7,10 @@ interface LearnCardProps {
   title: string;
   lessons: string;
   buttonText: string;
+  modalContent: React.ReactNode; // Add modalContent prop
 }
 
-const LearnCard: React.FC<LearnCardProps> = ({ imageSrc, title, lessons, buttonText }) => {
+const LearnCard: React.FC<LearnCardProps> = ({ imageSrc, title, lessons, buttonText, modalContent }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
@@ -38,7 +39,9 @@ const LearnCard: React.FC<LearnCardProps> = ({ imageSrc, title, lessons, buttonT
       </div>
 
       {/* Modal Component */}
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        {modalContent}
+      </Modal>
     </>
   );
 };

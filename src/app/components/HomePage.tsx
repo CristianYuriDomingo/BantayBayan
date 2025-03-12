@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Slider from "./Slider";
+import LetterCard from "./LetterCard";
 
 const HomePage = () => {
   const [navOpen, setNavOpen] = useState(false);
@@ -78,23 +79,39 @@ const HomePage = () => {
             <div className="hidden sm:flex gap-10">
               <ul className="flex gap-10">
                 <li>
-                  <Link href="/about" className="uppercase hover:border-b text-l">
-                    Learn
+                <Link href="/Dashboard">
+                    <button
+                      className="relative inline-block px-6 py-3 text-lg font-bold uppercase border-2 rounded-xl transition-all duration-150 ease-in-out text-[#2d87ff] border-[#2d87ff] bg-[#dbe9ff] hover:bg-[#b0d4ff] hover:border-[#1a6fd1] hover:text-[#1a6fd1] focus:outline-none focus:ring-2 focus:ring-[#1a6fd1] focus:ring-opacity-50"
+                    >
+                      Learn
+                    </button>
                   </Link>
                 </li>
                 <li>
-                  <Link href="/contact" className="uppercase hover:border-b text-l">
-                    Leaderboard
+                <Link href="/Dashboard">
+                    <button
+                      className="relative inline-block px-6 py-3 text-lg font-bold uppercase border-2 rounded-xl transition-all duration-150 ease-in-out text-[#2d87ff] border-[#2d87ff] bg-[#dbe9ff] hover:bg-[#b0d4ff] hover:border-[#1a6fd1] hover:text-[#1a6fd1] focus:outline-none focus:ring-2 focus:ring-[#1a6fd1] focus:ring-opacity-50"
+                    >
+                      Leaderboard
+                    </button>
                   </Link>
                 </li>
                 <li>
-                  <Link href="/blog" className="uppercase hover:border-b text-l">
-                    Contact
+                <Link href="/Dashboard">
+                    <button
+                      className="relative inline-block px-6 py-3 text-lg font-bold uppercase border-2 rounded-xl transition-all duration-150 ease-in-out text-[#2d87ff] border-[#2d87ff] bg-[#dbe9ff] hover:bg-[#b0d4ff] hover:border-[#1a6fd1] hover:text-[#1a6fd1] focus:outline-none focus:ring-2 focus:ring-[#1a6fd1] focus:ring-opacity-50"
+                    >
+                      Contact
+                    </button>
                   </Link>
                 </li>
                 <li>
-                  <Link href="/services" className="uppercase hover:border-b text-l">
-                    About Us
+                <Link href="/Dashboard">
+                    <button
+                      className="relative inline-block px-6 py-3 text-lg font-bold uppercase border-2 rounded-xl transition-all duration-150 ease-in-out text-[#2d87ff] border-[#2d87ff] bg-[#dbe9ff] hover:bg-[#b0d4ff] hover:border-[#1a6fd1] hover:text-[#1a6fd1] focus:outline-none focus:ring-2 focus:ring-[#1a6fd1] focus:ring-opacity-50"
+                    >
+                     About
+                    </button>
                   </Link>
                 </li>
               </ul>
@@ -136,14 +153,12 @@ const HomePage = () => {
         className="relative flex flex-col items-center justify-center px-6 pt-10 lg:px-16 bg-cover bg-center bg-no-repeat min-h-screen"
         style={{ backgroundImage: "url('/HomePageImage/bg.png')" }}
       >
-        <img src="/HomePageImage/cloud1.png" alt="Cloud" className="absolute top-20 left-[-20%] w-52 h-auto animate-moveCloud" />
-        <img src="/HomePageImage/cloud1.png" alt="Cloud" className="absolute top-20 left-[-20%] w-52 h-auto animate-moveCloud" />
-        
-        <div className="w-full flex justify-center mt-16 mb-10">
-          <Slider />
-        </div>
-
         <div className="flex flex-col justify-center items-center flex-grow mt-24">
+          <div className="relative flex flex-col items-center lg:items-start lg:absolute lg:top-36 lg:right-0">
+            <div className="mb-4 lg:mb-0 lg:mr-4">
+              <LetterCard />
+            </div>
+          </div>
           <Link href="/Dashboard">
             <button
               className={`relative inline-block px-6 py-3 text-lg font-bold uppercase border-2 rounded-xl transition-all duration-150 ease-in-out
@@ -161,6 +176,16 @@ const HomePage = () => {
             </button>
           </Link>
         </div>
+      </section>
+
+      {/* New Section */}
+      <section className="flex flex-col items-center justify-center px-6 py-10 lg:px-16 bg-white min-h-screen">
+        <div className="w-full flex justify-center mb-10">
+          <Slider />
+        </div>
+        <h2 className="text-3xl font-bold mb-6">Dear Sir/Ma'am</h2>
+        <p className="text-lg mb-4">This is a new section added below the CTA section.</p>
+        {/* Add more content here as needed */}
       </section>
     </>
   );
