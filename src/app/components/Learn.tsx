@@ -1,11 +1,39 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import LearnCard from "./LearnCard";
 
 const Learn: React.FC = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [isDropdownVisible, setDropdownVisible] = useState(true);
+  const [isClient, setIsClient] = useState(false);
+  const router = useRouter();
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) {
+    return null; // Render nothing on the server
+  }
+
+  const lessonsCyberSecurity = [
+    { title: "Cybersecurity & Data Protection", path: "/lessons/CyberSecurity/CybersecurityDataProtection" },
+    { title: "Safe & Responsible Internet Use", path: "/lessons/CyberSecurity/SafeResponsibleInternetUse" },
+    { title: "Scam & Fraud Awareness", path: "/lessons/CyberSecurity/ScamFraudAwareness" },
+    { title: "Identity & Privacy Protection", path: "/lessons/CyberSecurity/IdentityPrivacyProtection" },
+    { title: "Media Literacy & Misinformation Awareness", path: "/lessons/CyberSecurity/MediaLiteracyMisinformation" },
+  ];
+
+  const lessonsTrafficRules = [
+    { title: "Basic Traffic Rules", path: "/lessons/TrafficRules/BasicTrafficRules" },
+    { title: "Road Safety Tips", path: "/lessons/TrafficRules/RoadSafetyTips" },
+    { title: "Pedestrian Safety", path: "/lessons/TrafficRules/PedestrianSafety" },
+    { title: "Driving Under Influence", path: "/lessons/TrafficRules/DrivingUnderInfluence" },
+  ];
+
+  const countLessons = (lessons: { title: string; path: string }[]) => `${lessons.length} Lessons`;
 
   return (
     <div className="flex h-screen bg-gray-100 dark:bg-gray-900">
@@ -39,19 +67,7 @@ const Learn: React.FC = () => {
                 <span className="ms-3 uppercase">Learning Modules</span>
               </a>
             </li>
-            <li>
-              <a
-                href="#"
-                className="flex items-center p-4 text-lg text-gray-900 rounded-lg dark:text-white hover:bg-blue-100 dark:hover:bg-gray-700"
-              >
-                <img
-                  src="/DashboardImage/profilePage.png"
-                  className="w-6 h-6"
-                  alt="Profile Page"
-                />
-                <span className="ms-3 uppercase">Profile Page</span>
-              </a>
-            </li>
+        
             <li>
               <a
                 href="#"
@@ -102,7 +118,7 @@ const Learn: React.FC = () => {
                   className="w-6 h-6"
                   alt="Logout"
                 />
-                <span className="ms-3 uppercase">Logout</span>
+                <span className="ms-3 uppercase"> Nearby Stations</span>
               </a>
             </li>
           </ul>
@@ -180,33 +196,23 @@ const Learn: React.FC = () => {
           <LearnCard
             imageSrc="/LearnImage/Cyber.png"
             title="Cyber Security Campaign"
-            lessons="4 Lessons"
+            lessons={countLessons(lessonsCyberSecurity)}
             buttonText="Learn"
             modalContent={
               <div>
                 <h3 className="text-xl font-semibold">Cyber Security</h3>
-                <p className="text-gray-600 mb-4">Pumili ng Lesson</p>
+                <p className="text-gray-600 mb-4">Choose a Lesson</p>
                 <ul className="space-y-3">
-                  <li>
-                    <button className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300">
-                      Internet Safety Tips
-                    </button>
-                  </li>
-                  <li>
-                    <button className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300">
-                      Online Scams & Phishing Awareness
-                    </button>
-                  </li>
-                  <li>
-                    <button className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300">
-                      Financial Fraud & Investment Scams
-                    </button>
-                  </li>
-                  <li>
-                    <button className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300">
-                      Identity Theft Prevention
-                    </button>
-                  </li>
+                  {lessonsCyberSecurity.map((lesson, index) => (
+                    <li key={index}>
+                      <button
+                        className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300"
+                        onClick={() => router.push(lesson.path)}
+                      >
+                        {lesson.title}
+                      </button>
+                    </li>
+                  ))}
                 </ul>
               </div>
             }
@@ -214,175 +220,124 @@ const Learn: React.FC = () => {
           <LearnCard
             imageSrc="/LearnImage/Traffic.png"
             title="Traffic Rules and Road Safety"
-            lessons="5 Lessons"
+            lessons={countLessons(lessonsTrafficRules)}
             buttonText="Learn"
             modalContent={
               <div>
                 <h3 className="text-xl font-semibold">Traffic Rules and Road Safety</h3>
                 <p className="text-gray-600 mb-4">Pumili ng Lesson</p>
                 <ul className="space-y-3">
-                  <li>
-                    <button className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300">
-                      Basic Traffic Rules
-                    </button>
-                  </li>
-                  <li>
-                    <button className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300">
-                      Road Safety Tips
-                    </button>
-                  </li>
-                  <li>
-                    <button className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300">
-                      Pedestrian Safety
-                    </button>
-                  </li>
-                  <li>
-                    <button className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300">
-                      Driving Under Influence
-                    </button>
-                  </li>
-                </ul>
-              </div>
-            }
-          />
-        
-           
-           <LearnCard
-            imageSrc="/LearnImage/CaseFiling.png"
-            title="Traffic Rules and Road Safety"
-            lessons="5 Lessons"
-            buttonText="Learn"
-            modalContent={
-              <div>
-                <h3 className="text-xl font-semibold">Traffic Rules and Road Safety</h3>
-                <p className="text-gray-600 mb-4">Pumili ng Lesson</p>
-                <ul className="space-y-3">
-                  <li>
-                    <button className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300">
-                      Basic Traffic Rules
-                    </button>
-                  </li>
-                  <li>
-                    <button className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300">
-                      Road Safety Tips
-                    </button>
-                  </li>
-                  <li>
-                    <button className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300">
-                      Pedestrian Safety
-                    </button>
-                  </li>
-                  <li>
-                    <button className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300">
-                      Driving Under Influence
-                    </button>
-                  </li>
-                </ul>
-              </div>
-            }
-          />
-           <LearnCard
-            imageSrc="/LearnImage/Drugs.png"
-            title="Traffic Rules and Road Safety"
-            lessons="5 Lessons"
-            buttonText="Learn"
-            modalContent={
-              <div>
-                <h3 className="text-xl font-semibold">Traffic Rules and Road Safety</h3>
-                <p className="text-gray-600 mb-4">Pumili ng Lesson</p>
-                <ul className="space-y-3">
-                  <li>
-                    <button className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300">
-                      Basic Traffic Rules
-                    </button>
-                  </li>
-                  <li>
-                    <button className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300">
-                      Road Safety Tips
-                    </button>
-                  </li>
-                  <li>
-                    <button className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300">
-                      Pedestrian Safety
-                    </button>
-                  </li>
-                  <li>
-                    <button className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300">
-                      Driving Under Influence
-                    </button>
-                  </li>
+                  {lessonsTrafficRules.map((lesson, index) => (
+                    <li key={index}>
+                      <button
+                        className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300"
+                        onClick={() => router.push(lesson.path)}
+                      >
+                        {lesson.title}
+                      </button>
+                    </li>
+                  ))}
                 </ul>
               </div>
             }
           />
           <LearnCard
-            imageSrc="/LearnImage/Terrorist.png"
-            title="Traffic Rules and Road Safety"
-            lessons="5 Lessons"
+            imageSrc="/LearnImage/Drugs.png"
+            title="Anti Drugs Campaign"
+            lessons={countLessons(lessonsCyberSecurity)}
             buttonText="Learn"
             modalContent={
               <div>
-                <h3 className="text-xl font-semibold">Traffic Rules and Road Safety</h3>
-                <p className="text-gray-600 mb-4">Pumili ng Lesson</p>
+                <h3 className="text-xl font-semibold">Anti Drugs</h3>
+                <p className="text-gray-600 mb-4">Choose a Lesson</p>
                 <ul className="space-y-3">
-                  <li>
-                    <button className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300">
-                      Basic Traffic Rules
-                    </button>
-                  </li>
-                  <li>
-                    <button className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300">
-                      Road Safety Tips
-                    </button>
-                  </li>
-                  <li>
-                    <button className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300">
-                      Pedestrian Safety
-                    </button>
-                  </li>
-                  <li>
-                    <button className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300">
-                      Driving Under Influence
-                    </button>
-                  </li>
+                  {lessonsCyberSecurity.map((lesson, index) => (
+                    <li key={index}>
+                      <button
+                        className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300"
+                        onClick={() => router.push(lesson.path)}
+                      >
+                        {lesson.title}
+                      </button>
+                    </li>
+                  ))}
                 </ul>
               </div>
             }
           />
-           <LearnCard
-            imageSrc="/LearnImage/Vote.png"
-            title="Traffic Rules and Road Safety"
-            lessons="5 Lessons"
+          <LearnCard
+            imageSrc="/LearnImage/Cyber.png"
+            title="Cyber Security Campaign"
+            lessons={countLessons(lessonsCyberSecurity)}
             buttonText="Learn"
             modalContent={
               <div>
-                <h3 className="text-xl font-semibold">Traffic Rules and Road Safety</h3>
-                <p className="text-gray-600 mb-4">Pumili ng Lesson</p>
+                <h3 className="text-xl font-semibold">Cyber Security</h3>
+                <p className="text-gray-600 mb-4">Choose a Lesson</p>
                 <ul className="space-y-3">
-                  <li>
-                    <button className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300">
-                      Basic Traffic Rules
-                    </button>
-                  </li>
-                  <li>
-                    <button className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300">
-                      Road Safety Tips
-                    </button>
-                  </li>
-                  <li>
-                    <button className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300">
-                      Pedestrian Safety
-                    </button>
-                  </li>
-                  <li>
-                    <button className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300">
-                      Driving Under Influence
-                    </button>
-                  </li>
+                  {lessonsCyberSecurity.map((lesson, index) => (
+                    <li key={index}>
+                      <button
+                        className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300"
+                        onClick={() => router.push(lesson.path)}
+                      >
+                        {lesson.title}
+                      </button>
+                    </li>
+                  ))}
                 </ul>
               </div>
             }
           />
+          <LearnCard
+            imageSrc="/LearnImage/Cyber.png"
+            title="Cyber Security Campaign"
+            lessons={countLessons(lessonsCyberSecurity)}
+            buttonText="Learn"
+            modalContent={
+              <div>
+                <h3 className="text-xl font-semibold">Cyber Security</h3>
+                <p className="text-gray-600 mb-4">Choose a Lesson</p>
+                <ul className="space-y-3">
+                  {lessonsCyberSecurity.map((lesson, index) => (
+                    <li key={index}>
+                      <button
+                        className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300"
+                        onClick={() => router.push(lesson.path)}
+                      >
+                        {lesson.title}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            }
+          />
+          <LearnCard
+            imageSrc="/LearnImage/Cyber.png"
+            title="Cyber Security Campaign"
+            lessons={countLessons(lessonsCyberSecurity)}
+            buttonText="Learn"
+            modalContent={
+              <div>
+                <h3 className="text-xl font-semibold">Cyber Security</h3>
+                <p className="text-gray-600 mb-4">Choose a Lesson</p>
+                <ul className="space-y-3">
+                  {lessonsCyberSecurity.map((lesson, index) => (
+                    <li key={index}>
+                      <button
+                        className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300"
+                        onClick={() => router.push(lesson.path)}
+                      >
+                        {lesson.title}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            }
+          />
+         
           {/* Add more LearnCard components with different modalContent as needed */}
         </div>
       </div>

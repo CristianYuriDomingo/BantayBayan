@@ -1,7 +1,6 @@
 import React from "react";
 import Image from "next/image";
 
-
 const images = [
   "/Pibi.png",
   "/SliderImage/Neust.png",
@@ -11,7 +10,7 @@ const images = [
 
 const Slider: React.FC = () => {
   return (
-    <div className="relative w-[960px] h-[80px] overflow-hidden bg-white bg-opacity-50 shadow-lg">
+    <div className="relative w-[960px] h-[80px] overflow-hidden bg-white bg-opacity-50" style={{ boxShadow: 'none' }}>
       {/* Left & Right Gradient Fades */}
       <div className="absolute top-0 left-0 w-[100px] h-full bg-gradient-to-r from-white to-transparent z-10"></div>
       <div className="absolute top-0 right-0 w-[100px] h-full bg-gradient-to-l from-white to-transparent z-10"></div>
