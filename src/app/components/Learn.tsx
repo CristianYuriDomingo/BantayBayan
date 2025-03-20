@@ -279,13 +279,13 @@ const Learn: React.FC = () => {
             }
           />
           <LearnCard
-            imageSrc="/LearnImage/Cyber.png"
+            imageSrc="/LearnImage/CaseFiling.png"
             title="Cyber Security Campaign"
             lessons={countLessons(lessonsCyberSecurity)}
             buttonText="Learn"
             modalContent={
               <div>
-                <h3 className="text-xl font-semibold">Cyber Security</h3>
+                <h3 className="text-xl font-semibold">Case Filing</h3>
                 <p className="text-gray-600 mb-4">Choose a Lesson</p>
                 <ul className="space-y-3">
                   {lessonsCyberSecurity.map((lesson, index) => (
@@ -303,13 +303,13 @@ const Learn: React.FC = () => {
             }
           />
           <LearnCard
-            imageSrc="/LearnImage/Cyber.png"
-            title="Cyber Security Campaign"
+            imageSrc="/LearnImage/Terrorist.png"
+            title="Anti Terrorist Campaign"
             lessons={countLessons(lessonsCyberSecurity)}
             buttonText="Learn"
             modalContent={
               <div>
-                <h3 className="text-xl font-semibold">Cyber Security</h3>
+                <h3 className="text-xl font-semibold">Anti Terorrist</h3>
                 <p className="text-gray-600 mb-4">Choose a Lesson</p>
                 <ul className="space-y-3">
                   {lessonsCyberSecurity.map((lesson, index) => (
@@ -327,13 +327,13 @@ const Learn: React.FC = () => {
             }
           />
           <LearnCard
-            imageSrc="/LearnImage/Cyber.png"
-            title="Cyber Security Campaign"
+            imageSrc="/LearnImage/Vote.png"
+            title="Vote"
             lessons={countLessons(lessonsCyberSecurity)}
             buttonText="Learn"
             modalContent={
               <div>
-                <h3 className="text-xl font-semibold">Cyber Security</h3>
+                <h3 className="text-xl font-semibold">Vote</h3>
                 <p className="text-gray-600 mb-4">Choose a Lesson</p>
                 <ul className="space-y-3">
                   {lessonsCyberSecurity.map((lesson, index) => (

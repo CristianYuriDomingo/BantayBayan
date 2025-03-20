@@ -83,7 +83,7 @@ const HomePage = () => {
                     <button
                       className="relative inline-block px-6 py-3 text-lg font-bold uppercase border-2 rounded-xl transition-all duration-150 ease-in-out text-[#2d87ff] border-[#2d87ff] bg-[#dbe9ff] hover:bg-[#b0d4ff] hover:border-[#1a6fd1] hover:text-[#1a6fd1] focus:outline-none focus:ring-2 focus:ring-[#1a6fd1] focus:ring-opacity-50"
                     >
-                      Learn
+                      FAQs
                     </button>
                   </Link>
                 </li>
@@ -92,7 +92,7 @@ const HomePage = () => {
                     <button
                       className="relative inline-block px-6 py-3 text-lg font-bold uppercase border-2 rounded-xl transition-all duration-150 ease-in-out text-[#2d87ff] border-[#2d87ff] bg-[#dbe9ff] hover:bg-[#b0d4ff] hover:border-[#1a6fd1] hover:text-[#1a6fd1] focus:outline-none focus:ring-2 focus:ring-[#1a6fd1] focus:ring-opacity-50"
                     >
-                      Leaderboard
+                      Services
                     </button>
                   </Link>
                 </li>
@@ -159,7 +159,7 @@ const HomePage = () => {
               <LetterCard />
             </div>
           </div>
-          <Link href="/Dashboard">
+          <Link href="/Form">
             <button
               className={`relative inline-block px-6 py-3 text-lg font-bold uppercase border-2 rounded-xl transition-all duration-150 ease-in-out
               text-[#2d87ff] border-[#2d87ff] bg-[#dbe9ff]
