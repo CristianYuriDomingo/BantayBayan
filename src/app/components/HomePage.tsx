@@ -23,7 +23,7 @@ const HomePage = () => {
             {/* Logo Section */}
             <Link href="/">
               <Image
-                src="/PibiLogo.png"
+                src="/MainImage/PibiLogo.png"
                 alt="Logo"
                 width={205}
                 height={205}
@@ -183,7 +183,7 @@ const HomePage = () => {
         <div className="w-full flex justify-center mb-10">
           <Slider />
         </div>
-        <h2 className="text-3xl font-bold mb-6">Dear Sir/Ma'am</h2>
+        <h2 className="text-3xl font-bold mb-6">Dear Sir/Ma&apos;am</h2>
         <p className="text-lg mb-4">This is a new section added below the CTA section.</p>
         {/* Add more content here as needed */}
       </section>

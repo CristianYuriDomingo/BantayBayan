@@ -17,9 +17,10 @@ export default function LetterCard() {
         <Image
           src="/HomePageImage/envelop.png"
           alt="Card Image"
-          layout="fill"
-          objectFit="cover"
+          fill  // ✅ Replaces layout="fill"
+          style={{ objectFit: "cover" }}  // ✅ Replaces objectFit="cover"
           className="rounded-xl"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" // ✅ Improves performance
         />
       </div>
       <div
@@ -27,7 +28,7 @@ export default function LetterCard() {
       >
         <h3 className="text-lg font-semibold">Dear User</h3>
         <p className="text-sm text-gray-600 break-words">
-        Thank you for being part of PNP Bantay Bayan. Your vigilance helps keep our communities safe. Stay alert, stay informed, and together, we build a safer nation.
+          Thank you for being part of PNP Bantay Bayan. Your vigilance helps keep our communities safe. Stay alert, stay informed, and together, we build a safer nation.
         </p>
       </div>
     </div>

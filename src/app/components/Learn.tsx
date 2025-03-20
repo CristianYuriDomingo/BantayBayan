@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import LearnCard from "./LearnCard";
+import Image from "next/image";
 
 const Learn: React.FC = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
@@ -47,10 +48,12 @@ const Learn: React.FC = () => {
       >
         <div className="h-full px-3 py-4 overflow-y-auto">
           <a href="#" className="flex justify-center items-center mb-5">
-            <img
-              src="/PibiLogo.png"
+            <Image
+              src="/MainImage/PibiLogo.png"
               className="h-16 sm:h-20"
               alt="Pibi Logo"
+              width={80}
+              height={80}
             />
           </a>
           <ul className="space-y-4 font-medium">
@@ -59,10 +62,12 @@ const Learn: React.FC = () => {
                 href="#"
                 className="flex items-center p-4 text-lg text-gray-900 rounded-lg dark:text-white hover:bg-blue-100 dark:hover:bg-gray-700"
               >
-                <img
+                <Image
                   src="/DashboardImage/learningModules.png"
                   className="w-6 h-6"
                   alt="Learning Modules"
+                  width={24}
+                  height={24}
                 />
                 <span className="ms-3 uppercase">Learning Modules</span>
               </a>
@@ -73,10 +78,12 @@ const Learn: React.FC = () => {
                 href="#"
                 className="flex items-center p-4 text-lg text-gray-900 rounded-lg dark:text-white hover:bg-blue-100 dark:hover:bg-gray-700"
               >
-                <img
+                <Image
                   src="/DashboardImage/achievements.png"
                   className="w-6 h-6"
                   alt="Achievements"
+                  width={24}
+                  height={24}
                 />
                 <span className="ms-3 uppercase">Achievements</span>
               </a>
@@ -86,10 +93,12 @@ const Learn: React.FC = () => {
                 href="#"
                 className="flex items-center p-4 text-lg text-gray-900 rounded-lg dark:text-white hover:bg-blue-100 dark:hover:bg-gray-700"
               >
-                <img
+                <Image
                   src="/DashboardImage/quest.png"
                   className="w-6 h-6"
                   alt="Quest"
+                  width={24}
+                  height={24}
                 />
                 <span className="ms-3 uppercase">Quest</span>
               </a>
@@ -99,10 +108,12 @@ const Learn: React.FC = () => {
                 href="#"
                 className="flex items-center p-4 text-lg text-gray-900 rounded-lg dark:text-white hover:bg-blue-100 dark:hover:bg-gray-700"
               >
-                <img
+                <Image
                   src="/DashboardImage/leaderboard.png"
                   className="w-6 h-6"
                   alt="Leaderboard"
+                  width={24}
+                  height={24}
                 />
                 <span className="ms-3 uppercase">Quiz</span>
               </a>
@@ -113,10 +124,12 @@ const Learn: React.FC = () => {
                 href="#"
                 className="flex items-center p-4 text-lg text-gray-900 rounded-lg dark:text-white hover:bg-red-100 dark:hover:bg-red-700"
               >
-                <img
+                <Image
                   src="/DashboardImage/logout.png"
                   className="w-6 h-6"
                   alt="Logout"
+                  width={24}
+                  height={24}
                 />
                 <span className="ms-3 uppercase"> Nearby Stations</span>
               </a>

@@ -2,10 +2,10 @@ import React from "react";
 import Image from "next/image";
 
 const images = [
-  "/Pibi.png",
+  "/SliderImage/Pibi.png",
   "/SliderImage/Neust.png",
   "/SliderImage/PalayanLogo.png",
-  "/SliderImage/PNP.png"
+  "/SliderImage/PNPLogo.png"
 ];
 
 const Slider: React.FC = () => {

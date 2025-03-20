@@ -16,7 +16,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
         {/* Image - Stays at the top */}
         <div className="absolute -top-14 left-1/2 transform -translate-x-1/2">
           <Image
-            src="/1.png"
+            src="/MainImage/1.png"
             alt="Modal Image"
             width={128}
             height={128}

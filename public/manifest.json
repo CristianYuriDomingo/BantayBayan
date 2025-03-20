@@ -1,0 +1,35 @@
+{
+    "name": "PNP Bantay Bayan",
+    "short_name": "Bantay Bayan",
+    "description": "A safety awareness and gamified hub.",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#2D87FF",
+    "icons": [
+      {
+        "src": "/PWAimage/icon-192x192.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      },
+      {
+        "src": "/PWAimage/icon-512x512.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      }
+    ],
+    "screenshots": [
+      {
+        "src": "/PWAimage/screenshot1.png",
+        "sizes": "1280x720",
+        "type": "image/png",
+        "form_factor": "wide"
+      },
+      {
+        "src": "/PWAimage/screenshot2.png",
+        "sizes": "750x1334",
+        "type": "image/png"
+      }
+    ]
+  }
+  
