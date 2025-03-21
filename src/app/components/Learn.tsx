@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import LearnCard from "./LearnCard";
 import Image from "next/image";
+import UserGreetings from "./UserGreetings";
 
 const Learn: React.FC = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
@@ -41,29 +42,28 @@ const Learn: React.FC = () => {
       {/* Sidebar */}
       <aside
         id="logo-sidebar"
-        className={`fixed top-0 left-0 z-40 w-72 h-full bg-white dark:bg-gray-800 transition-transform ${
-          isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-        } sm:translate-x-0`}
+        className={`fixed top-0 left-0 z-40 w-72 h-full bg-white dark:bg-gray-800 transition-transform ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+          } sm:translate-x-0`}
         aria-label="Sidebar"
       >
         <div className="h-full px-3 py-4 overflow-y-auto">
           <a href="#" className="flex justify-center items-center mb-5">
             <Image
-              src="/MainImage/PibiLogo.png"
+              src="/MainImage/logo.png"
               className="h-16 sm:h-20"
               alt="Pibi Logo"
-              width={80}
-              height={80}
+              width={150}
+              height={110}
             />
           </a>
           <ul className="space-y-4 font-medium">
             <li>
               <a
                 href="#"
-                className="flex items-center p-4 text-lg text-gray-900 rounded-lg dark:text-white hover:bg-blue-100 dark:hover:bg-gray-700"
+                className="flex items-center p-4 text-lg text-gray-900 rounded-lg dark:text-white bg-blue-100 dark:bg-gray-700 border border-blue-300 dark:border-gray-600"
               >
                 <Image
-                  src="/DashboardImage/learningModules.png"
+                  src="/DashboardImage/learn.png"
                   className="w-6 h-6"
                   alt="Learning Modules"
                   width={24}
@@ -72,7 +72,24 @@ const Learn: React.FC = () => {
                 <span className="ms-3 uppercase">Learning Modules</span>
               </a>
             </li>
-        
+            <li>
+              <a
+                href="#"
+                className="flex items-center p-4 text-lg text-gray-900 rounded-lg dark:text-white hover:bg-blue-100 dark:hover:bg-gray-700"
+              >
+                <Image
+                  src="/DashboardImage/quiz.png"
+                  className="w-6 h-6"
+                  alt="Leaderboard"
+                  width={24}
+                  height={24}
+                />
+                <span className="ms-3 uppercase">Quiz</span>
+              </a>
+            </li>
+
+
+
             <li>
               <a
                 href="#"
@@ -103,21 +120,7 @@ const Learn: React.FC = () => {
                 <span className="ms-3 uppercase">Quest</span>
               </a>
             </li>
-            <li>
-              <a
-                href="#"
-                className="flex items-center p-4 text-lg text-gray-900 rounded-lg dark:text-white hover:bg-blue-100 dark:hover:bg-gray-700"
-              >
-                <Image
-                  src="/DashboardImage/leaderboard.png"
-                  className="w-6 h-6"
-                  alt="Leaderboard"
-                  width={24}
-                  height={24}
-                />
-                <span className="ms-3 uppercase">Quiz</span>
-              </a>
-            </li>
+
             <hr className="border-t-2 border-gray-200 dark:border-gray-700 my-4" />
             <li>
               <a
@@ -125,7 +128,7 @@ const Learn: React.FC = () => {
                 className="flex items-center p-4 text-lg text-gray-900 rounded-lg dark:text-white hover:bg-red-100 dark:hover:bg-red-700"
               >
                 <Image
-                  src="/DashboardImage/logout.png"
+                  src="/DashboardImage/station.png"
                   className="w-6 h-6"
                   alt="Logout"
                   width={24}
@@ -204,7 +207,10 @@ const Learn: React.FC = () => {
             ></path>
           </svg>
         </button>
-        
+        <div className="w-full max-w-[1000px] mx-auto">
+          <UserGreetings />
+        </div>  
+
         <div className="flex flex-wrap justify-center gap-4 p-4">
           <LearnCard
             imageSrc="/LearnImage/Cyber.png"
@@ -350,7 +356,7 @@ const Learn: React.FC = () => {
               </div>
             }
           />
-         
+
           {/* Add more LearnCard components with different modalContent as needed */}
         </div>
       </div>

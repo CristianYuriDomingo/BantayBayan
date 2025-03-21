@@ -1,9 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { openDB } from "idb";
 import { TextInput, Button } from "flowbite-react";
-import UserConfirm from "./UserConfirm"; // ✅ Import UserConfirm
 
 const DB_NAME = "UserDB";
 const STORE_NAME = "users";
@@ -31,11 +30,14 @@ const addUserToIndexedDB = async (user: { username: string; age: number }) => {
 };
 
 // React Component
-const UsernameAgeForm = () => {
+interface UsernameAgeFormProps {
+  setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const UsernameAgeForm: React.FC<UsernameAgeFormProps> = ({ setIsModalOpen }) => {
   const [username, setUsername] = useState<string>("");
   const [age, setAge] = useState<number | "">("");
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false); // ✅ Modal state
 
   const handleAgeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -102,9 +104,6 @@ const UsernameAgeForm = () => {
           {isSubmitting ? "Submitting..." : "Submit"}
         </Button>
       </div>
-
-      {/* ✅ UserConfirm modal controlled from here */}
-      <UserConfirm open={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </div>
   );
 };

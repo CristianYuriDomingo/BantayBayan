@@ -61,7 +61,7 @@ const CarouselComponent = () => {
               </div>
             }
           >
-            {["3.png", "2.png", "3.png", "2.png", "3.png"].map((img, index) => (
+            {["info1.png", "2.png", "3.png", "2.png", "3.png"].map((img, index) => (
               <Image
                 key={index}
                 src={`/LessonImage/${img}`}

@@ -1,15 +1,18 @@
-import React from "react";
-import UsernameAgeForm from "../components/UsernameAgeForm"; // Adjust the import path as needed
+"use client";
+
+import React, { useState } from "react";
+import UsernameAgeForm from "../components/UsernameAgeForm";
 import UserConfirm from "../components/UserConfirm";
 
-
 const Form = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <>
-      <UsernameAgeForm />
-      <UserConfirm/>
+      <UsernameAgeForm setIsModalOpen={setIsModalOpen} />
+      <UserConfirm open={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </>
-  ); 
+  );
 };
 
 export default Form;
