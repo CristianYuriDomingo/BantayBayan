@@ -74,7 +74,7 @@ const Learn: React.FC = () => {
             </li>
             <li>
               <a
-                href="#"
+                href="/Quiz"
                 className="flex items-center p-4 text-lg text-gray-900 rounded-lg dark:text-white hover:bg-blue-100 dark:hover:bg-gray-700"
               >
                 <Image
@@ -214,7 +214,7 @@ const Learn: React.FC = () => {
         <div className="flex flex-wrap justify-center gap-4 p-4">
           <LearnCard
             imageSrc="/LearnImage/Cyber.png"
-            title="Cyber Security Campaign"
+            title="Cyber Security Tips"
             lessons={countLessons(lessonsCyberSecurity)}
             buttonText="Learn"
             modalContent={
