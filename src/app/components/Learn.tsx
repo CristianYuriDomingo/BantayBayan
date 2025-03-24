@@ -92,7 +92,7 @@ const Learn: React.FC = () => {
 
             <li>
               <a
-                href="#"
+                href="/Achievements"
                 className="flex items-center p-4 text-lg text-gray-900 rounded-lg dark:text-white hover:bg-blue-100 dark:hover:bg-gray-700"
               >
                 <Image

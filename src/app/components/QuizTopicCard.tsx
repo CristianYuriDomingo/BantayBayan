@@ -1,4 +1,4 @@
-"use client";
+"use client"; // ✅ THIS MAKES IT A CLIENT COMPONENT
 
 import { useRouter } from "next/navigation";
 
@@ -9,14 +9,14 @@ interface QuizTopicCardProps {
 }
 
 export default function QuizTopicCard({ title, link, imageSrc }: QuizTopicCardProps) {
-  const router = useRouter();
+  const router = useRouter(); // ✅ useRouter works inside a client component
 
   return (
     <div className="flex justify-center items-center w-full px-2 md:px-4">
       <div 
         className="relative w-full max-w-xl overflow-hidden rounded-2xl shadow-xl border-4 border-[#d4d4d4] bg-[#eaebe8]
                    transition-transform duration-300 hover:scale-105 hover:shadow-2xl cursor-pointer"
-        onClick={() => router.push(link)} // 👈 Clickable Image Container
+        onClick={() => router.push(link)} // ✅ Navigate to the quiz page on click
       > 
         {/* Image with Border */}
         <img

@@ -22,12 +22,13 @@ const Quiz: React.FC = () => {
 
 
     const topics = [
-        { title: "Cyber Security", link: "/quiz/cyber-security", imageSrc: "/QuizImage/PoliceTape.png" },
-        { title: "Drug Prevention", link: "/quiz/ai-ml", imageSrc: "/QuizImage/PoliceTape.png" },
-        { title: "Terrorist", link: "/quiz/ethical-hacking", imageSrc: "/QuizImage/PoliceTape.png" },
-        { title: "Vote", link: "/quiz/blockchain", imageSrc: "/QuizImage/PoliceTape.png" },
-        { title: "Case Filing", link: "/quiz/networking", imageSrc: "/QuizImage/PoliceTape.png" },
-    ];
+        { title: "Cyber Security", link: "/Quiz/cyber-security/start", imageSrc: "/QuizImage/PoliceTape.png" },
+        { title: "Drug Prevention", link: "/Quiz/drug-prevention/start", imageSrc: "/QuizImage/PoliceTape.png" },
+        { title: "Anti Terrorist", link: "/Quiz/anti-terrorist/start", imageSrc: "/QuizImage/PoliceTape.png" },
+        { title: "Vote", link: "/Quiz/vote/start", imageSrc: "/QuizImage/PoliceTape.png" },
+        { title: "Case Filing", link: "/Quiz/case-filing/start", imageSrc: "/QuizImage/PoliceTape.png" },
+      ];
+      
     return (
         <div className="flex h-screen bg-gray-100 dark:bg-gray-900">
 
@@ -84,7 +85,7 @@ const Quiz: React.FC = () => {
 
                         <li>
                             <a
-                                href="#"
+                                href="/Achievements"
                                 className="flex items-center p-4 text-lg text-gray-900 rounded-lg dark:text-white hover:bg-blue-100 dark:hover:bg-gray-700"
                             >
                                 <Image
@@ -99,7 +100,7 @@ const Quiz: React.FC = () => {
                         </li>
                         <li>
                             <a
-                                href="#"
+                                href="/Quest"
                                 className="flex items-center p-4 text-lg text-gray-900 rounded-lg dark:text-white hover:bg-blue-100 dark:hover:bg-gray-700"
                             >
                                 <Image
@@ -203,12 +204,12 @@ const Quiz: React.FC = () => {
 
                     {/* Add the START YOUR QUIZ image here */}
                     <Image
-    src="/QuizImage/StartYourQuiz.png" // Update this path accordingly
-    alt="Start Your Quiz"
-    width={300} // Further reduce base size
-    height={170} // Keep proportions
-    className="w-full max-w-[200px] sm:max-w-[250px] md:max-w-[300px] lg:max-w-[350px] xl:max-w-[400px] h-auto"
-/>
+                        src="/QuizImage/StartYourQuiz.png" // Update this path accordingly
+                        alt="Start Your Quiz"
+                        width={300} // Further reduce base size
+                        height={170} // Keep proportions
+                        className="w-full max-w-[200px] sm:max-w-[250px] md:max-w-[300px] lg:max-w-[350px] xl:max-w-[400px] h-auto"
+                    />
 
                     {topics.map((topic, index) => (
                         <QuizTopicCard key={index} title={topic.title} link={topic.link} imageSrc={topic.imageSrc} />
