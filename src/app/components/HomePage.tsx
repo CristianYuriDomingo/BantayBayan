@@ -1,14 +1,42 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import Slider from "./Slider";
 import LetterCard from "./LetterCard";
+import { getUsersFromIndexedDB } from "../../../lib/indexedDB"; // Corrected import
+
 
 const HomePage = () => {
   const [navOpen, setNavOpen] = useState(false);
   const [isActive, setIsActive] = useState(false);
+  const [isUserExist, setIsUserExist] = useState(false);
+  const router = useRouter();
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const users = await getUsersFromIndexedDB();
+      
+      // Check if there's at least one valid user with username and age
+      if (users.length > 0 && users[0].username && users[0].age) {
+        setIsUserExist(true);
+      } else {
+        setIsUserExist(false);
+      }
+    };
+  
+    fetchUserData();
+  }, []);
+  
+  const handleGetStarted = () => {
+    if (isUserExist) {
+      router.push("/Learn"); // Redirect to Dashboard if user exists
+    } else {
+      router.push("/Form"); // Redirect to Form for new users
+    }
+  };
 
   const toggleNav = () => {
     setNavOpen(!navOpen);
@@ -78,42 +106,15 @@ const HomePage = () => {
             {/* Navigation Links (Hidden on Mobile, Shown on Desktop) */}
             <div className="hidden sm:flex gap-10">
               <ul className="flex gap-10">
-                <li>
-                <Link href="/Dashboard">
-                    <button
-                      className="relative inline-block px-6 py-3 text-lg font-bold uppercase border-2 rounded-xl transition-all duration-150 ease-in-out text-[#2d87ff] border-[#2d87ff] bg-[#dbe9ff] hover:bg-[#b0d4ff] hover:border-[#1a6fd1] hover:text-[#1a6fd1] focus:outline-none focus:ring-2 focus:ring-[#1a6fd1] focus:ring-opacity-50"
-                    >
-                      FAQs
-                    </button>
-                  </Link>
-                </li>
-                <li>
-                <Link href="/Dashboard">
-                    <button
-                      className="relative inline-block px-6 py-3 text-lg font-bold uppercase border-2 rounded-xl transition-all duration-150 ease-in-out text-[#2d87ff] border-[#2d87ff] bg-[#dbe9ff] hover:bg-[#b0d4ff] hover:border-[#1a6fd1] hover:text-[#1a6fd1] focus:outline-none focus:ring-2 focus:ring-[#1a6fd1] focus:ring-opacity-50"
-                    >
-                      Services
-                    </button>
-                  </Link>
-                </li>
-                <li>
-                <Link href="/Dashboard">
-                    <button
-                      className="relative inline-block px-6 py-3 text-lg font-bold uppercase border-2 rounded-xl transition-all duration-150 ease-in-out text-[#2d87ff] border-[#2d87ff] bg-[#dbe9ff] hover:bg-[#b0d4ff] hover:border-[#1a6fd1] hover:text-[#1a6fd1] focus:outline-none focus:ring-2 focus:ring-[#1a6fd1] focus:ring-opacity-50"
-                    >
-                      Contact
-                    </button>
-                  </Link>
-                </li>
-                <li>
-                <Link href="/Dashboard">
-                    <button
-                      className="relative inline-block px-6 py-3 text-lg font-bold uppercase border-2 rounded-xl transition-all duration-150 ease-in-out text-[#2d87ff] border-[#2d87ff] bg-[#dbe9ff] hover:bg-[#b0d4ff] hover:border-[#1a6fd1] hover:text-[#1a6fd1] focus:outline-none focus:ring-2 focus:ring-[#1a6fd1] focus:ring-opacity-50"
-                    >
-                     About
-                    </button>
-                  </Link>
-                </li>
+                {["FAQs", "Services", "Contact", "About"].map((item) => (
+                  <li key={item}>
+                    <Link href="/Dashboard">
+                      <button className="relative inline-block px-6 py-3 text-lg font-bold uppercase border-2 rounded-xl transition-all duration-150 ease-in-out text-[#2d87ff] border-[#2d87ff] bg-[#dbe9ff] hover:bg-[#b0d4ff] hover:border-[#1a6fd1] hover:text-[#1a6fd1] focus:outline-none focus:ring-2 focus:ring-[#1a6fd1] focus:ring-opacity-50">
+                        {item}
+                      </button>
+                    </Link>
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
@@ -122,26 +123,13 @@ const HomePage = () => {
           {navOpen && (
             <div className="absolute top-24 left-0 w-full bg-white shadow-md">
               <ul className="flex flex-col items-center gap-4 py-4">
-                <li>
-                  <Link href="/about" onClick={toggleNav} className="uppercase text-xl">
-                    Learn
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/contact" onClick={toggleNav} className="uppercase text-xl">
-                    Leaderboard
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/blog" onClick={toggleNav} className="uppercase text-xl">
-                    Contact
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/services" onClick={toggleNav} className="uppercase text-xl">
-                    About Us
-                  </Link>
-                </li>
+                {["Learn", "Leaderboard", "Contact", "About Us"].map((item) => (
+                  <li key={item}>
+                    <Link href={`/${item.toLowerCase()}`} onClick={toggleNav} className="uppercase text-xl">
+                      {item}
+                    </Link>
+                  </li>
+                ))}
               </ul>
             </div>
           )}
@@ -159,22 +147,21 @@ const HomePage = () => {
               <LetterCard />
             </div>
           </div>
-          <Link href="/Form">
-            <button
-              className={`relative inline-block px-6 py-3 text-lg font-bold uppercase border-2 rounded-xl transition-all duration-150 ease-in-out
-              text-[#2d87ff] border-[#2d87ff] bg-[#dbe9ff]
-              ${isActive ? 'translate-y-[0.3em]' : 'hover:translate-y-[0.15em]'}`}
-              onMouseDown={() => setIsActive(true)}
-              onMouseUp={() => setIsActive(false)}
-              onMouseLeave={() => setIsActive(false)}
-            >
-              <span
-                className={`absolute inset-0 bg-[#5caeff] rounded-xl transition-all duration-150 ease-in-out
-                ${isActive ? 'translate-y-0 shadow-[0_0_0_2px_#4a98e5,0_0.1em_0_0_#4a98e5]' : 'translate-y-[0.3em] shadow-[0_0_0_2px_#4a98e5,0_0.4em_0_0_#2d87ff]'}`}
-              />
-              <span className="relative z-10">Get Started</span>
-            </button>
-          </Link>
+          <button
+            className={`relative inline-block px-6 py-3 text-lg font-bold uppercase border-2 rounded-xl transition-all duration-150 ease-in-out
+            text-[#2d87ff] border-[#2d87ff] bg-[#dbe9ff]
+            ${isActive ? 'translate-y-[0.3em]' : 'hover:translate-y-[0.15em]'}`}
+            onMouseDown={() => setIsActive(true)}
+            onMouseUp={() => setIsActive(false)}
+            onMouseLeave={() => setIsActive(false)}
+            onClick={handleGetStarted} // Handle redirection logic
+          >
+            <span
+              className={`absolute inset-0 bg-[#5caeff] rounded-xl transition-all duration-150 ease-in-out
+              ${isActive ? 'translate-y-0 shadow-[0_0_0_2px_#4a98e5,0_0.1em_0_0_#4a98e5]' : 'translate-y-[0.3em] shadow-[0_0_0_2px_#4a98e5,0_0.4em_0_0_#2d87ff]'}`}
+            />
+            <span className="relative z-10">Get Started</span>
+          </button>
         </div>
       </section>
 
@@ -185,7 +172,6 @@ const HomePage = () => {
         </div>
         <h2 className="text-3xl font-bold mb-6">Dear Sir/Ma&apos;am</h2>
         <p className="text-lg mb-4">This is a new section added below the CTA section.</p>
-        {/* Add more content here as needed */}
       </section>
     </>
   );
