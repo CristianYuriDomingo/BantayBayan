@@ -6,7 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Slider from "./Slider";
 import LetterCard from "./LetterCard";
-import { getUsersFromIndexedDB } from "../../../lib/indexedDB"; // Corrected import
+import { getUsersFromIndexedDB } from "../../../lib/userDB"; // Corrected import
 
 
 const HomePage = () => {
@@ -51,7 +51,7 @@ const HomePage = () => {
             {/* Logo Section */}
             <Link href="/">
               <Image
-                src="/MainImage/PibiLogo.png"
+                src="/MainImage/logo.png"
                 alt="Logo"
                 width={205}
                 height={205}

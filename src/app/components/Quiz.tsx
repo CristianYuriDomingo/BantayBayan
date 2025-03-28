@@ -17,7 +17,7 @@ const Quiz: React.FC = () => {
     }, []);
 
     if (!isClient) {
-        return null; // Render nothing on the server
+        return null; // Render nothing on the server 
     }
 
 
@@ -27,8 +27,9 @@ const Quiz: React.FC = () => {
         { title: "Anti Terrorist", link: "/Quiz/anti-terrorist/start", imageSrc: "/QuizImage/PoliceTape.png" },
         { title: "Vote", link: "/Quiz/vote/start", imageSrc: "/QuizImage/PoliceTape.png" },
         { title: "Case Filing", link: "/Quiz/case-filing/start", imageSrc: "/QuizImage/PoliceTape.png" },
-      ];
-      
+        
+    ];
+
     return (
         <div className="flex h-screen bg-gray-100 dark:bg-gray-900">
 
@@ -200,21 +201,35 @@ const Quiz: React.FC = () => {
                         ></path>
                     </svg>
                 </button>
-                <div className="flex flex-col items-center gap-6"> {/* Single column layout */}
+                <div className="w-full max-w-5xl mx-auto flex lg:flex-row flex-col gap-6">
+    {/* First Column: 70% (Quiz Image + QuizTopicCards) */}
+    <div className="lg:w-[70%] w-full flex flex-col items-center gap-6">
+        {/* "Start Your Quiz" Image */}
+        <Image
+            src="/QuizImage/StartYourQuiz.png"
+            alt="Start Your Quiz"
+            width={300}
+            height={170}
+            className="w-full max-w-[200px] sm:max-w-[250px] md:max-w-[300px] lg:max-w-[350px] xl:max-w-[400px] h-auto"
+        />
 
-                    {/* Add the START YOUR QUIZ image here */}
-                    <Image
-                        src="/QuizImage/StartYourQuiz.png" // Update this path accordingly
-                        alt="Start Your Quiz"
-                        width={300} // Further reduce base size
-                        height={170} // Keep proportions
-                        className="w-full max-w-[200px] sm:max-w-[250px] md:max-w-[300px] lg:max-w-[350px] xl:max-w-[400px] h-auto"
-                    />
+        {/* Quiz Topic Cards */}
+        <div className="w-full flex flex-col gap-4">
+            {topics.map((topic, index) => (
+                <QuizTopicCard key={index} title={topic.title} link={topic.link} imageSrc={topic.imageSrc} />
+            ))}
+        </div>
+    </div>
 
-                    {topics.map((topic, index) => (
-                        <QuizTopicCard key={index} title={topic.title} link={topic.link} imageSrc={topic.imageSrc} />
-                    ))}
-                </div>
+    {/* Second Column: 30% (Moves below when minimized) */}
+    <div className="lg:w-[30%] w-full bg-gray-200 dark:bg-gray-700 rounded-lg p-4">
+        {/* Placeholder - You can add content here later */}
+        <p className="text-center text-gray-700 dark:text-gray-300">Second Column </p>
+    </div>
+</div>
+
+
+
 
 
 

@@ -10,18 +10,18 @@ const QuizInstructions = ({ topic }: { topic: string }) => {
 
   return (
     <div className="max-w-md mx-auto p-6 bg-white shadow-lg rounded-2xl border border-gray-200">
-      {/* Quiz Rules Image - Reduced Size */}
+      {/* Quiz Rules Image */}
       <div className="flex justify-center mb-4">
         <Image 
           src="/QuizImage/QuizRules.png" 
           alt="Quiz Rules"
-          width={250} // Reduced width for better balance
+          width={250} 
           height={100} 
           className="object-contain"
         />
       </div>
 
-      {/* Instructions Text */}
+      {/* Instructions */}
       <p className="text-gray-700 text-center text-base">
         Welcome to the <strong className="text-black">{topic}</strong> quiz! Here’s how it works:
       </p>
@@ -32,7 +32,7 @@ const QuizInstructions = ({ topic }: { topic: string }) => {
         <li>Good luck!</li>
       </ul>
 
-      {/* Custom Styled Button - Same Design, Just Adjusted Size */}
+      {/* Start Quiz Button */}
       <div className="mt-5 flex justify-center">
         <button
           className={`relative inline-block px-5 py-2.5 text-md font-bold uppercase border-2 rounded-xl transition-all duration-150 ease-in-out
@@ -41,7 +41,9 @@ const QuizInstructions = ({ topic }: { topic: string }) => {
           onMouseDown={() => setIsActive(true)}
           onMouseUp={() => {
             setIsActive(false);
-            router.push(`/quiz/${topic}/start`);
+            console.log("Navigating to:", `/PlayQuiz/${topic}`); // Debugging
+            router.push(`/PlayQuiz/${topic}`);
+
           }}
           onMouseLeave={() => setIsActive(false)}
         >

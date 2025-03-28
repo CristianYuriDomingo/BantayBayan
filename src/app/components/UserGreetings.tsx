@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { Banner } from "flowbite-react";
 import { HiX } from "react-icons/hi";
-import { getUsersFromIndexedDB } from "../../../lib/indexedDB";
+import { getUsersFromIndexedDB } from "../../../lib/userDB";
 import { motion } from "framer-motion";
 
 export default function UserGreetings() {
