@@ -2,7 +2,7 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { getUsersFromIndexedDB } from "../../../lib/userDB";
 import { saveResultToIndexedDB } from "../../../lib/quizDb";
 
@@ -10,8 +10,12 @@ export default function ResultPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [username, setUsername] = useState("");
+  const didSaveResultRef = useRef(false); // Prevent duplicate saves
+
+  // Extract data from query parameters
   const score = Number(searchParams.get("score"));
   const total = Number(searchParams.get("total"));
+  const topic = searchParams.get("topic") || "Unknown Topic"; // ✅ Topic now correctly retrieved
   const percentage = Math.round((score / total) * 100);
 
   // Badge logic
@@ -38,14 +42,18 @@ export default function ResultPage() {
 
   useEffect(() => {
     const fetchAndSaveResult = async () => {
+      if (didSaveResultRef.current) return; // Prevent duplicate saving
+      didSaveResultRef.current = true;
+
       const users = await getUsersFromIndexedDB();
       if (users.length > 0) {
         const latestUser = users[users.length - 1];
         setUsername(latestUser.username);
 
-        // 💾 Save quiz result
+        // Save quiz result
         const resultData = {
           username: latestUser.username,
+          topic, // ✅ Topic is now stored correctly
           score,
           total,
           percentage,
@@ -57,7 +65,7 @@ export default function ResultPage() {
       }
     };
     fetchAndSaveResult();
-  }, []);
+  }, [score, total, percentage, badge.label, topic]);
 
   return (
     <div className="relative flex justify-center items-center min-h-screen bg-gray-100 w-full h-screen p-6">
@@ -71,6 +79,9 @@ export default function ResultPage() {
         </p>
         <p className="text-lg mb-4 text-gray-700">
           You scored {score} out of {total}
+        </p>
+        <p className="text-lg mb-4 text-gray-700">
+          Topic: <strong>{topic}</strong>
         </p>
         <p className="text-lg mb-8 text-gray-600">Percentage: {percentage}%</p>
 

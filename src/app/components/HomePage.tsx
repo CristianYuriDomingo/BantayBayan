@@ -173,6 +173,77 @@ const HomePage = () => {
         <h2 className="text-3xl font-bold mb-6">Dear Sir/Ma&apos;am</h2>
         <p className="text-lg mb-4">This is a new section added below the CTA section.</p>
       </section>
+      
+<section className="grid grid-cols-2 gap-4 px-6 ml-10 py-40 lg:px-16...">
+      <div><h2 className="text-3xl font-bold mb-6 text-blue-500 ">Safe. Supportive. Life-Changing.</h2>
+        <p className="text-1 mb-4 justify-self-end">Bantay Bata is dedicated to protecting and empowering children, 
+          ensuring they grow up in a safe and nurturing environment. 
+          Through education, support, and advocacy, we help build brighter futures—one child at a time.</p></div>
+          <div></div>
+        {/* Add more content here as needed */}
+      </section>
+
+      <section className="grid grid-cols-2 gap-4 py-40 mr-10 lg:px-16...">
+        <div></div>
+        <div><h2 className="text-3xl font-bold mb-6 text-blue-500 ">Guided by Expertise</h2>
+        <p className="text-1 mb-4 justify-self-end">Bantay Bata’s programs are built on research-backed approaches to child welfare, 
+        ensuring effective protection, education, and support. With expert-driven initiatives, 
+        we create safe spaces where children can thrive and build brighter futures.</p></div>
+        {/* Add more content here as needed */}
+      </section>
+
+      <section className="grid grid-cols-2 gap-4 ml-10 px-6 py-40 lg:px-16...">
+      <div><h2 className="text-3xl font-bold mb-6 text-blue-500 ">Stay Empowered</h2>
+        <p className="text-1 mb-4 justify-self-end">Bantay Bayan keeps communities engaged through proactive initiatives, 
+          interactive programs, and unwavering support. With education, advocacy, 
+          and collective action, we help build safer and stronger communities—one step at a time.</p></div>
+          <div></div>
+        {/* Add more content here as needed */}
+      </section>
+      <section className="mt-40">
+      <footer className="grid grid-cols-3 bg-gray-900 text-white">
+        <div className="justify-self-center py-10">
+          <div className="grid grid-rows-3 gap-0.1">
+          <h2 className="font-bold  text-xl text-white-500">About</h2><br />
+          <a href="#" className="hover:text-lg">Website</a><br />
+          <a href="#" className="hover:text-lg">Developer</a><br />
+          <a href="#" className="hover:text-lg">Documentation</a>
+          </div>
+        </div>
+        <div className="justify-self-center py-10">
+          <div className="grid grid-rows-3 gap-0.1">
+         <h2 className="font-bold  text-xl text-white-500"> Stations</h2><br />
+         <a href="#" className="hover:text-lg">Manacnac</a><br />
+         <a href="#" className="hover:text-lg">Caimito</a><br />
+         <a href="#" className="hover:text-lg">Bagong Buhay </a>
+          </div>
+          </div>
+          <div className="justify-self-center py-10">
+          <div className="grid grid-rows-3 gap-0.1">
+          <h2 className="font-bold  text-xl text-white-500">Programs</h2><br />
+          <a href="#" className="hover:text-lg">College Programs</a><br />
+          <a href="#" className="hover:text-lg">High School Programs</a><br />
+          <a href="#" className="hover:text-lg">Elementary Programs</a>
+                  </div>
+
+        </div>
+        <div className="justify-self-center py-10 fixed">
+          <div className="grid grid-rows-3 gap-0.1">
+          <h2 className="font-bold  text-xl text-white-500">Social</h2><br />
+          <a href="#" className="hover:text-lg">Facebook</a><br />
+          <a href="#" className="hover:text-lg">Tiktok</a><br />
+          <a href="#" className="hover:text-lg">Instagram</a><br />
+          <a href="#" className="hover:text-lg">Youtube</a>        
+          </div>
+          </div>
+          </footer>
+          <div className="bg-gray-900 ">
+      <h2 className="text-xl font-bold text-blue-400 justify-self-center">Bantay Bayan</h2>
+        <p className="text-sm mt-2 justify-self-center pb-10 text-white">
+          Dedicated to community safety, transparency, and public service. Together, we keep our neighborhoods secure.
+        </p>
+        </div>
+      </section>
     </>
   );
 };

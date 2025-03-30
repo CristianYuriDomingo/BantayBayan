@@ -24,7 +24,7 @@ const sampleQuestions = [
   },
   {
     id: 3,
-    topic: "DrugPrevention",
+    topic: "drug-prevention",
     question: "What is drug abuse?",
     options: ["Using medicine correctly", "Excessive use of drugs", "Eating healthy", "Sleeping early"],
     correctAnswer: "Excessive use of drugs",
@@ -57,7 +57,9 @@ export default function PlayQuiz({ topic }: { topic: string }) {
       setCurrentQuestion(currentQuestion + 1);
     } else {
       // Redirect to the result page
-      router.push(`/Quiz/${topic}/result?score=${updatedScore}&total=${questions.length}`);
+      router.push(`/Quiz/${topic}/result?score=${updatedScore}&total=${questions.length}&topic=${encodeURIComponent(topic)}`);
+
+
 
     }
   };
