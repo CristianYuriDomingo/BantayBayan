@@ -47,7 +47,7 @@ const Learn: React.FC = () => {
         aria-label="Sidebar"
       >
         <div className="h-full px-3 py-4 overflow-y-auto">
-          <a href="#" className="flex justify-center items-center mb-5">
+          <a href="/" className="flex justify-center items-center mb-5">
             <Image
               src="/MainImage/logo.png"
               className="h-16 sm:h-20"
@@ -59,7 +59,7 @@ const Learn: React.FC = () => {
           <ul className="space-y-4 font-medium">
             <li>
               <a
-                href="#"
+                href="/Learn"
                 className="flex items-center p-4 text-lg text-gray-900 rounded-lg dark:text-white bg-blue-100 dark:bg-gray-700 border border-blue-300 dark:border-gray-600"
               >
                 <Image

@@ -42,7 +42,7 @@ const Quiz: React.FC = () => {
                 aria-label="Sidebar"
             >
                 <div className="h-full px-3 py-4 overflow-y-auto">
-                    <a href="#" className="flex justify-center items-center mb-5">
+                    <a href="/" className="flex justify-center items-center mb-5">
                         <Image
                             src="/MainImage/logo.png"
                             className="h-16 sm:h-20"
@@ -182,7 +182,7 @@ const Quiz: React.FC = () => {
                 </div>
             </aside>
 
-            {/* Main Content */}
+           
             <div className="flex-1 p-4 sm:ml-64">
                 <button
                     onClick={() => setSidebarOpen(!isSidebarOpen)}
@@ -202,6 +202,7 @@ const Quiz: React.FC = () => {
                         ></path>
                     </svg>
                 </button>
+                 {/* Main Content */}
                 <div className="w-full max-w-5xl mx-auto flex lg:flex-row flex-col gap-6">
                     {/* First Column: 70% (Quiz Image + QuizTopicCards) */}
                     <div className="lg:w-[70%] w-full flex flex-col items-center gap-6">
@@ -224,14 +225,14 @@ const Quiz: React.FC = () => {
 
                     {/* Second Column: 30% (Moves below when minimized) */}
                     <div className="lg:w-[30%] w-full bg-white dark:bg-gray-800 shadow-md rounded-lg p-5 flex flex-col">
-  <h2 className="text-lg font-bold text-gray-800 dark:text-gray-200 text-center mb-3">
-    Quiz History
-  </h2>
-  <div className="border-t border-gray-300 dark:border-gray-600 mt-2 pt-3">
-    <QuizHistory />
-  </div>
-</div>
-                            
+                        <h2 className="text-lg font-bold text-gray-800 dark:text-gray-200 text-center mb-3">
+                            Quiz History
+                        </h2>
+                        <div className="border-t border-gray-300 dark:border-gray-600 mt-2 pt-3">
+                            <QuizHistory />
+                        </div>
+                    </div>
+
 
                 </div>
 
