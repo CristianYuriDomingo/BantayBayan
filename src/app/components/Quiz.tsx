@@ -28,7 +28,6 @@ const Quiz: React.FC = () => {
         { title: "Anti Terrorist", link: "/Quiz/anti-terrorist/start", imageSrc: "/QuizImage/PoliceTape.png" },
         { title: "Vote", link: "/Quiz/vote/start", imageSrc: "/QuizImage/PoliceTape.png" },
         { title: "Case Filing", link: "/Quiz/case-filing/start", imageSrc: "/QuizImage/PoliceTape.png" },
-
     ];
 
     return (
@@ -82,9 +81,6 @@ const Quiz: React.FC = () => {
                                 <span className="ms-3 uppercase">Quiz</span>
                             </a>
                         </li>
-
-
-
                         <li>
                             <a
                                 href="/Achievements"
@@ -182,7 +178,6 @@ const Quiz: React.FC = () => {
                 </div>
             </aside>
 
-           
             <div className="flex-1 p-4 sm:ml-64">
                 <button
                     onClick={() => setSidebarOpen(!isSidebarOpen)}
@@ -202,50 +197,43 @@ const Quiz: React.FC = () => {
                         ></path>
                     </svg>
                 </button>
-                 {/* Main Content */}
-                <div className="w-full max-w-5xl mx-auto flex lg:flex-row flex-col gap-6">
-                    {/* First Column: 70% (Quiz Image + QuizTopicCards) */}
-                    <div className="lg:w-[70%] w-full flex flex-col items-center gap-6">
-                        {/* "Start Your Quiz" Image */}
-                        <Image
-                            src="/QuizImage/StartYourQuiz.png"
-                            alt="Start Your Quiz"
-                            width={300}
-                            height={170}
-                            className="w-full max-w-[200px] sm:max-w-[250px] md:max-w-[300px] lg:max-w-[350px] xl:max-w-[400px] h-auto"
-                        />
+                
+                {/* Two-column layout matching Learn page */}
+                <div className="flex flex-col lg:flex-row w-full gap-4">
+                    {/* Left column - 70% */}
+                    <div className="w-full lg:w-[70%]">
+                        <div className="flex flex-col items-center gap-6">
+                            {/* "Start Your Quiz" Image */}
+                            <Image
+                                src="/QuizImage/StartYourQuiz.png"
+                                alt="Start Your Quiz"
+                                width={300}
+                                height={170}
+                                className="w-full max-w-[200px] sm:max-w-[250px] md:max-w-[300px] lg:max-w-[350px] xl:max-w-[400px] h-auto"
+                            />
 
-                        {/* Quiz Topic Cards */}
-                        <div className="w-full flex flex-col gap-4">
-                            {topics.map((topic, index) => (
-                                <QuizTopicCard key={index} title={topic.title} link={topic.link} imageSrc={topic.imageSrc} />
-                            ))}
+                            {/* Quiz Topic Cards */}
+                            <div className="w-full flex flex-col gap-4">
+                                {topics.map((topic, index) => (
+                                    <QuizTopicCard key={index} title={topic.title} link={topic.link} imageSrc={topic.imageSrc} />
+                                ))}
+                            </div>
                         </div>
                     </div>
 
-                    {/* Second Column: 30% (Moves below when minimized) */}
-                    <div className="lg:w-[30%] w-full bg-white dark:bg-gray-800 shadow-md rounded-lg p-5 flex flex-col">
-                        <h2 className="text-lg font-bold text-gray-800 dark:text-gray-200 text-center mb-3">
-                            Quiz History
-                        </h2>
-                        <div className="border-t border-gray-300 dark:border-gray-600 mt-2 pt-3">
-                            <QuizHistory />
+                    {/* Right column - 30% */}
+                    <div className="w-full lg:w-[30%]">
+                        <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg p-5 flex flex-col h-full">
+                            <h2 className="text-lg font-bold text-gray-800 dark:text-gray-200 text-center mb-3">
+                                Quiz History
+                            </h2>
+                            <div className="border-t border-gray-300 dark:border-gray-600 mt-2 pt-3 flex-grow">
+                                <QuizHistory />
+                            </div>
                         </div>
                     </div>
-
-
                 </div>
-
-
-
-
-
-
-
-                {/* Add more LearnCard components with different modalContent as needed */}
-
             </div>
-
         </div>
     );
 };

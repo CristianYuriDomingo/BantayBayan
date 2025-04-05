@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import Slider from "./Slider";
+import Footer from "./Footer";
 import LetterCard from "./LetterCard";
 import { getUsersFromIndexedDB } from "../../../lib/userDB"; // Corrected import
 
@@ -137,45 +137,45 @@ const HomePage = () => {
       </div>
 
       {/* CTA Section */}
-{/* CTA Section */}
-<section
-  className="relative flex flex-col items-center justify-center px-6 pt-10 lg:px-16 bg-cover bg-center bg-no-repeat min-h-screen"
-  style={{ backgroundImage: "url('/HomePageImage/bg.png')" }}
->
-  <div className="flex flex-col justify-center items-center flex-grow mt-24 text-center">
-    {/* Hero Message */}
-    <h1 className="text-4xl font-bold text-[#2d87ff] mb-4 bg-white bg-opacity-70 p-4 rounded-lg">
-      Ensuring Your Safety, Anytime, Anywhere!
-    </h1>
-    <p className="text-lg text-gray-700 max-w-2xl mb-6 text-justify bg-white bg-opacity-70 p-4 rounded-lg">
-      We are committed to providing quick and reliable police assistance to protect and serve the community. Stay alert, stay informed, and ensure your security with just a click. Join us in making a safer tomorrow!
-    </p>
+      {/* CTA Section */}
+      <section
+        className="relative flex flex-col items-center justify-center px-6 pt-10 lg:px-16 bg-cover bg-center bg-no-repeat min-h-screen"
+        style={{ backgroundImage: "url('/HomePageImage/bg.png')" }}
+      >
+        <div className="flex flex-col justify-center items-center flex-grow mt-24 text-center">
+          {/* Hero Message */}
+          <h1 className="text-4xl font-bold text-[#2d87ff] mb-4 bg-white bg-opacity-70 p-4 rounded-lg">
+            Ensuring Your Safety, Anytime, Anywhere!
+          </h1>
+          <p className="text-lg text-gray-700 max-w-2xl mb-6 text-justify bg-white bg-opacity-70 p-4 rounded-lg">
+            We are committed to providing quick and reliable police assistance to protect and serve the community. Stay alert, stay informed, and ensure your security with just a click. Join us in making a safer tomorrow!
+          </p>
 
-    {/* Letter Card */}
-    <div className="relative flex flex-col items-center lg:items-start lg:absolute lg:top-36 lg:right-0">
-      <div className="mb-4 lg:mb-0 lg:mr-4">
-        <LetterCard />
-      </div>
-    </div>
+          {/* Letter Card */}
+          <div className="relative flex flex-col items-center lg:items-start lg:absolute lg:top-36 lg:right-0">
+            <div className="mb-4 lg:mb-0 lg:mr-4">
+              <LetterCard />
+            </div>
+          </div>
 
-    {/* Get Started Button */}
-    <button
-      className={`relative inline-block px-6 py-3 text-lg font-bold uppercase border-2 rounded-xl transition-all duration-150 ease-in-out
-      text-[#2d87ff] border-[#2d87ff] bg-[#dbe9ff]
-      ${isActive ? 'translate-y-[0.3em]' : 'hover:translate-y-[0.15em]'}`}
-      onMouseDown={() => setIsActive(true)}
-      onMouseUp={() => setIsActive(false)}
-      onMouseLeave={() => setIsActive(false)}
-      onClick={handleGetStarted} // Handle redirection logic
-    >
-      <span
-        className={`absolute inset-0 bg-[#5caeff] rounded-xl transition-all duration-150 ease-in-out
-        ${isActive ? 'translate-y-0 shadow-[0_0_0_2px_#4a98e5,0_0.1em_0_0_#4a98e5]' : 'translate-y-[0.3em] shadow-[0_0_0_2px_#4a98e5,0_0.4em_0_0_#2d87ff]'}`}
-      />
-      <span className="relative z-10">Get Started</span>
-    </button>
-  </div>
-</section>
+          {/* Get Started Button */}
+          <button
+            className={`relative inline-block px-6 py-3 text-lg font-bold uppercase border-2 rounded-xl transition-all duration-150 ease-in-out
+  text-[#ffffff] border-[#2d87ff] bg-[#dbe9ff]
+  ${isActive ? 'translate-y-[0.3em]' : 'hover:translate-y-[0.15em]'}`}
+            onMouseDown={() => setIsActive(true)}
+            onMouseUp={() => setIsActive(false)}
+            onMouseLeave={() => setIsActive(false)}
+            onClick={handleGetStarted} // Handle redirection logic
+          >
+            <span
+              className={`absolute inset-0 bg-[#5caeff] rounded-xl transition-all duration-150 ease-in-out
+    ${isActive ? 'translate-y-0 shadow-[0_0_0_2px_#4a98e5,0_0.1em_0_0_#4a98e5]' : 'translate-y-[0.3em] shadow-[0_0_0_2px_#4a98e5,0_0.4em_0_0_#2d87ff]'}`}
+            />
+            <span className="relative z-10">Get Started</span>
+          </button>
+        </div>
+      </section>
 
 
 
@@ -191,8 +191,8 @@ const HomePage = () => {
       {/* New Section */}
       <section className="grid grid-cols-2 gap-4 px-4 2xl:px-80 py-40">
         <div>
-          <h2 className="text-3xl font-bold mb-6 text-blue-500">Safe. Supportive. Life-Changing.</h2>
-          <p className="text-lg mb-4 text-justify">
+          <h2 className="text-5xl font-bold mb-6 text-blue-500">Safe. Supportive. Life-Changing.</h2>
+          <p className="text-xl mb-4 text-justify">
             Bantay Bata is dedicated to protecting and empowering children, ensuring they grow up in a safe and nurturing environment.
             Through education, support, and advocacy, we help build brighter futures—one child at a time.
           </p>
@@ -203,8 +203,8 @@ const HomePage = () => {
       <section className="grid grid-cols-2 gap-4 px-4 2xl:px-80 py-40">
         <div></div>
         <div>
-          <h2 className="text-3xl font-bold mb-6 text-blue-500">Guided by Expertise</h2>
-          <p className="text-lg mb-4 text-justify">
+          <h2 className="text-5xl font-bold mb-6 text-blue-500">Guided by Expertise</h2>
+          <p className="text-xl mb-4 text-justify">
             Bantay Bata’s programs are built on research-backed approaches to child welfare, ensuring effective protection, education, and support.
             With expert-driven initiatives, we create safe spaces where children can thrive and build brighter futures.
           </p>
@@ -213,8 +213,8 @@ const HomePage = () => {
 
       <section className="grid grid-cols-2 gap-4 px-4 2xl:px-80 py-40">
         <div>
-          <h2 className="text-3xl font-bold mb-6 text-blue-500">Stay Empowered</h2>
-          <p className="text-lg mb-4 text-justify">
+          <h2 className="text-5xl font-bold mb-6 text-blue-500">Stay Empowered</h2>
+          <p className="text-xl mb-4 text-justify">
             Bantay Bayan keeps communities engaged through proactive initiatives, interactive programs, and unwavering support.
             With education, advocacy, and collective action, we help build safer and stronger communities—one step at a time.
           </p>
@@ -222,51 +222,10 @@ const HomePage = () => {
         <div></div>
       </section>
 
+     <Footer/>
 
-      <section className="mt-40">
-        <footer className="grid grid-cols-3 bg-gray-900 text-white">
-          <div className="justify-self-center py-10">
-            <div className="grid grid-rows-3 gap-0.1">
-              <h2 className="font-bold  text-xl text-white-500">About</h2><br />
-              <a href="#" className="hover:text-lg">Website</a><br />
-              <a href="#" className="hover:text-lg">Developer</a><br />
-              <a href="#" className="hover:text-lg">Documentation</a>
-            </div>
-          </div>
-          <div className="justify-self-center py-10">
-            <div className="grid grid-rows-3 gap-0.1">
-              <h2 className="font-bold  text-xl text-white-500"> Stations</h2><br />
-              <a href="#" className="hover:text-lg">Manacnac</a><br />
-              <a href="#" className="hover:text-lg">Caimito</a><br />
-              <a href="#" className="hover:text-lg">Bagong Buhay </a>
-            </div>
-          </div>
-          <div className="justify-self-center py-10">
-            <div className="grid grid-rows-3 gap-0.1">
-              <h2 className="font-bold  text-xl text-white-500">Programs</h2><br />
-              <a href="#" className="hover:text-lg">College Programs</a><br />
-              <a href="#" className="hover:text-lg">High School Programs</a><br />
-              <a href="#" className="hover:text-lg">Elementary Programs</a>
-            </div>
 
-          </div>
-          <div className="justify-self-center py-10 fixed">
-            <div className="grid grid-rows-3 gap-0.1">
-              <h2 className="font-bold  text-xl text-white-500">Social</h2><br />
-              <a href="#" className="hover:text-lg">Facebook</a><br />
-              <a href="#" className="hover:text-lg">Tiktok</a><br />
-              <a href="#" className="hover:text-lg">Instagram</a><br />
-              <a href="#" className="hover:text-lg">Youtube</a>
-            </div>
-          </div>
-        </footer>
-        <div className="bg-gray-900 ">
-          <h2 className="text-xl font-bold text-blue-400 justify-self-center">Bantay Bayan</h2>
-          <p className="text-sm mt-2 justify-self-center pb-10 text-white">
-            Dedicated to community safety, transparency, and public service. Together, we keep our neighborhoods secure.
-          </p>
-        </div>
-      </section>
+
     </>
   );
 };

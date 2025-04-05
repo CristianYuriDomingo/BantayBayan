@@ -29,7 +29,7 @@ export default function QuizHistory() {
 
   return (
     <div className="w-full max-w-sm mx-auto p-4">
-      <h2 className="text-xl font-bold mb-4 text-gray-800">Previous Attempts</h2>
+      <h2 className="text-  l font-bold mb-4 text-gray-800">Previous Attempts</h2>
       <div className="divide-y divide-gray-300">
         {history.length > 0 ? (
           history.map((entry, index) => (

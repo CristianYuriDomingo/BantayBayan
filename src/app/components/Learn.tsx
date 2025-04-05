@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import LearnCard from "./LearnCard";
 import Image from "next/image";
 import UserGreetings from "./UserGreetings";
+import LearnCard2 from "./LearnCard2";
 
 const Learn: React.FC = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
@@ -188,7 +189,16 @@ const Learn: React.FC = () => {
       </aside>
 
       {/* Main Content */}
-      <div className="flex-1 p-4 sm:ml-64">
+      
+      <div className="min-h-screen flex flex-col bg-gradient-to-b from-blue-50 to-white">
+        {/* Background decorative elements */}
+        <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-blue-100 rounded-full opacity-30 transform translate-x-1/3 -translate-y-1/4"></div>
+          <div className="absolute bottom-0 left-0 w-80 h-80 bg-blue-100 rounded-full opacity-20 transform -translate-x-1/3 translate-y-1/4"></div>
+          <div className="absolute top-1/4 left-1/4 w-16 h-16 bg-yellow-200 rounded-full opacity-20"></div>
+          <div className="absolute top-3/4 right-1/4 w-24 h-24 bg-green-100 rounded-full opacity-20"></div>
+        </div>
+        <div className="flex-1 p-4 sm:ml-64">
         <button
           onClick={() => setSidebarOpen(!isSidebarOpen)}
           className="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none"
@@ -207,159 +217,175 @@ const Learn: React.FC = () => {
             ></path>
           </svg>
         </button>
-        <div className="w-full max-w-[1000px] mx-auto">
-          <UserGreetings />
-        </div>  
+        
+        {/* Two-column layout */}
+        <div className="flex flex-col lg:flex-row w-full gap-4">
+          {/* Left column - 70% */}
+          <div className="w-full lg:w-[70%]">
+            <div className="w-full max-w-[1000px] mx-auto">
+              <UserGreetings />
+            </div>
 
-        <div className="flex flex-wrap justify-center gap-4 p-4">
-          <LearnCard
-            imageSrc="/LearnImage/Cyber.png"
-            title="Cyber Security Tips"
-            lessons={countLessons(lessonsCyberSecurity)}
-            buttonText="Learn"
-            modalContent={
-              <div>
-                <h3 className="text-xl font-semibold">Cyber Security</h3>
-                <p className="text-gray-600 mb-4">Choose a Lesson</p>
-                <ul className="space-y-3">
-                  {lessonsCyberSecurity.map((lesson, index) => (
-                    <li key={index}>
-                      <button
-                        className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300"
-                        onClick={() => router.push(lesson.path)}
-                      >
-                        {lesson.title}
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            }
-          />
-          <LearnCard
-            imageSrc="/LearnImage/Traffic.png"
-            title="Traffic Rules and Road Safety"
-            lessons={countLessons(lessonsTrafficRules)}
-            buttonText="Learn"
-            modalContent={
-              <div>
-                <h3 className="text-xl font-semibold">Traffic Rules and Road Safety</h3>
-                <p className="text-gray-600 mb-4">Pumili ng Lesson</p>
-                <ul className="space-y-3">
-                  {lessonsTrafficRules.map((lesson, index) => (
-                    <li key={index}>
-                      <button
-                        className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300"
-                        onClick={() => router.push(lesson.path)}
-                      >
-                        {lesson.title}
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            }
-          />
-          <LearnCard
-            imageSrc="/LearnImage/Drugs.png"
-            title="Anti Drugs Campaign"
-            lessons={countLessons(lessonsCyberSecurity)}
-            buttonText="Learn"
-            modalContent={
-              <div>
-                <h3 className="text-xl font-semibold">Anti Drugs</h3>
-                <p className="text-gray-600 mb-4">Choose a Lesson</p>
-                <ul className="space-y-3">
-                  {lessonsCyberSecurity.map((lesson, index) => (
-                    <li key={index}>
-                      <button
-                        className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300"
-                        onClick={() => router.push(lesson.path)}
-                      >
-                        {lesson.title}
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            }
-          />
-          <LearnCard
-            imageSrc="/LearnImage/CaseFiling.png"
-            title="Cyber Security Campaign"
-            lessons={countLessons(lessonsCyberSecurity)}
-            buttonText="Learn"
-            modalContent={
-              <div>
-                <h3 className="text-xl font-semibold">Case Filing</h3>
-                <p className="text-gray-600 mb-4">Choose a Lesson</p>
-                <ul className="space-y-3">
-                  {lessonsCyberSecurity.map((lesson, index) => (
-                    <li key={index}>
-                      <button
-                        className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300"
-                        onClick={() => router.push(lesson.path)}
-                      >
-                        {lesson.title}
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            }
-          />
-          <LearnCard
-            imageSrc="/LearnImage/Terrorist.png"
-            title="Anti Terrorist Campaign"
-            lessons={countLessons(lessonsCyberSecurity)}
-            buttonText="Learn"
-            modalContent={
-              <div>
-                <h3 className="text-xl font-semibold">Anti Terorrist</h3>
-                <p className="text-gray-600 mb-4">Choose a Lesson</p>
-                <ul className="space-y-3">
-                  {lessonsCyberSecurity.map((lesson, index) => (
-                    <li key={index}>
-                      <button
-                        className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300"
-                        onClick={() => router.push(lesson.path)}
-                      >
-                        {lesson.title}
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            }
-          />
-          <LearnCard
-            imageSrc="/LearnImage/Vote.png"
-            title="Vote"
-            lessons={countLessons(lessonsCyberSecurity)}
-            buttonText="Learn"
-            modalContent={
-              <div>
-                <h3 className="text-xl font-semibold">Vote</h3>
-                <p className="text-gray-600 mb-4">Choose a Lesson</p>
-                <ul className="space-y-3">
-                  {lessonsCyberSecurity.map((lesson, index) => (
-                    <li key={index}>
-                      <button
-                        className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300"
-                        onClick={() => router.push(lesson.path)}
-                      >
-                        {lesson.title}
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            }
-          />
-
-          {/* Add more LearnCard components with different modalContent as needed */}
+            <div className="flex flex-wrap justify-center gap-4 p-4">
+              <LearnCard
+                imageSrc="/LearnImage/Cyber.png"
+                title="Cyber Security Tips"
+                lessons={countLessons(lessonsCyberSecurity)}
+                buttonText="Learn"
+                modalContent={
+                  <div>
+                    <h3 className="text-xl font-semibold">Cyber Security</h3>
+                    <p className="text-gray-600 mb-4">Choose a Lesson</p>
+                    <ul className="space-y-3">
+                      {lessonsCyberSecurity.map((lesson, index) => (
+                        <li key={index}>
+                          <button
+                            className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300"
+                            onClick={() => router.push(lesson.path)}
+                          >
+                            {lesson.title}
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                }
+              />
+              <LearnCard
+                imageSrc="/LearnImage/Traffic.png"
+                title="Traffic Rules and Road Safety"
+                lessons={countLessons(lessonsTrafficRules)}
+                buttonText="Learn"
+                modalContent={
+                  <div>
+                    <h3 className="text-xl font-semibold">Traffic Rules and Road Safety</h3>
+                    <p className="text-gray-600 mb-4">Pumili ng Lesson</p>
+                    <ul className="space-y-3">
+                      {lessonsTrafficRules.map((lesson, index) => (
+                        <li key={index}>
+                          <button
+                            className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300"
+                            onClick={() => router.push(lesson.path)}
+                          >
+                            {lesson.title}
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                }
+              />
+              <LearnCard
+                imageSrc="/LearnImage/Drugs.png"
+                title="Anti Drugs Campaign"
+                lessons={countLessons(lessonsCyberSecurity)}
+                buttonText="Learn"
+                modalContent={
+                  <div>
+                    <h3 className="text-xl font-semibold">Anti Drugs</h3>
+                    <p className="text-gray-600 mb-4">Choose a Lesson</p>
+                    <ul className="space-y-3">
+                      {lessonsCyberSecurity.map((lesson, index) => (
+                        <li key={index}>
+                          <button
+                            className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300"
+                            onClick={() => router.push(lesson.path)}
+                          >
+                            {lesson.title}
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                }
+              />
+              <LearnCard
+                imageSrc="/LearnImage/CaseFiling.png"
+                title="Cyber Security Campaign"
+                lessons={countLessons(lessonsCyberSecurity)}
+                buttonText="Learn"
+                modalContent={
+                  <div>
+                    <h3 className="text-xl font-semibold">Case Filing</h3>
+                    <p className="text-gray-600 mb-4">Choose a Lesson</p>
+                    <ul className="space-y-3">
+                      {lessonsCyberSecurity.map((lesson, index) => (
+                        <li key={index}>
+                          <button
+                            className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300"
+                            onClick={() => router.push(lesson.path)}
+                          >
+                            {lesson.title}
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                }
+              />
+              <LearnCard
+                imageSrc="/LearnImage/Terrorist.png"
+                title="Anti Terrorist Campaign"
+                lessons={countLessons(lessonsCyberSecurity)}
+                buttonText="Learn"
+                modalContent={
+                  <div>
+                    <h3 className="text-xl font-semibold">Anti Terorrist</h3>
+                    <p className="text-gray-600 mb-4">Choose a Lesson</p>
+                    <ul className="space-y-3">
+                      {lessonsCyberSecurity.map((lesson, index) => (
+                        <li key={index}>
+                          <button
+                            className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300"
+                            onClick={() => router.push(lesson.path)}
+                          >
+                            {lesson.title}
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                }
+              />
+              <LearnCard
+                imageSrc="/LearnImage/Vote.png"
+                title="Vote"
+                lessons={countLessons(lessonsCyberSecurity)}
+                buttonText="Learn"
+                modalContent={
+                  <div>
+                    <h3 className="text-xl font-semibold">Vote</h3>
+                    <p className="text-gray-600 mb-4">Choose a Lesson</p>
+                    <ul className="space-y-3">
+                      {lessonsCyberSecurity.map((lesson, index) => (
+                        <li key={index}>
+                          <button
+                            className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300"
+                            onClick={() => router.push(lesson.path)}
+                          >
+                            {lesson.title}
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                }
+              />
+            </div>
+          </div>
+          
+          {/* Right column - 30% */}
+            <div className="w-full lg:w-[30%] bg-white dark:bg-gray-800 p-4 rounded-lg shadow">
+              {/* Your content will go here */}
+            
+                <LearnCard2 />
+               
+            
+            </div>
         </div>
       </div>
+      </div>
+
     </div>
   );
 };

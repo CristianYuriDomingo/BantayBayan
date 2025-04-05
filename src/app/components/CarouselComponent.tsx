@@ -1,150 +1,309 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import Image from "next/image";
-import { Carousel } from "flowbite-react";
+import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 
-const ControlButton = ({
-  direction,
-  onClick,
-  size = "md",
-}: {
-  direction: string;
-  onClick: () => void;
-  size?: "sm" | "md" | "lg"; // Button size options
-}) => {
-  const [isPressed, setIsPressed] = useState(false);
-
-  const buttonSizeClasses = {
-    sm: "px-2 py-1 text-xs md:px-3 md:py-2",
-    md: "px-4 py-2 text-sm md:px-5 md:py-3",
-    lg: "px-6 py-3 text-md md:px-8 md:py-4",
-  };
-
-  return (
-    <div
-      role="button"
-      tabIndex={0}
-      className={`relative inline-block w-auto font-bold uppercase border-2 rounded-lg md:rounded-xl transition-all duration-150 ease-in-out
-      text-[#2d87ff] border-[#2d87ff] bg-[#dbe9ff]
-      ${isPressed ? "translate-y-[0.2em]" : "hover:translate-y-[0.1em]"} ${buttonSizeClasses[size]}`}
-      onMouseDown={() => setIsPressed(true)}
-      onMouseUp={() => setIsPressed(false)}
-      onMouseLeave={() => setIsPressed(false)}
-      onClick={onClick}
-    >
-      <span
-        className={`absolute inset-0 bg-[#5caeff] rounded-lg md:rounded-xl transition-all duration-150 ease-in-out
-        ${isPressed ? "translate-y-0 shadow-[0_0_0_2px_#4a98e5,0_0.1em_0_0_#4a98e5]" : "translate-y-[0.2em] shadow-[0_0_0_2px_#4a98e5,0_0.3em_0_0_#2d87ff]"}`}
-      />
-      <span className="relative z-10">{direction}</span>
-    </div>
-  );
+type SlideProps = {
+  image: string;
+  title: string;
+  content: string;
+  id?: string; // Optional unique identifier for each slide
 };
 
-const CarouselComponent = () => {
-  const [isSmallScreen, setIsSmallScreen] = useState(false);
-  const [currentModule, setCurrentModule] = useState(0); // Tracks current module
+const CarouselComponent: React.FC = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+  const [completedModules, setCompletedModules] = useState<string[]>([]);
 
+  // Sample slides data - replace with your actual content
+  const slides: SlideProps[] = [
+    {
+      id: "misinformation-basics",
+      image: "/MainImage/PibiTeach.png",
+      title: "Recognizing Misinformation",
+      content: "Misinformation is false or inaccurate information that is spread regardless of intent to mislead. Learn to verify sources, check publication dates, and cross-reference information with multiple reliable sources."
+    },
+    {
+      id: "critical-thinking",
+      image: "/LearnImage/Cyber.png",
+      title: "Critical Thinking Skills",
+      content: "Developing critical thinking skills is essential to navigating today's complex media landscape. Question what you see and read, consider the source's credibility, and look for evidence to support claims."
+    },
+    {
+      id: "fact-checking",
+      image: "/images/misinformation-3.jpg",
+      title: "Fact-Checking Resources",
+      content: "Several resources exist to help verify information, including fact-checking websites like Snopes, FactCheck.org, and PolitiFact. These sites investigate claims and rate their accuracy based on evidence."
+    },
+    {
+      id: "media-literacy",
+      image: "/images/misinformation-4.jpg",
+      title: "Media Literacy Tips",
+      content: "Media literacy involves analyzing the purpose, audience, and construction of media messages. Evaluate who created the content, why it was made, what techniques are used to attract attention, and how different people might interpret it."
+    }
+  ];
+
+  // Check screen size on mount and when window resizes
   useEffect(() => {
     const checkScreenSize = () => {
-      setIsSmallScreen(window.innerWidth < 768); // Set breakpoint for smaller screens
+      setIsMobile(window.innerWidth < 768);
     };
 
+    // Initial check
     checkScreenSize();
-    window.addEventListener("resize", checkScreenSize);
 
-    return () => {
-      window.removeEventListener("resize", checkScreenSize);
-    };
+    // Add resize listener
+    window.addEventListener('resize', checkScreenSize);
+
+    // Check for completed modules from localStorage
+    loadCompletedModules();
+
+    // Clean up
+    return () => window.removeEventListener('resize', checkScreenSize);
   }, []);
 
-  const modules = ["info1.png", "2.png", "3.png", "2.png", "3.png"];
+  // Load completed modules from localStorage
+  const loadCompletedModules = () => {
+    try {
+      const saved = localStorage.getItem('completedModules');
+      if (saved) {
+        setCompletedModules(JSON.parse(saved));
+      }
+    } catch (error) {
+      console.error("Error loading completed modules:", error);
+    }
+  };
+
+  // Save completed modules to localStorage
+  const saveCompletedModules = (modules: string[]) => {
+    try {
+      localStorage.setItem('completedModules', JSON.stringify(modules));
+    } catch (error) {
+      console.error("Error saving completed modules:", error);
+    }
+  };
+
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
+  };
+
+  const handleFinish = () => {
+    const currentSlideId = slides[currentSlide].id;
+    
+    if (currentSlideId && !completedModules.includes(currentSlideId)) {
+      const updatedCompletedModules = [...completedModules, currentSlideId];
+      setCompletedModules(updatedCompletedModules);
+      saveCompletedModules(updatedCompletedModules);
+    }
+  };
+
+  const isCurrentModuleCompleted = () => {
+    const currentSlideId = slides[currentSlide].id;
+    return currentSlideId ? completedModules.includes(currentSlideId) : false;
+  };
+
+  // Theme color for buttons - change this to match your theme
+  const themeColor = "blue"; // Change to your theme color: blue, green, purple, etc.
 
   return (
-    <div className="flex flex-col justify-center items-center px-4 py-6 sm:py-8 md:py-12">
-      {/* Progress Display */}
-      {isSmallScreen ? (
-        <div className="w-full max-w-7xl sticky top-0 bg-white z-10 py-2">
-          <p className="text-center text-sm font-semibold text-[#2d87ff]">
-            {currentModule + 1}/{modules.length}
-          </p>
-          <div className="h-[1px] bg-[#2d87ff] mx-auto w-[40px]" /> {/* Smaller underline for small screens */}
-        </div>
-      ) : (
-        <div className="w-full max-w-7xl sticky bottom-0 bg-white z-10 py-2">
-          <p className="text-center text-lg font-semibold text-[#2d87ff]">
-            {currentModule + 1}/{modules.length}
-          </p>
-          <div className="h-[2px] bg-[#2d87ff] mx-auto w-[80px]" /> {/* Larger underline for big screens */}
+    <div className="w-full max-w-6xl mx-auto"> 
+      {/* Desktop view - Side-by-side layout */}
+      {!isMobile && (
+        <div className="relative flex items-center h-[500px]">
+          {/* Previous button with minimal circle design */}
+          <button
+            onClick={prevSlide}
+            className={`absolute left-4 z-10 bg-white rounded-full w-12 h-12 flex items-center justify-center
+            focus:outline-none shadow-md
+            hover:bg-gray-50 active:bg-gray-100
+            hover:shadow-lg active:shadow-md
+            transform transition-all duration-200
+            active:scale-95 hover:scale-100
+            text-${themeColor}-500 hover:text-${themeColor}-600`}
+            aria-label="Previous slide"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M15 18l-6-6 6-6" />
+            </svg>
+          </button>
+
+          {/* Carousel content */}
+          <div className="w-full overflow-hidden rounded-2xl shadow-lg">
+            <div className="flex transition-transform duration-500 ease-in-out h-[500px]"
+              style={{ transform: `translateX(-${currentSlide * 100}%)` }}>
+              {slides.map((slide, index) => (
+                <div key={index} className="min-w-full flex bg-white h-full">
+                  {/* Image container - left side */}
+                  <div className="w-3/5 relative bg-white">
+                    <div className="w-full h-full relative">
+                      <Image
+                        src={slide.image}
+                        alt={slide.title}
+                        fill
+                        className="object-contain w-full h-full"
+                        priority
+                      />
+                    </div>
+                  </div>
+
+                  {/* Content container - right side */}
+                  <div className="w-2/5 p-12 flex flex-col justify-center">
+                    <h2 className="text-3xl font-bold mb-5 text-gray-800">{slide.title}</h2>
+                    <p className="text-lg text-gray-600 leading-relaxed mb-8">{slide.content}</p>
+                    
+                    {/* Show Finish Reading button on last slide */}
+                    {index === slides.length - 1 && (
+                      <button
+                        onClick={handleFinish}
+                        className={`${isCurrentModuleCompleted() 
+                          ? 'bg-green-500 hover:bg-green-600 border-green-700' 
+                          : `bg-${themeColor}-500 hover:bg-${themeColor}-600 border-${themeColor}-700`
+                        } text-white font-medium py-3 px-6 rounded-lg 
+                        transition-all w-full border-b-4
+                        hover:border-b-2 hover:mb-0.5 hover:translate-y-0.5
+                        active:border-b-0 active:mb-1 active:translate-y-1`}
+                      >
+                        {isCurrentModuleCompleted() ? '✓ Completed' : 'Finish Reading'}
+                      </button>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Next button with minimal circle design */}
+          <button
+            onClick={nextSlide}
+            className={`absolute right-4 z-10 bg-white rounded-full w-12 h-12 flex items-center justify-center
+            focus:outline-none shadow-md
+            hover:bg-gray-50 active:bg-gray-100
+            hover:shadow-lg active:shadow-md
+            transform transition-all duration-200
+            active:scale-95 hover:scale-100
+            text-${themeColor}-500 hover:text-${themeColor}-600`}
+            aria-label="Next slide"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M9 18l6-6-6-6" />
+            </svg>
+          </button>
+
+          {/* Progress indicator */}
+          <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+            {slides.map((slide, index) => {
+              const isCompleted = slide.id ? completedModules.includes(slide.id) : false;
+              return (
+                <button
+                  key={index}
+                  onClick={() => setCurrentSlide(index)}
+                  className={`h-2 rounded-full transition-all ${
+                    currentSlide === index
+                      ? `bg-${themeColor}-500 w-6` // Active dot is wider and theme colored
+                      : isCompleted
+                        ? 'bg-green-500 w-2' // Completed modules are green
+                        : 'bg-gray-300 hover:bg-gray-400 w-2' // Inactive dots
+                  }`}
+                  aria-label={`Go to slide ${index + 1}`}
+                />
+              );
+            })}
+          </div>
         </div>
       )}
 
-      {/* Responsive Layout */}
-      {isSmallScreen ? (
-        <div className="space-y-6 max-w-md">
-          {modules.map((img, index) => (
-            <div
-              key={index}
-              className={`border-2 border-white rounded-lg shadow-lg overflow-hidden ${
-                currentModule === index ? "ring-2 ring-[#2d87ff]" : ""
-              }`}
-              onClick={() => setCurrentModule(index)} // Update module on click
-            >
+      {/* Mobile view - Reading module layout */}
+      {isMobile && (
+        <div className="w-full px-4">
+          {/* Card container with shadow */}
+          <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
+            {/* Current slide content */}
+            <div className="w-full aspect-square relative bg-white">
               <Image
-                src={`/LessonImage/${img}`}
-                alt={`Module ${index + 1}`}
-                width={1280}
-                height={720}
-                className="object-cover w-full h-full"
+                src={slides[currentSlide].image}
+                alt={slides[currentSlide].title}
+                fill
+                className="object-contain"
+                priority
               />
             </div>
-          ))}
-        </div>
-      ) : (
-        <div className="w-full max-w-7xl px-2">
-          <div
-            className="w-full aspect-[16/9] rounded-lg overflow-hidden shadow-2xl relative border-4 border-white bg-transparent"
-            style={{ height: "70vh" }}
-          >
-            <Carousel
-              slideInterval={3000}
-              pauseOnHover
-              indicators={false}
-              leftControl={
-                <ControlButton
-                  direction="<"
-                  size="lg"
-                  onClick={() =>
-                    setCurrentModule((prev) =>
-                      prev === 0 ? modules.length - 1 : prev - 1
-                    )
-                  }
-                />
-              }
-              rightControl={
-                <ControlButton
-                  direction=">"
-                  size="lg"
-                  onClick={() =>
-                    setCurrentModule((prev) =>
-                      prev === modules.length - 1 ? 0 : prev + 1
-                    )
-                  }
-                />
-              }
-            >
-              {modules.map((img, index) => (
-                <Image
-                  key={index}
-                  src={`/LessonImage/${img}`}
-                  alt={`Slide ${index + 1}`}
-                  width={1280}
-                  height={720}
-                  className="object-cover w-full h-full"
-                />
-              ))}
-            </Carousel>
+
+            {/* Content section */}
+            <div className="p-6">
+              <h2 className="text-xl font-bold mb-3 text-gray-800">{slides[currentSlide].title}</h2>
+              <p className="text-gray-600 text-base mb-6">{slides[currentSlide].content}</p>
+              
+              {/* Show "Finish Reading" button on last slide */}
+              {currentSlide === slides.length - 1 ? (
+                <button
+                  onClick={handleFinish}
+                  className={`w-full ${isCurrentModuleCompleted() 
+                    ? 'bg-green-500 hover:bg-green-600 border-green-700' 
+                    : 'bg-green-500 hover:bg-green-600 border-green-700'
+                  } text-white font-bold py-3 px-4 rounded-lg 
+                  mb-4 transition-all border-b-4
+                  hover:border-b-2 hover:mb-[18px] hover:translate-y-0.5
+                  active:border-b-0 active:mb-5 active:translate-y-1`}
+                >
+                  {isCurrentModuleCompleted() ? '✓ Completed' : 'Finish Reading'}
+                </button>
+              ) : (
+                <button
+                  onClick={nextSlide}
+                  className={`w-full bg-${themeColor}-500 hover:bg-${themeColor}-600 text-white font-bold py-3 px-4 rounded-lg 
+                  mb-4 transition-all border-b-4 border-${themeColor}-700
+                  hover:border-b-2 hover:mb-[18px] hover:translate-y-0.5
+                  active:border-b-0 active:mb-5 active:translate-y-1`}
+                >
+                  Continue Reading
+                </button>
+              )}
+
+              {/* Back button (not shown on first slide) */}
+              {currentSlide > 0 && (
+                <button
+                  onClick={prevSlide}
+                  className="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium py-2 px-4 rounded-lg 
+                  transition-all border-b-4 border-gray-300
+                  hover:border-b-2 hover:mb-0.5 hover:translate-y-0.5
+                  active:border-b-0 active:mb-1 active:translate-y-1"
+                >
+                  Back
+                </button>
+              )}
+            </div>
+
+            {/* Progress indicator */}
+            <div className="px-6 pb-4">
+              <div className="flex justify-between items-center">
+                <div className="flex space-x-1 flex-grow">
+                  {slides.map((slide, index) => {
+                    const isCompleted = slide.id ? completedModules.includes(slide.id) : false;
+                    return (
+                      <div
+                        key={index}
+                        className={`h-2 rounded-full transition-all flex-grow ${
+                          index === currentSlide
+                            ? `bg-${themeColor}-500` // Current slide
+                            : isCompleted
+                              ? 'bg-green-500' // Completed modules are green
+                              : index < currentSlide
+                                ? `bg-${themeColor}-300` // Past slides
+                                : 'bg-gray-200' // Future slides
+                        }`}
+                      />
+                    );
+                  })}
+                </div>
+                <span className="text-xs text-gray-500 ml-2">
+                  {currentSlide + 1}/{slides.length}
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       )}
