@@ -7,7 +7,7 @@ import Footer from "../../../components/Footer";
 import SpeechBubble from "../../../components/SpeechBubble";
 import Image from "next/image";
 
-const ScamFraudAwareness: React.FC = () => {
+const AntiCarnapping: React.FC = () => {
   const [isClient, setIsClient] = useState(false);
   const router = useRouter();
 
@@ -88,4 +88,4 @@ const ScamFraudAwareness: React.FC = () => {
   );
 };
 
-export default ScamFraudAwareness;
+export default AntiCarnapping;
