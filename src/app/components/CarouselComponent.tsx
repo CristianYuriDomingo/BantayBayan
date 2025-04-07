@@ -3,45 +3,36 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 
-type SlideProps = {
+export type SlideProps = {
+  id: string;
   image: string;
   title: string;
   content: string;
-  id?: string; // Optional unique identifier for each slide
 };
 
-const CarouselComponent: React.FC = () => {
+type CarouselComponentProps = {
+  slides: SlideProps[];
+  themeColor?: string;
+  onModuleComplete?: (moduleId: string) => void;
+  completedModules?: string[];
+  finishButtonText?: string;
+  completedButtonText?: string;
+  continueButtonText?: string;
+  backButtonText?: string;
+};
+
+const CarouselComponent: React.FC<CarouselComponentProps> = ({
+  slides,
+  themeColor = "blue",
+  onModuleComplete,
+  completedModules = [], // Expect this to be passed from the parent
+  finishButtonText = "Finish Reading",
+  completedButtonText = "✓ Completed",
+  continueButtonText = "Continue Reading",
+  backButtonText = "Back",
+}) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
-  const [completedModules, setCompletedModules] = useState<string[]>([]);
-
-  // Sample slides data - replace with your actual content
-  const slides: SlideProps[] = [
-    {
-      id: "misinformation-basics",
-      image: "/MainImage/PibiTeach.png",
-      title: "Recognizing Misinformation",
-      content: "Misinformation is false or inaccurate information that is spread regardless of intent to mislead. Learn to verify sources, check publication dates, and cross-reference information with multiple reliable sources."
-    },
-    {
-      id: "critical-thinking",
-      image: "/LearnImage/Cyber.png",
-      title: "Critical Thinking Skills",
-      content: "Developing critical thinking skills is essential to navigating today's complex media landscape. Question what you see and read, consider the source's credibility, and look for evidence to support claims."
-    },
-    {
-      id: "fact-checking",
-      image: "/images/misinformation-3.jpg",
-      title: "Fact-Checking Resources",
-      content: "Several resources exist to help verify information, including fact-checking websites like Snopes, FactCheck.org, and PolitiFact. These sites investigate claims and rate their accuracy based on evidence."
-    },
-    {
-      id: "media-literacy",
-      image: "/images/misinformation-4.jpg",
-      title: "Media Literacy Tips",
-      content: "Media literacy involves analyzing the purpose, audience, and construction of media messages. Evaluate who created the content, why it was made, what techniques are used to attract attention, and how different people might interpret it."
-    }
-  ];
 
   // Check screen size on mount and when window resizes
   useEffect(() => {
@@ -55,33 +46,9 @@ const CarouselComponent: React.FC = () => {
     // Add resize listener
     window.addEventListener('resize', checkScreenSize);
 
-    // Check for completed modules from localStorage
-    loadCompletedModules();
-
     // Clean up
     return () => window.removeEventListener('resize', checkScreenSize);
   }, []);
-
-  // Load completed modules from localStorage
-  const loadCompletedModules = () => {
-    try {
-      const saved = localStorage.getItem('completedModules');
-      if (saved) {
-        setCompletedModules(JSON.parse(saved));
-      }
-    } catch (error) {
-      console.error("Error loading completed modules:", error);
-    }
-  };
-
-  // Save completed modules to localStorage
-  const saveCompletedModules = (modules: string[]) => {
-    try {
-      localStorage.setItem('completedModules', JSON.stringify(modules));
-    } catch (error) {
-      console.error("Error saving completed modules:", error);
-    }
-  };
 
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
@@ -93,11 +60,12 @@ const CarouselComponent: React.FC = () => {
 
   const handleFinish = () => {
     const currentSlideId = slides[currentSlide].id;
-    
+
     if (currentSlideId && !completedModules.includes(currentSlideId)) {
-      const updatedCompletedModules = [...completedModules, currentSlideId];
-      setCompletedModules(updatedCompletedModules);
-      saveCompletedModules(updatedCompletedModules);
+      // Call the external handler to mark the module as complete
+      if (onModuleComplete) {
+        onModuleComplete(currentSlideId);
+      }
     }
   };
 
@@ -105,9 +73,6 @@ const CarouselComponent: React.FC = () => {
     const currentSlideId = slides[currentSlide].id;
     return currentSlideId ? completedModules.includes(currentSlideId) : false;
   };
-
-  // Theme color for buttons - change this to match your theme
-  const themeColor = "blue"; // Change to your theme color: blue, green, purple, etc.
 
   return (
     <div className="w-full max-w-6xl mx-auto"> 
@@ -167,7 +132,7 @@ const CarouselComponent: React.FC = () => {
                         hover:border-b-2 hover:mb-0.5 hover:translate-y-0.5
                         active:border-b-0 active:mb-1 active:translate-y-1`}
                       >
-                        {isCurrentModuleCompleted() ? '✓ Completed' : 'Finish Reading'}
+                        {isCurrentModuleCompleted() ? completedButtonText : finishButtonText}
                       </button>
                     )}
                   </div>
@@ -243,13 +208,13 @@ const CarouselComponent: React.FC = () => {
                   onClick={handleFinish}
                   className={`w-full ${isCurrentModuleCompleted() 
                     ? 'bg-green-500 hover:bg-green-600 border-green-700' 
-                    : 'bg-green-500 hover:bg-green-600 border-green-700'
+                    : `bg-${themeColor}-500 hover:bg-${themeColor}-600 border-${themeColor}-700`
                   } text-white font-bold py-3 px-4 rounded-lg 
                   mb-4 transition-all border-b-4
                   hover:border-b-2 hover:mb-[18px] hover:translate-y-0.5
                   active:border-b-0 active:mb-5 active:translate-y-1`}
                 >
-                  {isCurrentModuleCompleted() ? '✓ Completed' : 'Finish Reading'}
+                  {isCurrentModuleCompleted() ? completedButtonText : finishButtonText}
                 </button>
               ) : (
                 <button
@@ -259,7 +224,7 @@ const CarouselComponent: React.FC = () => {
                   hover:border-b-2 hover:mb-[18px] hover:translate-y-0.5
                   active:border-b-0 active:mb-5 active:translate-y-1`}
                 >
-                  Continue Reading
+                  {continueButtonText}
                 </button>
               )}
 
@@ -272,7 +237,7 @@ const CarouselComponent: React.FC = () => {
                   hover:border-b-2 hover:mb-0.5 hover:translate-y-0.5
                   active:border-b-0 active:mb-1 active:translate-y-1"
                 >
-                  Back
+                  {backButtonText}
                 </button>
               )}
             </div>

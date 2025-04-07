@@ -75,11 +75,12 @@ const Learn: React.FC = () => {
    
   ];
   const lessonsAntiSmoking = [
-    { title: "", path: "/lessons/CyberSecurity/CybersecurityDataProtection" },
+    { title: "Smoking Prevention", path: "/lessons/CyberSecurity/CybersecurityDataProtection" },
    
   ];
 
-  const countLessons = (lessons: { title: string; path: string }[]) => `${lessons.length} Lessons`;
+  const countLessons = (lessons: { title: string; path: string }[]) => 
+  lessons.length === 1 ? "1 Lesson" : `${lessons.length} Lessons`;
 
   return (
     <div className="flex h-screen bg-gray-100 dark:bg-gray-900">
@@ -424,7 +425,7 @@ const Learn: React.FC = () => {
                 modalContent={
                   <div>
                     <h3 className="text-xl font-semibold">Traffic Rules and Road Safety</h3>
-                    <p className="text-gray-600 mb-4">Pumili ng Lesson</p>
+                    <p className="text-gray-600 mb-4">Choose a Lesson</p>
                     <ul className="space-y-3">
                       {lessonsTrafficRules.map((lesson, index) => (
                         <li key={index}>
@@ -448,7 +449,7 @@ const Learn: React.FC = () => {
                 modalContent={
                   <div>
                     <h3 className="text-xl font-semibold">Disaster Preparedness & Emergency Response</h3>
-                    <p className="text-gray-600 mb-4">Pumili ng Lesson</p>
+                    <p className="text-gray-600 mb-4">Choose a Lesson</p>
                     <ul className="space-y-3">
                       {lessonsEmergencyPreparedness.map((lesson, index) => (
                         <li key={index}>

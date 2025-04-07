@@ -2,14 +2,48 @@
 
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import CarouselComponent from "../../../components/CarouselComponent";
+import CarouselComponent, { SlideProps } from "../../../components/CarouselComponent";
 import Footer from "../../../components/Footer";
 import SpeechBubble from "../../../components/SpeechBubble";
 import Image from "next/image";
 
 const AntiCarnapping: React.FC = () => {
   const [isClient, setIsClient] = useState(false);
+  const [completedModules, setCompletedModules] = useState<string[]>([]); // Track completed modules
   const router = useRouter();
+
+  // Define the slides for Anti-Carnapping content
+  const antiCarnappingSlides: SlideProps[] = [
+    {
+      id: "carnapping-awareness",
+      image: "/LearnImage/Anticarnap.png",
+      title: "Understanding Car Theft Prevention",
+      content: "Carnapping is the theft of motor vehicles. Learn to identify high-risk situations and implement preventive measures to protect your vehicle from theft."
+    },
+    {
+      id: "security-measures",
+      image: "/LearnImage/Security.png",
+      title: "Essential Security Measures",
+      content: "Implement basic security practices like using steering wheel locks, installing alarm systems, and never leaving your keys in the ignition even for brief moments."
+    },
+    {
+      id: "parking-safety",
+      image: "/LearnImage/Parking.png",
+      title: "Safe Parking Practices",
+      content: "Always park in well-lit, busy areas when possible. Consider parking in secure facilities with attendants or surveillance cameras in high-risk areas."
+    },
+    {
+      id: "technology-solutions",
+      image: "/LearnImage/Tech.png",
+      title: "Technology-Based Protection",
+      content: "Modern anti-theft technologies like GPS trackers, immobilizers, and smartphone-connected security systems can significantly reduce your risk of vehicle theft."
+    }
+  ];
+
+  // Mark a module as completed
+  const handleModuleComplete = (moduleId: string) => {
+    setCompletedModules((prev) => [...prev, moduleId]);
+  };
 
   useEffect(() => {
     setIsClient(true);
@@ -39,9 +73,9 @@ const AntiCarnapping: React.FC = () => {
         </button>
 
         {/* Main content container */}
-        <div className="relative z-10 w-full max-w-4xl mx-auto px-4 pt-6 flex flex-col items-center"> {/* Further reduced pt-10 to pt-6 */}
+        <div className="relative z-10 w-full max-w-4xl mx-auto px-4 pt-6 flex flex-col items-center">
           {/* Enhanced top section with visual elements */}
-          <div className="w-full p-4 mb-2"> {/* Further reduced mb-4 to mb-2 */}
+          <div className="w-full p-4 mb-2">
             {/* Speech bubble with decoration */}
             <div className="relative">
               <SpeechBubble
@@ -52,7 +86,7 @@ const AntiCarnapping: React.FC = () => {
           </div>
 
           {/* Enhanced separator with icon */}
-          <div className="relative w-full mb-2 flex items-center justify-center"> {/* Further reduced mb-4 to mb-2 */}
+          <div className="relative w-full mb-2 flex items-center justify-center">
             <div className="absolute h-px bg-gradient-to-r from-transparent via-gray-400 to-transparent w-full"></div>
             <div className="relative bg-white p-2 rounded-full shadow-sm z-10">
               <Image
@@ -66,16 +100,27 @@ const AntiCarnapping: React.FC = () => {
           </div>
 
           {/* Learning module title */}
-          <div className="w-full text-center mb-2"> {/* Further reduced mb-4 to mb-2 */}
-            <h2 className="text-2xl font-bold text-gray-800">Misinformation Awareness</h2>
-            <p className="text-gray-600">Learn to identify and combat false information</p>
+          <div className="w-full text-center mb-2">
+            <h2 className="text-2xl font-bold text-gray-800">Anti Carnapping</h2>
+            <p className="text-gray-600">Learn how to protect your vehicle from theft</p>
           </div>
         </div>
 
         {/* Carousel section with enhanced styling */}
-        <div className="flex-grow flex justify-center items-center w-full relative z-10 px-4 mb-6"> {/* Further reduced mb-8 to mb-6 */}
+        <div className="flex-grow flex justify-center items-center w-full relative z-10 px-4 mb-6">
           <div className="w-full max-w-6xl bg-white rounded-2xl shadow-lg p-4 md:p-0 overflow-hidden">
-            <CarouselComponent />
+            {isClient && (
+              <CarouselComponent 
+                slides={antiCarnappingSlides}
+                themeColor="blue"
+                completedModules={completedModules} // Pass completed modules
+                onModuleComplete={handleModuleComplete} // Pass handler
+                finishButtonText="Complete Anti-Carnapping Module"
+                completedButtonText="✓ Module Completed"
+                continueButtonText="Next Tip"
+                backButtonText="Previous Tip"
+              />
+            )}
           </div>
         </div>
 
