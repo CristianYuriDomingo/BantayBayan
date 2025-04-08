@@ -19,6 +19,7 @@ type CarouselComponentProps = {
   completedButtonText?: string;
   continueButtonText?: string;
   backButtonText?: string;
+  moduleId?: string; // Added to support the parent module ID
 };
 
 const CarouselComponent: React.FC<CarouselComponentProps> = ({
@@ -30,6 +31,7 @@ const CarouselComponent: React.FC<CarouselComponentProps> = ({
   completedButtonText = "✓ Completed",
   continueButtonText = "Continue Reading",
   backButtonText = "Back",
+  moduleId = "anti-carnapping", // Default module ID
 }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
@@ -59,19 +61,15 @@ const CarouselComponent: React.FC<CarouselComponentProps> = ({
   };
 
   const handleFinish = () => {
-    const currentSlideId = slides[currentSlide].id;
-
-    if (currentSlideId && !completedModules.includes(currentSlideId)) {
-      // Call the external handler to mark the module as complete
-      if (onModuleComplete) {
-        onModuleComplete(currentSlideId);
-      }
+    // Use the parent moduleId instead of the individual slide ID
+    if (!isModuleCompleted() && onModuleComplete) {
+      onModuleComplete(moduleId);
     }
   };
 
-  const isCurrentModuleCompleted = () => {
-    const currentSlideId = slides[currentSlide].id;
-    return currentSlideId ? completedModules.includes(currentSlideId) : false;
+  // Check if the entire module is completed, not just the current slide
+  const isModuleCompleted = () => {
+    return completedModules.includes(moduleId);
   };
 
   return (
@@ -124,7 +122,7 @@ const CarouselComponent: React.FC<CarouselComponentProps> = ({
                     {index === slides.length - 1 && (
                       <button
                         onClick={handleFinish}
-                        className={`${isCurrentModuleCompleted() 
+                        className={`${isModuleCompleted() 
                           ? 'bg-green-500 hover:bg-green-600 border-green-700' 
                           : `bg-${themeColor}-500 hover:bg-${themeColor}-600 border-${themeColor}-700`
                         } text-white font-medium py-3 px-6 rounded-lg 
@@ -132,7 +130,7 @@ const CarouselComponent: React.FC<CarouselComponentProps> = ({
                         hover:border-b-2 hover:mb-0.5 hover:translate-y-0.5
                         active:border-b-0 active:mb-1 active:translate-y-1`}
                       >
-                        {isCurrentModuleCompleted() ? completedButtonText : finishButtonText}
+                        {isModuleCompleted() ? completedButtonText : finishButtonText}
                       </button>
                     )}
                   </div>
@@ -161,7 +159,7 @@ const CarouselComponent: React.FC<CarouselComponentProps> = ({
           {/* Progress indicator */}
           <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
             {slides.map((slide, index) => {
-              const isCompleted = slide.id ? completedModules.includes(slide.id) : false;
+              // Consider the entire module completion status for the indicators
               return (
                 <button
                   key={index}
@@ -169,8 +167,8 @@ const CarouselComponent: React.FC<CarouselComponentProps> = ({
                   className={`h-2 rounded-full transition-all ${
                     currentSlide === index
                       ? `bg-${themeColor}-500 w-6` // Active dot is wider and theme colored
-                      : isCompleted
-                        ? 'bg-green-500 w-2' // Completed modules are green
+                      : isModuleCompleted()
+                        ? 'bg-green-500 w-2' // All dots are green if module is completed
                         : 'bg-gray-300 hover:bg-gray-400 w-2' // Inactive dots
                   }`}
                   aria-label={`Go to slide ${index + 1}`}
@@ -206,7 +204,7 @@ const CarouselComponent: React.FC<CarouselComponentProps> = ({
               {currentSlide === slides.length - 1 ? (
                 <button
                   onClick={handleFinish}
-                  className={`w-full ${isCurrentModuleCompleted() 
+                  className={`w-full ${isModuleCompleted() 
                     ? 'bg-green-500 hover:bg-green-600 border-green-700' 
                     : `bg-${themeColor}-500 hover:bg-${themeColor}-600 border-${themeColor}-700`
                   } text-white font-bold py-3 px-4 rounded-lg 
@@ -214,7 +212,7 @@ const CarouselComponent: React.FC<CarouselComponentProps> = ({
                   hover:border-b-2 hover:mb-[18px] hover:translate-y-0.5
                   active:border-b-0 active:mb-5 active:translate-y-1`}
                 >
-                  {isCurrentModuleCompleted() ? completedButtonText : finishButtonText}
+                  {isModuleCompleted() ? completedButtonText : finishButtonText}
                 </button>
               ) : (
                 <button
@@ -247,15 +245,14 @@ const CarouselComponent: React.FC<CarouselComponentProps> = ({
               <div className="flex justify-between items-center">
                 <div className="flex space-x-1 flex-grow">
                   {slides.map((slide, index) => {
-                    const isCompleted = slide.id ? completedModules.includes(slide.id) : false;
                     return (
                       <div
                         key={index}
                         className={`h-2 rounded-full transition-all flex-grow ${
                           index === currentSlide
                             ? `bg-${themeColor}-500` // Current slide
-                            : isCompleted
-                              ? 'bg-green-500' // Completed modules are green
+                            : isModuleCompleted()
+                              ? 'bg-green-500' // All slides are green if module is completed
                               : index < currentSlide
                                 ? `bg-${themeColor}-300` // Past slides
                                 : 'bg-gray-200' // Future slides

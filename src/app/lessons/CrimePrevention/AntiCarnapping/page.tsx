@@ -6,17 +6,27 @@ import CarouselComponent, { SlideProps } from "../../../components/CarouselCompo
 import Footer from "../../../components/Footer";
 import SpeechBubble from "../../../components/SpeechBubble";
 import Image from "next/image";
+import { completeModule, getCompletedModules } from "../../../../../lib/moduleDB";
+import CustomToast from "../../../components/CustomToast";
 
 const AntiCarnapping: React.FC = () => {
   const [isClient, setIsClient] = useState(false);
-  const [completedModules, setCompletedModules] = useState<string[]>([]); // Track completed modules
+  const [completedModules, setCompletedModules] = useState<string[]>([]);
+  const [toast, setToast] = useState({
+    message: "",
+    type: "success" as "success" | "error" | "info",
+    isVisible: false
+  }); 
   const router = useRouter();
+
+  // Define the module ID
+  const MODULE_ID = "anti-carnapping";
 
   // Define the slides for Anti-Carnapping content
   const antiCarnappingSlides: SlideProps[] = [
     {
       id: "carnapping-awareness",
-      image: "/LearnImage/Anticarnap.png",
+      image: "/LearnImage/CaseFiling.png",
       title: "Understanding Car Theft Prevention",
       content: "Carnapping is the theft of motor vehicles. Learn to identify high-risk situations and implement preventive measures to protect your vehicle from theft."
     },
@@ -40,18 +50,80 @@ const AntiCarnapping: React.FC = () => {
     }
   ];
 
-  // Mark a module as completed
-  const handleModuleComplete = (moduleId: string) => {
-    setCompletedModules((prev) => [...prev, moduleId]);
+  // Load completed modules from IndexedDB on component mount
+  useEffect(() => {
+    const loadCompletedModules = async () => {
+      try {
+        const modules = await getCompletedModules();
+        const moduleIds = modules.map(module => module.moduleId);
+        setCompletedModules(moduleIds);
+      } catch (error) {
+        console.error("Error loading completed modules:", error);
+      }
+    };
+
+    setIsClient(true);
+    loadCompletedModules();
+  }, []);
+
+  // Show toast message
+  const showToast = (message: string, type: "success" | "error" | "info" = "success") => {
+    setToast({
+      message,
+      type,
+      isVisible: true
+    });
   };
 
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
+  // Hide toast message
+  const hideToast = () => {
+    setToast(prev => ({
+      ...prev,
+      isVisible: false
+    }));
+  };
+
+  // Handle the completion of the entire anti-carnapping module
+  const handleFinishModule = async (moduleId: string) => {
+    try {
+      // Complete the module in IndexedDB with a single moduleId for the whole anti-carnapping topic
+      const badge = await completeModule({ 
+        moduleId: MODULE_ID, 
+        moduleName: "Anti-Carnapping Module" 
+      });
+      
+      console.log("Module completed, badge earned:", badge);
+
+      // Update local state to reflect completion
+      setCompletedModules(prev => 
+        prev.includes(MODULE_ID) ? prev : [...prev, MODULE_ID]
+      );
+
+      // Show badge notification if a badge was earned
+      if (badge) {
+        console.log("Displaying toast for badge:", badge);
+        showToast(`🎉 Badge Earned: ${badge}!`, "success");
+      } else {
+        console.log("No badge earned for this module");
+      }
+    } catch (error) {
+      console.error("Error completing module:", error);
+      showToast("Failed to save your progress", "error");
+    }
+  };
 
   return (
     <>
       <div className="min-h-screen flex flex-col bg-gradient-to-b from-blue-50 to-white">
+        {/* Custom Toast Component */}
+        <CustomToast
+          message={toast.message}
+          type={toast.type}
+          isVisible={toast.isVisible}
+          onClose={hideToast}
+          duration={5000}
+        />
+        
         {/* Background decorative elements */}
         <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
           <div className="absolute top-0 right-0 w-64 h-64 bg-blue-100 rounded-full opacity-30 transform translate-x-1/3 -translate-y-1/4"></div>
@@ -113,12 +185,13 @@ const AntiCarnapping: React.FC = () => {
               <CarouselComponent 
                 slides={antiCarnappingSlides}
                 themeColor="blue"
-                completedModules={completedModules} // Pass completed modules
-                onModuleComplete={handleModuleComplete} // Pass handler
+                completedModules={completedModules} 
+                onModuleComplete={handleFinishModule} 
                 finishButtonText="Complete Anti-Carnapping Module"
                 completedButtonText="✓ Module Completed"
                 continueButtonText="Next Tip"
                 backButtonText="Previous Tip"
+                moduleId={MODULE_ID} // Pass the module ID explicitly
               />
             )}
           </div>
