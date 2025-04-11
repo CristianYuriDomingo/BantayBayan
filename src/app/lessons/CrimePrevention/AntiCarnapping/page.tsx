@@ -26,27 +26,27 @@ const AntiCarnapping: React.FC = () => {
   const antiCarnappingSlides: SlideProps[] = [
     {
       id: "carnapping-awareness",
-      image: "/LearnImage/CaseFiling.png",
-      title: "Understanding Car Theft Prevention",
-      content: "Carnapping is the theft of motor vehicles. Learn to identify high-risk situations and implement preventive measures to protect your vehicle from theft."
+      image: "/LearnImage/CrimePrevention1.png",
+      title: "Lock Your Car at All Times",
+      content: "Always lock your doors and close all windows before leaving your vehicle. Even a quick stop can be an opportunity for carnappers."
     },
     {
       id: "security-measures",
-      image: "/LearnImage/Security.png",
-      title: "Essential Security Measures",
-      content: "Implement basic security practices like using steering wheel locks, installing alarm systems, and never leaving your keys in the ignition even for brief moments."
+      image: "/LearnImage/CrimePrevention2.png",
+      title: "Park in Safe, Well-Lit Areas",
+      content: "Choose parking spots that are visible, well-lit, and preferably have security cameras or guards to discourage thieves."
     },
     {
       id: "parking-safety",
-      image: "/LearnImage/Parking.png",
-      title: "Safe Parking Practices",
-      content: "Always park in well-lit, busy areas when possible. Consider parking in secure facilities with attendants or surveillance cameras in high-risk areas."
+      image: "/LearnImage/CrimePrevention3.png",
+      title: "Use Anti-Theft Devices",
+      content: "Equip your car with alarms, steering wheel locks, or GPS trackers. These devices add extra layers of protection and may prevent theft."
     },
     {
       id: "technology-solutions",
-      image: "/LearnImage/Tech.png",
-      title: "Technology-Based Protection",
-      content: "Modern anti-theft technologies like GPS trackers, immobilizers, and smartphone-connected security systems can significantly reduce your risk of vehicle theft."
+      image: "/LearnImage/CrimePrevention4.png",
+      title: "Stay Alert to Suspicious Activity",
+      content: "Be mindful of your surroundings. Report any unusual behavior or individuals lingering near vehicles to authorities or security personnel."
     }
   ];
 

@@ -6,46 +6,126 @@ import CarouselComponent, { SlideProps } from "../../../components/CarouselCompo
 import Footer from "../../../components/Footer";
 import SpeechBubble from "../../../components/SpeechBubble";
 import Image from "next/image";
+import { completeModule, getCompletedModules } from "../../../../../lib/moduleDB";
+import CustomToast from "../../../components/CustomToast";
 
 const IllegalFirearmsAwareness: React.FC = () => {
   const [isClient, setIsClient] = useState(false);
+  const [completedModules, setCompletedModules] = useState<string[]>([]);
+  const [toast, setToast] = useState({
+    message: "",
+    type: "success" as "success" | "error" | "info",
+    isVisible: false
+  }); 
   const router = useRouter();
+
+  // Define the module ID
+  const MODULE_ID = "illegal-firearms-awareness";
 
   // Define the slides for Anti-Carnapping content
   const IllegalFirearmsAwarenessSlides: SlideProps[] = [
     {
-        id: "gambling-awareness",
-        image: "/LearnImage/Gambling1.png", // Update with your actual image path
-        title: "Understanding Gambling Risks",
-        content: "Gambling can lead to addiction and financial problems. It's important to recognize the signs of problematic gambling behavior and understand the risks involved."
-      },
-      {
-        id: "legal-vs-illegal",
-        image: "/LearnImage/Gambling2.png", // Update with your actual image path
-        title: "Legal vs. Illegal Gambling",
-        content: "Understanding the difference between legal and illegal gambling operations is crucial. Illegal gambling is often connected to other criminal activities and lacks consumer protections."
-      },
-      {
-        id: "addiction-signs",
-        image: "/LearnImage/Gambling3.png", // Update with your actual image path
-        title: "Recognizing Addiction Signs",
-        content: "Watch for warning signs like gambling with money needed for essentials, borrowing to gamble, increasing time spent gambling, or lying about gambling habits."
-      },
-      {
-        id: "help-resources",
-        image: "/LearnImage/Gambling4.png", // Update with your actual image path
-        title: "Help and Support Resources",
-        content: "If you or someone you know struggles with gambling addiction, help is available. Support groups, counseling services, and hotlines provide assistance for recovery."
-      }
+      id: "carnapping-awareness",
+      image: "/LearnImage/CaseFiling.png",
+      title: " Be Mindful of Your Belongings",
+      content: "Always keep your bags, phones, and valuables close to you, especially in crowded areas like markets or terminals. Thieves often strike when you're distracted."
+    },
+    {
+      id: "security-measures",
+      image: "/LearnImage/Security.png",
+      title: "Avoid Isolated or Dark Places",
+      content: "Walk in well-lit, populated areas—especially at night. If possible, travel in groups or with someone you trust"
+    },
+    {
+      id: "parking-safety",
+      image: "/LearnImage/Parking.png",
+      title: " Stay Aware of Your Surroundings",
+      content: "Avoid using headphones or getting too absorbed in your phone when walking. Awareness is your first defense against robbers."
+    },
+    {
+      id: "technology-solutions",
+      image: "/LearnImage/Tech.png",
+      title: "Report Suspicious Activity Immediately",
+      content: "If you see someone acting suspiciously or feel unsafe, report it to nearby authorities or barangay officials right away."
+
+
+    }
   ];
 
+  // Load completed modules from IndexedDB on component mount
   useEffect(() => {
+    const loadCompletedModules = async () => {
+      try {
+        const modules = await getCompletedModules();
+        const moduleIds = modules.map(module => module.moduleId);
+        setCompletedModules(moduleIds);
+      } catch (error) {
+        console.error("Error loading completed modules:", error);
+      }
+    };
+
     setIsClient(true);
+    loadCompletedModules();
   }, []);
+
+  // Show toast message
+  const showToast = (message: string, type: "success" | "error" | "info" = "success") => {
+    setToast({
+      message,
+      type,
+      isVisible: true
+    });
+  };
+
+  // Hide toast message
+  const hideToast = () => {
+    setToast(prev => ({
+      ...prev,
+      isVisible: false
+    }));
+  };
+
+  // Handle the completion of the entire anti-carnapping module
+  const handleFinishModule = async (moduleId: string) => {
+    try {
+      // Complete the module in IndexedDB with a single moduleId for the whole anti-carnapping topic
+      const badge = await completeModule({ 
+        moduleId: MODULE_ID, 
+        moduleName: "Anti Rape & Sexual Assault Prevention Module" 
+      });
+      
+      console.log("Module completed, badge earned:", badge);
+
+      // Update local state to reflect completion
+      setCompletedModules(prev => 
+        prev.includes(MODULE_ID) ? prev : [...prev, MODULE_ID]
+      );
+
+      // Show badge notification if a badge was earned
+      if (badge) {
+        console.log("Displaying toast for badge:", badge);
+        showToast(`🎉 Badge Earned: ${badge}!`, "success");
+      } else {
+        console.log("No badge earned for this module");
+      }
+    } catch (error) {
+      console.error("Error completing module:", error);
+      showToast("Failed to save your progress", "error");
+    }
+  };
 
   return (
     <>
       <div className="min-h-screen flex flex-col bg-gradient-to-b from-blue-50 to-white">
+        {/* Custom Toast Component */}
+        <CustomToast
+          message={toast.message}
+          type={toast.type}
+          isVisible={toast.isVisible}
+          onClose={hideToast}
+          duration={5000}
+        />
+        
         {/* Background decorative elements */}
         <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
           <div className="absolute top-0 right-0 w-64 h-64 bg-blue-100 rounded-full opacity-30 transform translate-x-1/3 -translate-y-1/4"></div>
@@ -95,7 +175,8 @@ const IllegalFirearmsAwareness: React.FC = () => {
 
           {/* Learning module title */}
           <div className="w-full text-center mb-2">
-            <h2 className="text-2xl font-bold text-gray-800">Anti Carnapping</h2>
+        moduleName: "Anti Rape & Sexual Assault Prevention Module" 
+        <h2 className="text-2xl font-bold text-gray-800"></h2>
             <p className="text-gray-600">Learn how to protect your vehicle from theft</p>
           </div>
         </div>
@@ -107,6 +188,13 @@ const IllegalFirearmsAwareness: React.FC = () => {
               <CarouselComponent 
                 slides={IllegalFirearmsAwarenessSlides}
                 themeColor="blue"
+                completedModules={completedModules} 
+                onModuleComplete={handleFinishModule} 
+                finishButtonText="Complete Anti- Rape & SexualAssault Prevention Module"
+                completedButtonText="✓ Module Completed"
+                continueButtonText="Next Tip"
+                backButtonText="Previous Tip"
+                moduleId={MODULE_ID} // Pass the module ID explicitly
               />
             )}
           </div>

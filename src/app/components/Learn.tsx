@@ -8,6 +8,10 @@ import UserGreetings from "./UserGreetings";
 import LearnCard2 from "./LearnCard2";
 import SearchBar from "./SearchBar";
 
+import CompletedModules from "./CompletedModules";
+import RecentActivity from "./RecentActivity";
+import RecommendedNext from "./RecommendedNext";
+
 const Learn: React.FC = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [isDropdownVisible, setDropdownVisible] = useState(true);
@@ -152,7 +156,7 @@ const Learn: React.FC = () => {
             </li>
             <li>
               <a
-                href="#"
+                href="Quest"
                 className="flex items-center p-4 text-lg text-gray-900 rounded-lg dark:text-white hover:bg-blue-100 dark:hover:bg-gray-700"
               >
                 <Image
@@ -541,13 +545,12 @@ const Learn: React.FC = () => {
           </div>
           
           {/* Right column - 30% */}
-          <div className="w-full lg:w-[30%] lg:sticky lg:top-4 h-screen bg-white dark:bg-gray-800 p-4 rounded-lg shadow">
-              {/* Your content will go here */}
-            
-                <LearnCard2 />
-               
-            
-            </div>
+          <div className="w-full lg:w-[30%] lg:sticky lg:top-4 h-screen bg-white dark:bg-gray-800 p-4 rounded-lg shadow flex flex-col gap-4">
+  <LearnCard2 />
+  <CompletedModules />
+  <RecommendedNext />
+  <RecentActivity />
+</div>
         </div>
       </div>
       </div>

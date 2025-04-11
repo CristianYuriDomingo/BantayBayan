@@ -6,44 +6,126 @@ import CarouselComponent, { SlideProps } from "../../../components/CarouselCompo
 import Footer from "../../../components/Footer";
 import SpeechBubble from "../../../components/SpeechBubble";
 import Image from "next/image";
+import { completeModule, getCompletedModules } from "../../../../../lib/moduleDB";
+import CustomToast from "../../../components/CustomToast";
 
 const AntiRapeSexualAssaultPrevention: React.FC = () => {
   const [isClient, setIsClient] = useState(false);
-  const [completedModules, setCompletedModules] = useState<string[]>([]); // Track completed modules
+  const [completedModules, setCompletedModules] = useState<string[]>([]);
+  const [toast, setToast] = useState({
+    message: "",
+    type: "success" as "success" | "error" | "info",
+    isVisible: false
+  }); 
   const router = useRouter();
 
+  // Define the module ID
+  const MODULE_ID = "anti-rape-and-sexual-assault-prevention";
+
+  // Define the slides for Anti-Carnapping content
   const AntiRapeSexualAssaultPreventionSlides: SlideProps[] = [
     {
-      id: "awareness",
-      image: "/LearnImage/Rape1.png",
-      title: "Understanding Sexual Assault Risks",
-      content: "Learn how to identify and mitigate risks of sexual assault in various situations."
+      id: "carnapping-awareness",
+      image: "/LearnImage/CaseFiling.png",
+      title: " Be Mindful of Your Belongings",
+      content: "Always keep your bags, phones, and valuables close to you, especially in crowded areas like markets or terminals. Thieves often strike when you're distracted."
     },
     {
-      id: "preventive-measures",
-      image: "/LearnImage/Rape2.png",
-      title: "Preventive Measures",
-      content: "Implement safety measures like staying in well-lit areas and being aware of your surroundings."
+      id: "security-measures",
+      image: "/LearnImage/Security.png",
+      title: "Avoid Isolated or Dark Places",
+      content: "Walk in well-lit, populated areas—especially at night. If possible, travel in groups or with someone you trust"
     },
     {
-      id: "emergency-response",
-      image: "/LearnImage/Rape3.png",
-      title: "Emergency Response",
-      content: "Know how to respond effectively in case of an assault to ensure your safety and seek help."
+      id: "parking-safety",
+      image: "/LearnImage/Parking.png",
+      title: " Stay Aware of Your Surroundings",
+      content: "Avoid using headphones or getting too absorbed in your phone when walking. Awareness is your first defense against robbers."
+    },
+    {
+      id: "technology-solutions",
+      image: "/LearnImage/Tech.png",
+      title: "Report Suspicious Activity Immediately",
+      content: "If you see someone acting suspiciously or feel unsafe, report it to nearby authorities or barangay officials right away."
+
+
     }
   ];
 
-  const handleModuleComplete = (moduleId: string) => {
-    setCompletedModules((prev) => [...prev, moduleId]);
+  // Load completed modules from IndexedDB on component mount
+  useEffect(() => {
+    const loadCompletedModules = async () => {
+      try {
+        const modules = await getCompletedModules();
+        const moduleIds = modules.map(module => module.moduleId);
+        setCompletedModules(moduleIds);
+      } catch (error) {
+        console.error("Error loading completed modules:", error);
+      }
+    };
+
+    setIsClient(true);
+    loadCompletedModules();
+  }, []);
+
+  // Show toast message
+  const showToast = (message: string, type: "success" | "error" | "info" = "success") => {
+    setToast({
+      message,
+      type,
+      isVisible: true
+    });
   };
 
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
+  // Hide toast message
+  const hideToast = () => {
+    setToast(prev => ({
+      ...prev,
+      isVisible: false
+    }));
+  };
+
+  // Handle the completion of the entire anti-carnapping module
+  const handleFinishModule = async (moduleId: string) => {
+    try {
+      // Complete the module in IndexedDB with a single moduleId for the whole anti-carnapping topic
+      const badge = await completeModule({ 
+        moduleId: MODULE_ID, 
+        moduleName: "Anti Rape & Sexual Assault Prevention Module" 
+      });
+      
+      console.log("Module completed, badge earned:", badge);
+
+      // Update local state to reflect completion
+      setCompletedModules(prev => 
+        prev.includes(MODULE_ID) ? prev : [...prev, MODULE_ID]
+      );
+
+      // Show badge notification if a badge was earned
+      if (badge) {
+        console.log("Displaying toast for badge:", badge);
+        showToast(`🎉 Badge Earned: ${badge}!`, "success");
+      } else {
+        console.log("No badge earned for this module");
+      }
+    } catch (error) {
+      console.error("Error completing module:", error);
+      showToast("Failed to save your progress", "error");
+    }
+  };
 
   return (
     <>
       <div className="min-h-screen flex flex-col bg-gradient-to-b from-blue-50 to-white">
+        {/* Custom Toast Component */}
+        <CustomToast
+          message={toast.message}
+          type={toast.type}
+          isVisible={toast.isVisible}
+          onClose={hideToast}
+          duration={5000}
+        />
+        
         {/* Background decorative elements */}
         <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
           <div className="absolute top-0 right-0 w-64 h-64 bg-blue-100 rounded-full opacity-30 transform translate-x-1/3 -translate-y-1/4"></div>
@@ -52,7 +134,7 @@ const AntiRapeSexualAssaultPrevention: React.FC = () => {
           <div className="absolute top-3/4 right-1/4 w-24 h-24 bg-green-100 rounded-full opacity-20"></div>
         </div>  
 
-        {/* Fixed X Button */}
+        {/* Fixed X Button with improved styling */}
         <button
           className="fixed top-2 left-4 bg-white rounded-full p-2.5 shadow-md text-gray-500 hover:text-gray-700 hover:shadow-lg transition-all z-50 focus:outline-none focus:ring-2 focus:ring-blue-300"
           onClick={() => router.push("/Learn")}
@@ -64,15 +146,20 @@ const AntiRapeSexualAssaultPrevention: React.FC = () => {
           </svg>
         </button>
 
-        {/* Main content */}
+        {/* Main content container */}
         <div className="relative z-10 w-full max-w-4xl mx-auto px-4 pt-6 flex flex-col items-center">
+          {/* Enhanced top section with visual elements */}
           <div className="w-full p-4 mb-2">
-            <SpeechBubble
-              imageSrc="/MainImage/PibiTeach.png"
-              messages={["Be Aware and Stay Prepared", "Enjoy Reading!"]}
-            />
+            {/* Speech bubble with decoration */}
+            <div className="relative">
+              <SpeechBubble
+                imageSrc="/MainImage/PibiTeach.png"
+                messages={["Be Aware and Stay Prepared", "Enjoy Reading!"]}
+              />
+            </div>
           </div>
 
+          {/* Enhanced separator with icon */}
           <div className="relative w-full mb-2 flex items-center justify-center">
             <div className="absolute h-px bg-gradient-to-r from-transparent via-gray-400 to-transparent w-full"></div>
             <div className="relative bg-white p-2 rounded-full shadow-sm z-10">
@@ -86,31 +173,34 @@ const AntiRapeSexualAssaultPrevention: React.FC = () => {
             </div>
           </div>
 
+          {/* Learning module title */}
           <div className="w-full text-center mb-2">
-            <h2 className="text-2xl font-bold text-gray-800">Anti-Rape & Sexual Assault Prevention</h2>
-            <p className="text-gray-600">Learn how to protect yourself and others from sexual assault</p>
+        moduleName: "Anti Rape & Sexual Assault Prevention Module" 
+        <h2 className="text-2xl font-bold text-gray-800"></h2>
+            <p className="text-gray-600">Learn how to protect your vehicle from theft</p>
           </div>
         </div>
 
-        {/* Carousel */}
+        {/* Carousel section with enhanced styling */}
         <div className="flex-grow flex justify-center items-center w-full relative z-10 px-4 mb-6">
           <div className="w-full max-w-6xl bg-white rounded-2xl shadow-lg p-4 md:p-0 overflow-hidden">
             {isClient && (
               <CarouselComponent 
                 slides={AntiRapeSexualAssaultPreventionSlides}
                 themeColor="blue"
-                completedModules={completedModules}
-                onModuleComplete={handleModuleComplete}
-                finishButtonText="Complete Anti-Rape Module"
+                completedModules={completedModules} 
+                onModuleComplete={handleFinishModule} 
+                finishButtonText="Complete Anti- Rape & SexualAssault Prevention Module"
                 completedButtonText="✓ Module Completed"
                 continueButtonText="Next Tip"
                 backButtonText="Previous Tip"
+                moduleId={MODULE_ID} // Pass the module ID explicitly
               />
             )}
           </div>
         </div>
 
-        {/* Footer */}
+        {/* Enhanced footer */}
         <div className="relative z-10">
           <Footer />
         </div>
