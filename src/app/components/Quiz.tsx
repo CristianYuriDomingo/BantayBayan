@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import QuizTopicCard from "./QuizTopicCard";
 import QuizHistory from "./QuizHistory";
 import Image from "next/image";
+import QuizCard from "./QuizCard";
 
 
 const Quiz: React.FC = () => {
@@ -31,7 +32,14 @@ const Quiz: React.FC = () => {
     ];
 
     return (
-        <div className="flex h-screen bg-gray-100 dark:bg-gray-900">
+        <div className="flex h-screen bg-gradient-to-b from-blue-50 to-white">
+            {/* Background decorative elements */}
+            <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
+                <div className="absolute top-0 right-0 w-64 h-64 bg-blue-100 rounded-full opacity-30 transform translate-x-1/3 -translate-y-1/4"></div>
+                <div className="absolute bottom-0 left-0 w-80 h-80 bg-blue-100 rounded-full opacity-20 transform -translate-x-1/3 translate-y-1/4"></div>
+                <div className="absolute top-1/4 left-1/4 w-16 h-16 bg-yellow-200 rounded-full opacity-20"></div>
+                <div className="absolute top-3/4 right-1/4 w-24 h-24 bg-green-100 rounded-full opacity-20"></div>
+            </div>
 
             {/* Sidebar */}
             <aside
@@ -223,7 +231,9 @@ const Quiz: React.FC = () => {
 
                     {/* Right column - 30% */}
                     <div className="w-full lg:w-[30%]">
+                       
                         <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg p-5 flex flex-col h-full">
+                        <QuizCard/><br></br>
                             <h2 className="text-lg font-bold text-gray-800 dark:text-gray-200 text-center mb-3">
                                 Quiz History
                             </h2>

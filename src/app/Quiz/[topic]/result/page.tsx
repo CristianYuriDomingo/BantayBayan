@@ -3,6 +3,8 @@ import QuizResult from '../../../components/QuizResult'
 
 const page = () => {
   return (
+
+    
     <QuizResult/>
 );
 }

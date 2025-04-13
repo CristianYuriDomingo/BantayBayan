@@ -9,7 +9,7 @@ import Image from "next/image";
 import { completeModule, getCompletedModules } from "../../../../lib/moduleDB";
 import CustomToast from "../../components/CustomToast";
 
-const ReportCrime: React.FC = () => {
+const AntiCarnapping: React.FC = () => {
   const [isClient, setIsClient] = useState(false);
   const [completedModules, setCompletedModules] = useState<string[]>([]);
   const [toast, setToast] = useState({
@@ -20,10 +20,10 @@ const ReportCrime: React.FC = () => {
   const router = useRouter();
 
   // Define the module ID
-  const MODULE_ID = "report-crime";
+  const MODULE_ID = "anti-carnapping";
 
   // Define the slides for Anti-Carnapping content
-  const ReportCrimeSlides: SlideProps[] = [
+  const antiCarnappingSlides: SlideProps[] = [
     {
       id: "carnapping-awareness",
       image: "/LearnImage/CrimePrevention1.png",
@@ -173,7 +173,7 @@ const ReportCrime: React.FC = () => {
 
           {/* Learning module title */}
           <div className="w-full text-center mb-2">
-            <h2 className="text-2xl font-bold text-gray-800">Reporting Crime</h2>
+            <h2 className="text-2xl font-bold text-gray-800">Anti Carnapping</h2>
             <p className="text-gray-600">Learn how to protect your vehicle from theft</p>
           </div>
         </div>
@@ -183,11 +183,11 @@ const ReportCrime: React.FC = () => {
           <div className="w-full max-w-6xl bg-white rounded-2xl shadow-lg p-4 md:p-0 overflow-hidden">
             {isClient && (
               <CarouselComponent 
-                slides={ReportCrimeSlides}
+                slides={antiCarnappingSlides}
                 themeColor="blue"
                 completedModules={completedModules} 
                 onModuleComplete={handleFinishModule} 
-                finishButtonText="Complete How to Report Crime Module"
+                finishButtonText="Complete Anti-Carnapping Module"
                 completedButtonText="✓ Module Completed"
                 continueButtonText="Next Tip"
                 backButtonText="Previous Tip"
@@ -206,4 +206,4 @@ const ReportCrime: React.FC = () => {
   );
 };
 
-export default ReportCrime;
+export default AntiCarnapping;

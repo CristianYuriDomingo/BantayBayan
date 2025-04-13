@@ -4,10 +4,8 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import LearnCard from "./LearnCard";
 import Image from "next/image";
-import UserGreetings from "./UserGreetings";
 import LearnCard2 from "./LearnCard2";
-import SearchBar from "./SearchBar";
-
+import SearchBar from "./SearchBar";  
 import CompletedModules from "./CompletedModules";
 import RecentActivity from "./RecentActivity";
 import RecommendedNext from "./RecommendedNext";
@@ -272,7 +270,7 @@ const Learn: React.FC = () => {
           <div className="w-full lg:w-[70%]">
             <div className="w-full max-w-[1000px] mx-auto">
               <SearchBar/>
-              <UserGreetings />
+             
             </div>
 
             <div className="flex flex-wrap justify-center gap-4 p-4">

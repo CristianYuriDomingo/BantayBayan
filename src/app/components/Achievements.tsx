@@ -113,7 +113,14 @@ const Achievements: React.FC = () => {
         : achievements.filter(achievement => achievement.category === selectedCategory);
 
     return (
-        <div className="flex h-screen bg-gray-100 dark:bg-gray-900">
+        <div className="flex h-screen bg-gradient-to-b from-blue-50 to-white">
+            {/* Background decorative elements */}
+            <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
+                <div className="absolute top-0 right-0 w-64 h-64 bg-blue-100 rounded-full opacity-30 transform translate-x-1/3 -translate-y-1/4"></div>
+                <div className="absolute bottom-0 left-0 w-80 h-80 bg-blue-100 rounded-full opacity-20 transform -translate-x-1/3 translate-y-1/4"></div>
+                <div className="absolute top-1/4 left-1/4 w-16 h-16 bg-yellow-200 rounded-full opacity-20"></div>
+                <div className="absolute top-3/4 right-1/4 w-24 h-24 bg-green-100 rounded-full opacity-20"></div>
+            </div>
 
             {/* Sidebar */}
             <aside
@@ -261,8 +268,8 @@ const Achievements: React.FC = () => {
                 </div>
             </aside>
 
-            {/* Main Content */}
-            <div className="flex-1 p-4 sm:ml-64">
+            {/* Main Content - Added proper spacing */}
+            <div className="flex-1 p-4 sm:ml-72 md:ml-80">
                 <button
                     onClick={() => setSidebarOpen(!isSidebarOpen)}
                     className="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none"
@@ -283,7 +290,7 @@ const Achievements: React.FC = () => {
                 </button>
                 
                 {/* Achievements Content */}
-                <div className="flex flex-col lg:flex-row w-full gap-4">
+                <div className="flex flex-col lg:flex-row w-full gap-6 pt-2 mt-2">
                     {/* Left column - 70% - Achievements List */}
                     <div className="w-full lg:w-[70%]">
                         <AchievementsList 
