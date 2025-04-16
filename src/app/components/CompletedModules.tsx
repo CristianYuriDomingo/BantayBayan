@@ -39,7 +39,7 @@ export default function CompletedModules() {
   // Your original design is preserved exactly
   return (
     <div className="mt-3 p-4 bg-white rounded-lg shadow-sm">
-      <p className="text-md font-medium text-blue-700 mb-2">Completed Modules</p>
+      <p className="text-md font-medium text-blue-700 mb-2">Completed Lessons</p>
       <div className="flex items-center mb-3">
         <span className="text-3xl font-bold text-blue-600">{completedModules}</span>
         <span className="text-md text-gray-600 ml-2">of {totalModules}</span>

@@ -67,7 +67,7 @@ export default function ResultPage() {
 
   return (
     <div className="relative flex justify-center items-center min-h-screen bg-blue-50 w-full p-6">
-      <div className="bg-white border border-blue-100 shadow-lg rounded-2xl p-10 w-full max-w-2xl text-center relative z-10">
+      <div className="bg-white border border-blue-100 shadow-lg rounded-2xl p-10 w-full max-w-lg text-center relative z-10">
         {/* Header Image */}
         <div className="flex justify-center mb-6">
           <div className="relative">

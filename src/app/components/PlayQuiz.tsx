@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
@@ -41,92 +41,176 @@ export default function PlayQuiz({ topic }: { topic: string }) {
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
-  const [isActive, setIsActive] = useState(false);
   const [score, setScore] = useState(0);
+  const [progressWidth, setProgressWidth] = useState(0);
+  const [showFeedback, setShowFeedback] = useState(false);
+  const [answerStatus, setAnswerStatus] = useState<"correct" | "incorrect" | null>(null);
+  const [isButtonActive, setIsButtonActive] = useState(false);
+
+  const isLastQuestion = currentQuestion === questions.length - 1;
+
+  // Update progress bar on question change
+  useEffect(() => {
+    setProgressWidth(((currentQuestion + 1) / questions.length) * 100);
+  }, [currentQuestion, questions.length]);
+
+  const handleAnswerSelect = (option: string) => {
+    setSelectedAnswer(option);
+    const isCorrect = option === questions[currentQuestion].correctAnswer;
+    setAnswerStatus(isCorrect ? "correct" : "incorrect");
+    setShowFeedback(true);
+  };
 
   const handleNext = () => {
-    let updatedScore = score;
-    if (selectedAnswer === questions[currentQuestion].correctAnswer) {
-      updatedScore += 1;
-      setScore(updatedScore);
+    if (!selectedAnswer) return;
+    
+    // Update score if correct
+    if (answerStatus === "correct") {
+      setScore(score + 1);
     }
 
+    // Reset states
     setSelectedAnswer(null);
+    setShowFeedback(false);
+    setAnswerStatus(null);
 
-    if (currentQuestion < questions.length - 1) {
+    if (!isLastQuestion) {
       setCurrentQuestion(currentQuestion + 1);
     } else {
       // Redirect to the result page
-      router.push(`/Quiz/${topic}/result?score=${updatedScore}&total=${questions.length}&topic=${encodeURIComponent(topic)}`);
-
-
-
+      const finalScore = score + (answerStatus === "correct" ? 1 : 0);
+      router.push(`/Quiz/${topic}/result?score=${finalScore}&total=${questions.length}&topic=${encodeURIComponent(topic)}`);
     }
   };
 
   if (questions.length === 0) {
-    return <div className="text-center text-xl text-gray-600">No questions available for {topic}.</div>;
+    return (
+      <div className="flex justify-center items-center min-h-screen bg-gray-50">
+        <div className="text-center text-xl text-gray-600 p-8 bg-white rounded-xl shadow-md">
+          No questions available for {topic.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}.
+        </div>
+      </div>
+    );
   }
 
+  const formattedTopic = topic.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+
   return (
-    <div className="relative flex justify-center items-center min-h-screen bg-gray-100 w-full h-screen p-6">
-      <div className="bg-white shadow-2xl rounded-2xl p-10 w-full max-w-4xl text-center relative z-10">
-        {/* Progress Bar */}
-        <div className="flex items-center justify-between w-full mb-8">
-          <div className="w-full bg-gray-300 h-4 rounded-full relative overflow-hidden">
-            <div
-              className="bg-blue-500 h-full rounded-full transition-all duration-500"
-              style={{ width: `${((currentQuestion + 1) / questions.length) * 100}%` }}
-            ></div>
+    <div className="flex justify-center items-center min-h-screen bg-gray-100 w-full p-4">
+      <div className="bg-white shadow-xl rounded-3xl w-full max-w-3xl overflow-hidden">
+        {/* Header with Score and Question Counter */}
+        <div className="flex justify-between items-center px-6 py-4 bg-gradient-to-r from-blue-500 to-blue-600 text-white">
+          <div className="flex items-center space-x-3">
+            <div className="bg-white text-blue-600 px-4 py-1 rounded-full text-sm font-medium">
+              Score: {score}/{questions.length}
+            </div>
+            <span className="font-medium">{formattedTopic}</span>
           </div>
-          <button className="ml-4 text-blue-500 text-3xl font-bold hover:text-blue-700 transition-all" onClick={() => router.push("/Learn")}>
-            ✕
-          </button>
-        </div>
-
-        {/* Question Image */}
-        <div className="w-full h-80 relative mb-8 flex justify-center">
-          <Image src={questions[currentQuestion].image} alt="question" width={500} height={350} className="rounded-lg shadow-md" />
-        </div>
-
-        {/* Question Text */}
-        <p className="text-2xl mb-8 font-semibold text-gray-800">{questions[currentQuestion].question}</p>
-
-        {/* Answer Options */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
-          {questions[currentQuestion].options.map((option, index) => (
-            <button
-              key={index}
-              className={`relative w-full py-4 rounded-2xl text-lg font-bold border-2 transition-all duration-200 ease-in-out
-              ${selectedAnswer === option ? "bg-[#ffff] text-black border-[#006aff]" : "bg-[#5caeff] text-[#ffff] border-[#006aff] hover:bg-[#94c4ff] hover:border-[#006aff] shadow-md"}`}
-              onClick={() => setSelectedAnswer(option)}
+          <div className="flex items-center space-x-3">
+            <span className="font-medium">Question {currentQuestion + 1}/{questions.length}</span>
+            <button 
+              className="text-white hover:text-blue-200 transition-colors" 
+              onClick={() => router.push("/Learn")}
+              aria-label="Close quiz"
             >
-              <span className="relative z-10">{option}</span>
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
             </button>
-          ))}
+          </div>
+        </div>
+        
+        {/* Progress Bar */}
+        <div className="w-full h-2 bg-blue-100">
+          <div className="bg-blue-500 h-full transition-all duration-300" style={{ width: `${progressWidth}%` }}></div>
         </div>
 
-        {/* Next Button (Original Design Kept) */}
-        <div className="mt-10">
-          <button
-            className={`relative inline-block px-8 py-4 text-lg font-bold uppercase border-2 rounded-2xl transition-all duration-200 ease-in-out
-            text-[#2d87ff] border-[#2d87ff] bg-[#dbe9ff]
-            ${isActive ? 'translate-y-[0.3em]' : 'hover:translate-y-[0.15em]'} shadow-lg`}
-            onMouseDown={() => setIsActive(true)}
-            onMouseUp={() => {
-              setIsActive(false);
-              handleNext();
-            }}
-            onMouseLeave={() => setIsActive(false)}
-          >
-            <span
-              className={`absolute inset-0 bg-[#5caeff] rounded-2xl transition-all duration-200 ease-in-out
-              ${isActive ? 'translate-y-0 shadow-[0_0_0_2px_#4a98e5,0_0.1em_0_0_#4a98e5]' : 'translate-y-[0.3em] shadow-[0_0_0_2px_#4a98e5,0_0.4em_0_0_#2d87ff]'}`}
-            />
-            <span className="relative z-10 text-white">
-              {currentQuestion < questions.length - 1 ? "Next Question" : "Finish Quiz"}
-            </span>
-          </button>
+        {/* Question Container */}
+        <div className="px-6 py-8">
+          {/* Question Image */}
+          <div className="w-full flex justify-center mb-8">
+            <div className="w-full max-w-xl rounded-xl overflow-hidden shadow-md">
+              <Image 
+                src={questions[currentQuestion].image} 
+                alt="Question illustration" 
+                width={800}
+                height={400}
+                className="w-full object-cover"
+                priority
+              />
+            </div>
+          </div>
+
+          {/* Question Text */}
+          <h2 className="text-2xl font-bold text-gray-800 mb-8 text-center">{questions[currentQuestion].question}</h2>
+
+          {/* Answer Options */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+            {questions[currentQuestion].options.map((option, index) => {
+              let buttonStyle = "bg-blue-100 text-blue-600 hover:bg-blue-200 hover:scale-105";
+              
+              if (selectedAnswer === option) {
+                if (showFeedback) {
+                  // Show green if correct, red if incorrect
+                  buttonStyle = option === questions[currentQuestion].correctAnswer 
+                    ? "bg-green-500 text-white shadow-md transform scale-105" 
+                    : "bg-red-500 text-white shadow-md";
+                } else {
+                  // Selected but feedback not yet shown
+                  buttonStyle = "bg-blue-500 text-white shadow-md transform scale-105";
+                }
+              } else if (showFeedback && option === questions[currentQuestion].correctAnswer) {
+                // Always highlight the correct answer when showing feedback
+                buttonStyle = "bg-green-500 text-white shadow-md";
+              }
+              
+              return (
+                <button
+                  key={index}
+                  className={`w-full py-4 px-6 rounded-2xl text-lg font-medium transition-all duration-300 ${buttonStyle} ${
+                    showFeedback ? "cursor-not-allowed" : "cursor-pointer"
+                  }`}
+                  onClick={() => !showFeedback && handleAnswerSelect(option)}
+                  disabled={showFeedback}
+                >
+                  {option}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Feedback Message */}
+          {showFeedback && (
+            <div className={`text-center mb-6 py-3 px-4 rounded-lg font-medium shadow-sm ${
+              answerStatus === "correct" ? "bg-green-100 text-green-800 border-l-4 border-green-500" : "bg-red-100 text-red-800 border-l-4 border-red-500"
+            }`}>
+              {answerStatus === "correct" 
+                ? "✅ Correct! Great job!" 
+                : `❌ Incorrect. The correct answer is: ${questions[currentQuestion].correctAnswer}`}
+            </div>
+          )}
+
+          {/* Next/Finish Button with custom style */}
+          <div className="flex justify-center mt-8">
+            <button
+              className={`relative px-8 py-3 text-base font-medium text-white bg-[#2d87ff] rounded-xl transition-all duration-150 ease-out ${
+                !selectedAnswer ? 'opacity-60 cursor-not-allowed' : ''
+              } ${
+                isButtonActive ? 'translate-y-1 shadow-none' : 'shadow-[0_4px_0_0_#2563eb]'
+              }`}
+              onMouseDown={() => selectedAnswer && setIsButtonActive(true)}
+              onMouseUp={() => {
+                if (selectedAnswer) {
+                  setIsButtonActive(false);
+                  handleNext();
+                }
+              }}
+              onMouseLeave={() => setIsButtonActive(false)}
+              disabled={!selectedAnswer}
+            >
+              {isLastQuestion ? "Finish Quiz" : "Next Question"}
+            </button>
+          </div>
         </div>
       </div>
     </div>
