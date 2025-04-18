@@ -32,11 +32,11 @@ const Quest: React.FC = () => {
                     {/* Close button for mobile - only shows when sidebar is open and on mobile */}
                     <button
                         onClick={() => setSidebarOpen(false)}
-                        className="absolute top-4 right-4 p-1 text-gray-500 hover:bg-gray-100 rounded-full sm:hidden"
+                        className="absolute top-4 right-4 p-2 text-blue-500 hover:text-white hover:bg-blue-500 rounded-lg transition-colors duration-200 sm:hidden"
                         aria-label="Close sidebar"
                     >
                         <svg
-                            className="w-6 h-6"
+                            className="w-5 h-5"
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"

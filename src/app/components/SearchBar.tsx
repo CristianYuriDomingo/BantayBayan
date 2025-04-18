@@ -3,6 +3,7 @@
 import { useState, FormEvent, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import Modal from './Modal'; // Import the Modal component
 
 interface SearchBarProps {
   // You can add props if needed
@@ -24,6 +25,8 @@ const SearchBar: React.FC<SearchBarProps> = () => {
   const [searchResults, setSearchResults] = useState<LessonCategory[]>([]);
   const [showResults, setShowResults] = useState<boolean>(false);
   const [isSearchFocused, setIsSearchFocused] = useState<boolean>(false);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [selectedCategory, setSelectedCategory] = useState<LessonCategory | null>(null);
   const router = useRouter();
   const searchRef = useRef<HTMLDivElement>(null);
 
@@ -69,7 +72,7 @@ const SearchBar: React.FC<SearchBarProps> = () => {
       category: "How To Report a Crime",
       image: "/LearnImage/CaseFiling.png",
       lessons: [
-        { title: "How to Report Crime", path: "/lessons/HowToReportCrime/HowToReportCrime" },
+        { title: "How to Report Crime", path: "/lessons/ReportCrime" },
       ]
     },
     {
@@ -103,7 +106,7 @@ const SearchBar: React.FC<SearchBarProps> = () => {
       category: "Voter Education",
       image: "/LearnImage/Vote.png",
       lessons: [
-        { title: "Voter Education", path: "/lessons/VoterEducation/VoterEducation" },
+        { title: "Voter Education", path: "/lessons/VoterEducation" },
       ]
     },
     {
@@ -173,6 +176,13 @@ const SearchBar: React.FC<SearchBarProps> = () => {
     setSearchTerm('');
   };
 
+  // Open modal for a specific category
+  const handleCategoryClick = (category: LessonCategory) => {
+    setSelectedCategory(category);
+    setIsModalOpen(true);
+    setShowResults(false);
+  };
+
   // Close search results when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -200,10 +210,14 @@ const SearchBar: React.FC<SearchBarProps> = () => {
     );
   };
 
+  // Get count of lessons for a category
+  const countLessons = (lessons: Lesson[]) => 
+    lessons.length === 1 ? "1 Lesson" : `${lessons.length} Lessons`;
+
   return (
     <div ref={searchRef} className="w-full mb-6 px-2">
       <div className={`relative ${isSearchFocused ? 'z-50' : 'z-40'}`}>
-        {/* Duolingo-style search bar */}
+        {/* Duolingo-style search bar with non-clickable icon */}
         <form onSubmit={handleSearch} className="flex justify-center">
           <input
             type="search"
@@ -213,15 +227,15 @@ const SearchBar: React.FC<SearchBarProps> = () => {
             onChange={(e) => setSearchTerm(e.target.value)}
             onFocus={() => setIsSearchFocused(true)}
           />
-          <button
-            type="submit"
-            className="bg-blue-500 text-white font-bold rounded-r-full px-6 py-3 border-2 border-blue-500 shadow-md"
+          {/* Changed from button to div to make it non-clickable */}
+          <div
+            className="bg-blue-500 text-white font-bold rounded-r-full px-6 py-3 border-2 border-blue-500 shadow-md flex items-center justify-center cursor-default"
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <circle cx="11" cy="11" r="8"></circle>
               <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
             </svg>
-          </button>
+          </div>
         </form>
 
         {/* Search Results Dropdown */}
@@ -231,7 +245,11 @@ const SearchBar: React.FC<SearchBarProps> = () => {
               <div className="max-h-[70vh] overflow-y-auto">
                 {searchResults.map((category, index) => (
                   <div key={index} className="border-b border-gray-100 last:border-b-0">
-                    <div className="flex items-center p-3 bg-gray-50">
+                    {/* Make category header clickable */}
+                    <button 
+                      className="flex items-center p-3 bg-gray-50 w-full hover:bg-gray-100 transition-colors text-left"
+                      onClick={() => handleCategoryClick(category)}
+                    >
                       <div className="w-8 h-8 mr-3 relative overflow-hidden rounded-md">
                         <Image 
                           src={category.image} 
@@ -242,7 +260,15 @@ const SearchBar: React.FC<SearchBarProps> = () => {
                         />
                       </div>
                       <h3 className="font-medium text-blue-700">{highlightMatch(category.category)}</h3>
-                    </div>
+                      
+                      {/* Lesson count indicator */}
+                      <span className="ml-auto text-xs text-gray-500">{countLessons(category.lessons)}</span>
+                      
+                      {/* Arrow icon */}
+                      <svg className="w-4 h-4 ml-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
+                      </svg>
+                    </button>
                     
                     <ul>
                       {category.lessons.map((lesson, lessonIndex) => (
@@ -279,6 +305,28 @@ const SearchBar: React.FC<SearchBarProps> = () => {
           </div>
         )}
       </div>
+
+      {/* Modal for displaying selected category */}
+      {selectedCategory && (
+        <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+          <div>
+            <h3 className="text-xl font-semibold">{selectedCategory.category}</h3>
+            <p className="text-gray-600 mb-4">Choose a Lesson</p>
+            <ul className="space-y-3">
+              {selectedCategory.lessons.map((lesson, index) => (
+                <li key={index}>
+                  <button
+                    className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300"
+                    onClick={() => router.push(lesson.path)}
+                  >
+                    {lesson.title}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </Modal>
+      )}
     </div>
   );
 };

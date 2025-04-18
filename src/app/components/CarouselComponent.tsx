@@ -77,25 +77,25 @@ const CarouselComponent: React.FC<CarouselComponentProps> = ({
       {/* Desktop view - Side-by-side layout */}
       {!isMobile && (
         <div className="relative flex items-center h-[500px]">
-          {/* Previous button with minimal circle design */}
-          <button
-            onClick={prevSlide}
-            className={`absolute left-4 z-10 bg-white rounded-full w-12 h-12 flex items-center justify-center
-            focus:outline-none shadow-md
-            hover:bg-gray-50 active:bg-gray-100
-            hover:shadow-lg active:shadow-md
-            transform transition-all duration-200
-            active:scale-95 hover:scale-100
-            text-${themeColor}-500 hover:text-${themeColor}-600`}
-            aria-label="Previous slide"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M15 18l-6-6 6-6" />
-            </svg>
-          </button>
-
           {/* Carousel content */}
-          <div className="w-full overflow-hidden rounded-2xl shadow-lg">
+          <div className="w-full overflow-hidden rounded-2xl shadow-lg relative">
+            {/* Previous button moved inside the carousel container with z-index */}
+            <button
+              onClick={prevSlide}
+              className={`absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-white bg-opacity-80 rounded-full w-12 h-12 flex items-center justify-center
+              focus:outline-none shadow-md
+              hover:bg-gray-50 hover:bg-opacity-90 active:bg-gray-100
+              hover:shadow-lg active:shadow-md
+              transform transition-all duration-200
+              active:scale-95 hover:scale-100
+              text-${themeColor}-500 hover:text-${themeColor}-600`}
+              aria-label="Previous slide"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M15 18l-6-6 6-6" />
+              </svg>
+            </button>
+
             <div className="flex transition-transform duration-500 ease-in-out h-[500px]"
               style={{ transform: `translateX(-${currentSlide * 100}%)` }}>
               {slides.map((slide, index) => (
@@ -137,24 +137,24 @@ const CarouselComponent: React.FC<CarouselComponentProps> = ({
                 </div>
               ))}
             </div>
-          </div>
 
-          {/* Next button with minimal circle design */}
-          <button
-            onClick={nextSlide}
-            className={`absolute right-4 z-10 bg-white rounded-full w-12 h-12 flex items-center justify-center
-            focus:outline-none shadow-md
-            hover:bg-gray-50 active:bg-gray-100
-            hover:shadow-lg active:shadow-md
-            transform transition-all duration-200
-            active:scale-95 hover:scale-100
-            text-${themeColor}-500 hover:text-${themeColor}-600`}
-            aria-label="Next slide"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M9 18l6-6-6-6" />
-            </svg>
-          </button>
+            {/* Next button moved inside the carousel container with z-index */}
+            <button
+              onClick={nextSlide}
+              className={`absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-white bg-opacity-80 rounded-full w-12 h-12 flex items-center justify-center
+              focus:outline-none shadow-md
+              hover:bg-gray-50 hover:bg-opacity-90 active:bg-gray-100
+              hover:shadow-lg active:shadow-md
+              transform transition-all duration-200
+              active:scale-95 hover:scale-100
+              text-${themeColor}-500 hover:text-${themeColor}-600`}
+              aria-label="Next slide"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M9 18l6-6-6-6" />
+              </svg>
+            </button>
+          </div>
 
           {/* Progress indicator */}
           <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">

@@ -175,8 +175,8 @@ const AntiGambling: React.FC = () => {
 
           {/* Learning module title */}
           <div className="w-full text-center mb-2">
-            <h2 className="text-2xl font-bold text-gray-800">AntiGambling</h2>
-            <p className="text-gray-600">Learn how to protect your vehicle from theft</p>
+            <h2 className="text-2xl font-bold text-gray-800">Anti Gambling</h2>
+            <p className="text-gray-600">Learn about the risks and consequences of illegal gambling.</p>
           </div>
         </div>
 

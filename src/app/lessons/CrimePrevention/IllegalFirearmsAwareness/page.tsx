@@ -175,9 +175,9 @@ const IllegalFirearmsAwareness: React.FC = () => {
 
           {/* Learning module title */}
           <div className="w-full text-center mb-2">
-        moduleName: "Anti Rape & Sexual Assault Prevention Module" 
+          <h2 className="text-2xl font-bold text-gray-800">Illegal Firearms Awareness</h2>
         <h2 className="text-2xl font-bold text-gray-800"></h2>
-            <p className="text-gray-600">Learn how to protect your vehicle from theft</p>
+            <p className="text-gray-600">Understand the dangers and laws around illegal firearms.</p>
           </div>
         </div>
 

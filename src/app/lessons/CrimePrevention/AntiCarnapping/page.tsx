@@ -26,25 +26,25 @@ const AntiCarnapping: React.FC = () => {
   const antiCarnappingSlides: SlideProps[] = [
     {
       id: "carnapping-awareness",
-      image: "/LearnImage/CrimePrevention1.png",
+      image: "/LearnImage/CrimePrevention/1.png",
       title: "Lock Your Car at All Times",
       content: "Always lock your doors and close all windows before leaving your vehicle. Even a quick stop can be an opportunity for carnappers."
     },
     {
       id: "security-measures",
-      image: "/LearnImage/CrimePrevention2.png",
+      image: "/LearnImage/CrimePrevention/2.png",
       title: "Park in Safe, Well-Lit Areas",
       content: "Choose parking spots that are visible, well-lit, and preferably have security cameras or guards to discourage thieves."
     },
     {
       id: "parking-safety",
-      image: "/LearnImage/CrimePrevention3.png",
+      image: "/LearnImage/CrimePrevention/3.png",
       title: "Use Anti-Theft Devices",
       content: "Equip your car with alarms, steering wheel locks, or GPS trackers. These devices add extra layers of protection and may prevent theft."
     },
     {
       id: "technology-solutions",
-      image: "/LearnImage/CrimePrevention4.png",
+      image: "/LearnImage/CrimePrevention/4.png",
       title: "Stay Alert to Suspicious Activity",
       content: "Be mindful of your surroundings. Report any unusual behavior or individuals lingering near vehicles to authorities or security personnel."
     }

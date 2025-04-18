@@ -26,25 +26,25 @@ const AntiTheftRobberyAwareness: React.FC = () => {
   const AntiTheftRobberyAwarenessSlides: SlideProps[] = [
     {
       id: "carnapping-awareness",
-      image: "/LearnImage/CaseFiling.png",
+      image: "/LearnImage/CrimePrevention/5.png",
       title: " Be Mindful of Your Belongings",
       content: "Always keep your bags, phones, and valuables close to you, especially in crowded areas like markets or terminals. Thieves often strike when you're distracted."
     },
     {
       id: "security-measures",
-      image: "/LearnImage/Security.png",
+      image: "/LearnImage/CrimePrevention/6.png",
       title: "Avoid Isolated or Dark Places",
       content: "Walk in well-lit, populated areas—especially at night. If possible, travel in groups or with someone you trust"
     },
     {
       id: "parking-safety",
-      image: "/LearnImage/Parking.png",
+      image: "/LearnImage/CrimePrevention/7.png",
       title: " Stay Aware of Your Surroundings",
       content: "Avoid using headphones or getting too absorbed in your phone when walking. Awareness is your first defense against robbers."
     },
     {
       id: "technology-solutions",
-      image: "/LearnImage/Tech.png",
+      image: "/LearnImage/CrimePrevention/8.png",
       title: "Report Suspicious Activity Immediately",
       content: "If you see someone acting suspiciously or feel unsafe, report it to nearby authorities or barangay officials right away."
 
@@ -91,7 +91,7 @@ const AntiTheftRobberyAwareness: React.FC = () => {
       // Complete the module in IndexedDB with a single moduleId for the whole anti-carnapping topic
       const badge = await completeModule({ 
         moduleId: MODULE_ID, 
-        moduleName: "Anti Rape & Sexual Assault Prevention Module" 
+        moduleName: "Anti-Thef and Robbery Awareness Module" 
       });
       
       console.log("Module completed, badge earned:", badge);
@@ -175,9 +175,9 @@ const AntiTheftRobberyAwareness: React.FC = () => {
 
           {/* Learning module title */}
           <div className="w-full text-center mb-2">
-        moduleName: "Anti Rape & Sexual Assault Prevention Module" 
+        <h2 className="text-2xl font-bold text-gray-800">Anti-Theft and Robbery Awareness</h2>
         <h2 className="text-2xl font-bold text-gray-800"></h2>
-            <p className="text-gray-600">Learn how to protect your vehicle from theft</p>
+            <p className="text-gray-600">Stay alert and learn how to avoid theft and robbery situations.</p>
           </div>
         </div>
 
