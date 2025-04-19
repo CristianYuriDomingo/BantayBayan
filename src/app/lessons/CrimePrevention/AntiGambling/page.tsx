@@ -25,31 +25,30 @@ const AntiGambling: React.FC = () => {
   // Define the slides for Anti-Carnapping content
   const AntiGamblingSlides: SlideProps[] = [
     {
-      id: "carnapping-awareness",
-      image: "/LearnImage/CaseFiling.png",
-      title: " Be Mindful of Your Belongings",
-      content: "Always keep your bags, phones, and valuables close to you, especially in crowded areas like markets or terminals. Thieves often strike when you're distracted."
+      id: "illegal-gambling-law",
+      image: "/LearnImage/AntiGambling1.png",
+      title: "Illegal Gambling is Punishable by Law",
+      content: "Under Presidential Decree No. 1602, illegal gambling is a criminal offense in the Philippines."
     },
     {
-      id: "security-measures",
-      image: "/LearnImage/Security.png",
-      title: "Avoid Isolated or Dark Places",
-      content: "Walk in well-lit, populated areas—especially at night. If possible, travel in groups or with someone you trust"
+      id: "online-gambling-risks",
+      image: "/LearnImage/AntiGambling2.png",
+      title: "Beware of Online Gambling Scams",
+      content: "Unlicensed gambling websites may lead to scams and identity theft. Stick to legal platforms if necessary."
     },
     {
-      id: "parking-safety",
-      image: "/LearnImage/Parking.png",
-      title: " Stay Aware of Your Surroundings",
-      content: "Avoid using headphones or getting too absorbed in your phone when walking. Awareness is your first defense against robbers."
+      id: "gambling-addiction",
+      image: "/LearnImage/AntiGambling3.png",
+      title: "Gambling Can Be Addictive",
+      content: "Excessive gambling leads to financial and emotional distress. Seek help if needed."
     },
     {
-      id: "technology-solutions",
-      image: "/LearnImage/Tech.png",
-      title: "Report Suspicious Activity Immediately",
-      content: "If you see someone acting suspiciously or feel unsafe, report it to nearby authorities or barangay officials right away."
-
-
+      id: "youth-gambling-awareness",
+      image: "/LearnImage/AntiGambling4.png",
+      title: "Protect Youth from Gambling",
+      content: "Educate young people about the dangers of betting games and online casinos."
     }
+    
   ];
 
   // Load completed modules from IndexedDB on component mount

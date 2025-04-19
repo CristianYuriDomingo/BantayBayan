@@ -25,31 +25,30 @@ const AntiRapeSexualAssaultPrevention: React.FC = () => {
   // Define the slides for Anti-Carnapping content
   const AntiRapeSexualAssaultPreventionSlides: SlideProps[] = [
     {
-      id: "carnapping-awareness",
-      image: "/LearnImage/CaseFiling.png",
-      title: " Be Mindful of Your Belongings",
-      content: "Always keep your bags, phones, and valuables close to you, especially in crowded areas like markets or terminals. Thieves often strike when you're distracted."
+      id: "trust-your-instincts",
+      image: "/LearnImage/AntiRape5.png",
+      title: "Trust Your Instincts",
+      content: "If something feels wrong, don’t ignore it. Leave the situation or seek help right away."
     },
     {
-      id: "security-measures",
-      image: "/LearnImage/Security.png",
-      title: "Avoid Isolated or Dark Places",
-      content: "Walk in well-lit, populated areas—especially at night. If possible, travel in groups or with someone you trust"
+      id: "stay-safe-in-social-settings",
+      image: "/LearnImage/AntiRape6.png",
+      title: "Stay Safe in Social Settings",
+      content: "Watch your drink, stay with trusted friends, and plan how to get home safely."
     },
     {
-      id: "parking-safety",
-      image: "/LearnImage/Parking.png",
-      title: " Stay Aware of Your Surroundings",
-      content: "Avoid using headphones or getting too absorbed in your phone when walking. Awareness is your first defense against robbers."
+      id: "educate-others",
+      image: "/LearnImage/AntiRape7.png",
+      title: "Educate Others About Respect",
+      content: "Spread awareness on the importance of respect, boundaries, and empathy in relationships."
     },
     {
-      id: "technology-solutions",
-      image: "/LearnImage/Tech.png",
-      title: "Report Suspicious Activity Immediately",
-      content: "If you see someone acting suspiciously or feel unsafe, report it to nearby authorities or barangay officials right away."
-
-
+      id: "create-safe-environments",
+      image: "/LearnImage/AntiRape8.png",
+      title: "Build Safe Communities",
+      content: "Encourage open dialogue and zero tolerance for harassment in schools, homes, and workplaces."
     }
+    
   ];
 
   // Load completed modules from IndexedDB on component mount

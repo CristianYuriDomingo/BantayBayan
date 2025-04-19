@@ -26,9 +26,9 @@ const Learn: React.FC = () => {
   const lessonsCrimePrevention = [
     { title: "Anti-Carnapping", path: "/lessons/CrimePrevention/AntiCarnapping" },
     { title: "Anti-Theft & Robbery Awareness", path: "/lessons/CrimePrevention/AntiTheft&RobberyAwareness" },
-    { title: "Illegal Firearms Awareness", path: "/lessons/CrimePrevention/AntiRape&SexualAssaultPrevention" },
+    { title: "Illegal Firearms Awareness", path: "/lessons/CrimePrevention/IllegalFirearmsAwareness" },
     { title: "Anti-Gambling", path: "/lessons/CrimePrevention/AntiGambling" },
-    { title: "Anti-Rape & Sexual Assault Prevention", path: "/lessons/CrimePrevention/IllegalFirearmsAwareness" },
+    { title: "Anti-Rape & Sexual Assault Prevention", path: "/lessons/CrimePrevention/AntiRape&SexualAssaultPrevention" },
     
   ];
 

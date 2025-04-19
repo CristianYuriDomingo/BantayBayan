@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { openDB } from "idb";
 import { TextInput } from "flowbite-react";
@@ -37,29 +37,119 @@ interface UsernameAgeFormProps {
 
 const UsernameAgeForm: React.FC<UsernameAgeFormProps> = ({ setIsModalOpen }) => {
   const [username, setUsername] = useState<string>("");
-  const [age, setAge] = useState<number | "">("");
+  const [age, setAge] = useState<string>("");
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [isActive, setIsActive] = useState<boolean>(false);
+  
+  // Validation states
+  const [usernameError, setUsernameError] = useState<string>("");
+  const [ageError, setAgeError] = useState<string>("");
+  const [touchedFields, setTouchedFields] = useState<{ username: boolean; age: boolean }>({
+    username: false,
+    age: false
+  });
 
-  const handleAgeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setAge(value === "" ? "" : Number(value));
+  // Validate username
+  const validateUsername = (value: string) => {
+    if (!value.trim()) {
+      return "Username cannot be empty";
+    }
+    if (value.trim().length < 3) {
+      return "Username must be at least 3 characters";
+    }
+    return "";
   };
 
-  const handleSubmit = async () => {
-    if (!username.trim()) {
-      alert("Username cannot be empty.");
-      return;
+  // Validate age
+  const validateAge = (value: string) => {
+    if (!value) {
+      return "Age is required";
     }
+    
+    const ageNum = Number(value);
+    
+    if (isNaN(ageNum)) {
+      return "Age must be a number";
+    }
+    
+    if (!Number.isInteger(ageNum)) {
+      return "Age must be a whole number";
+    }
+    
+    if (ageNum <= 0) {
+      return "Age must be positive";
+    }
+    
+    if (ageNum > 120) {
+      return "Please enter a valid age below 120";
+    }
+    
+    return "";
+  };
 
-    if (age === "" || isNaN(age) || age <= 0) {
-      alert("Age must be a valid positive number.");
+  // Handle username change
+  const handleUsernameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setUsername(value);
+    if (touchedFields.username) {
+      setUsernameError(validateUsername(value));
+    }
+  };
+
+  // Handle age change
+  const handleAgeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    
+    // Only allow positive numbers and empty string
+    if (value === "" || /^\d+$/.test(value)) {
+      setAge(value);
+      if (touchedFields.age) {
+        setAgeError(validateAge(value));
+      }
+    }
+  };
+
+  // Field blur handlers
+  const handleBlur = (field: 'username' | 'age') => {
+    setTouchedFields({
+      ...touchedFields,
+      [field]: true
+    });
+    
+    if (field === 'username') {
+      setUsernameError(validateUsername(username));
+    } else if (field === 'age') {
+      setAgeError(validateAge(age));
+    }
+  };
+
+  // Check if form is valid
+  const isFormValid = username.trim() !== "" && 
+                      age !== "" && 
+                      !isNaN(Number(age)) && 
+                      Number(age) > 0 &&
+                      !usernameError && 
+                      !ageError;
+
+  const handleSubmit = async () => {
+    // Set all fields as touched to show validation errors
+    setTouchedFields({ username: true, age: true });
+    
+    // Validate all fields
+    const usernameValidation = validateUsername(username);
+    const ageValidation = validateAge(age);
+    
+    setUsernameError(usernameValidation);
+    setAgeError(ageValidation);
+    
+    // Only proceed if all validations pass
+    if (usernameValidation || ageValidation) {
       return;
     }
 
     setIsSubmitting(true);
 
-    const userData = { username, age };
+    const userData = { username, age: Number(age) };
 
     try {
       await addUserToIndexedDB(userData);
@@ -70,18 +160,16 @@ const UsernameAgeForm: React.FC<UsernameAgeFormProps> = ({ setIsModalOpen }) => 
       setUsername("");
       setAge("");
       setIsSubmitting(false);
+      // Reset touched state
+      setTouchedFields({ username: false, age: false });
     }
   };
 
-  const isFormValid = username.trim() !== "" && age !== "" && !isNaN(age) && age > 0;
-
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100 p-4">
-      <div className="flex flex-col items-center space-y-6 p-8 bg-white shadow-lg rounded-xl w-full max-w-md h-[450px]"> 
-        {/* Added fixed height of 450px to prevent stretching */}
-
+    <div className="flex justify-center items-center min-h-screen bg-blue-50 p-4">
+      <div className="flex flex-col items-center space-y-6 p-8 bg-white shadow-lg rounded-2xl w-full max-w-md border-t-8 border-blue-500"> 
         {/* Logo Image (Next.js Image) */}
-        <div className="relative w-20 h-20"> 
+        <div className="relative w-24 h-24 mb-2"> 
           <Image
             src="/MainImage/Pibi.png"
             alt="App Logo"
@@ -92,50 +180,80 @@ const UsernameAgeForm: React.FC<UsernameAgeFormProps> = ({ setIsModalOpen }) => 
         </div>
 
         {/* Title */}
-        <h2 className="text-2xl font-bold text-gray-800">Enter Your Details</h2>
+        <h2 className="text-2xl font-bold text-blue-700">Welcome to Bantay Bayan!</h2>
+        <p className="text-gray-600 text-center -mt-4">Please enter your details to continue</p>
 
         {/* Username Input */}
-        <TextInput
-          id="username"
-          type="text"
-          sizing="lg"
-          placeholder="Enter your username"
-          className="w-full rounded-lg p-3 text-gray-700 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          required
-        />
+        <div className="w-full">
+          <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-1">Username</label>
+          <TextInput
+            id="username"
+            type="text"
+            sizing="lg"
+            placeholder="Enter your username"
+            className={`w-full rounded-lg ${usernameError ? 'border-red-300 focus:ring-red-500 focus:border-red-500' : 'border-blue-300 focus:ring-blue-500 focus:border-blue-500'}`}
+            value={username}
+            onChange={handleUsernameChange}
+            onBlur={() => handleBlur('username')}
+            required
+          />
+          {touchedFields.username && usernameError && (
+            <p className="mt-1 text-sm text-red-600">{usernameError}</p>
+          )}
+        </div>
 
         {/* Age Input */}
-        <TextInput
-          id="age"
-          type="number"
-          sizing="lg"
-          placeholder="Enter your age"
-          className="w-full rounded-lg p-3 text-gray-700 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-          value={age}
-          onChange={handleAgeChange}
-          required
-        />
+        <div className="w-full">
+          <label htmlFor="age" className="block text-sm font-medium text-gray-700 mb-1">Age</label>
+          <TextInput
+            id="age"
+            type="text" // Changed to text to handle our own validation
+            inputMode="numeric" // Better mobile experience for numbers
+            pattern="[0-9]*" // Only allow numbers
+            sizing="lg"
+            placeholder="Enter your age"
+            className={`w-full rounded-lg ${ageError ? 'border-red-300 focus:ring-red-500 focus:border-red-500' : 'border-blue-300 focus:ring-blue-500 focus:border-blue-500'}`}
+            value={age}
+            onChange={handleAgeChange}
+            onBlur={() => handleBlur('age')}
+            required
+          />
+          {touchedFields.age && ageError && (
+            <p className="mt-1 text-sm text-red-600">{ageError}</p>
+          )}
+        </div>
 
         {/* Submit Button */}
         <button
-          className={`relative inline-block px-5 py-2 text-sm font-bold uppercase border-2 rounded-lg transition-all duration-150 ease-in-out
-          text-[#2d87ff] border-[#2d87ff] bg-[#dbe9ff]
-          ${isActive ? "translate-y-[0.2em]" : "hover:translate-y-[0.1em]"}
-          ${!isFormValid || isSubmitting ? "opacity-50 cursor-not-allowed" : ""}`}
+          className={`relative inline-block px-6 py-3 font-bold text-white rounded-lg transition-all duration-200 ease-in-out w-full
+          bg-blue-500 hover:bg-blue-600
+          ${isActive ? "translate-y-1" : ""}
+          ${!isFormValid || isSubmitting ? "opacity-70 cursor-not-allowed" : ""}`}
           onMouseDown={() => setIsActive(true)}
           onMouseUp={() => setIsActive(false)}
           onMouseLeave={() => setIsActive(false)}
           onClick={handleSubmit}
           disabled={!isFormValid || isSubmitting}
         >
-          <span
-            className={`absolute inset-0 bg-[#5caeff] rounded-lg transition-all duration-150 ease-in-out
-            ${isActive ? "translate-y-0 shadow-[0_0_0_2px_#4a98e5,0_0.1em_0_0_#4a98e5]" : "translate-y-[0.2em] shadow-[0_0_0_2px_#4a98e5,0_0.3em_0_0_#2d87ff]"}`}
-          />
-          <span className="relative z-10">{isSubmitting ? "Submitting..." : "Submit"}</span>
+          <span className="relative inline-flex items-center justify-center">
+            {isSubmitting ? (
+              <span className="flex items-center">
+                <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Processing...
+              </span>
+            ) : (
+              "Start Learning!"
+            )}
+          </span>
         </button>
+        
+        {/* Footer text */}
+        <p className="text-xs text-gray-500 text-center mt-4">
+          Join our community and learn about safety with Bantay Bayan
+        </p>
       </div>
     </div>
   );

@@ -51,20 +51,18 @@ const UserConfirm: React.FC<UserConfirmProps> = ({ open, onClose }) => {
         {/* Custom Styled Button */}
         <div className="flex justify-center">
           <button
-            className={`relative inline-block px-5 py-2 text-sm font-bold uppercase border-2 rounded-lg transition-all duration-150 ease-in-out
-            text-[#2d87ff] border-[#2d87ff] bg-[#dbe9ff]
-            ${isActive ? "translate-y-[0.2em]" : "hover:translate-y-[0.1em]"}
+            className={`relative inline-block px-6 py-3 font-bold text-white rounded-lg transition-all duration-200 ease-in-out w-full
+            bg-blue-500 hover:bg-blue-600
+            ${isActive ? "translate-y-1" : ""}
             `}
             onMouseDown={() => setIsActive(true)}
             onMouseUp={() => setIsActive(false)}
             onMouseLeave={() => setIsActive(false)}
             onClick={handleContinue}
           >
-            <span
-              className={`absolute inset-0 bg-[#5caeff] rounded-lg transition-all duration-150 ease-in-out
-              ${isActive ? "translate-y-0 shadow-[0_0_0_2px_#4a98e5,0_0.1em_0_0_#4a98e5]" : "translate-y-[0.2em] shadow-[0_0_0_2px_#4a98e5,0_0.3em_0_0_#2d87ff]"}`}
-            />
-            <span className="relative z-10">Continue</span>
+            <span className="relative inline-flex items-center justify-center">
+              Continue
+            </span>
           </button>
         </div>
       </div>

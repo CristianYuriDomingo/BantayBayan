@@ -25,29 +25,30 @@ const MediaLiteracyMisinformation: React.FC = () => {
   // Define the slides for Anti-Carnapping content
   const MediaLiteracyMisinformationSlides: SlideProps[] = [
     {
-      id: "carnapping-awareness",
-      image: "/LearnImage/CrimePrevention1.png",
-      title: "Lock Your Car at All Times",
-      content: "Always lock your doors and close all windows before leaving your vehicle. Even a quick stop can be an opportunity for carnappers."
+      id: "fact-check-sources",
+      image: "/LearnImage/Misinformation1.png",
+      title: "Always Fact-Check Information",
+      content: "Before you share something online, verify it with reputable sources."
     },
     {
-      id: "security-measures",
-      image: "/LearnImage/CrimePrevention2.png",
-      title: "Park in Safe, Well-Lit Areas",
-      content: "Choose parking spots that are visible, well-lit, and preferably have security cameras or guards to discourage thieves."
+      id: "spot-deepfakes",
+      image: "/LearnImage/Misinformation2.png",
+      title: "Learn to Identify Deepfakes",
+      content: "Some fake videos or images are designed to mislead. Question anything that looks suspiciously edited."
     },
     {
-      id: "parking-safety",
-      image: "/LearnImage/CrimePrevention3.png",
-      title: "Use Anti-Theft Devices",
-      content: "Equip your car with alarms, steering wheel locks, or GPS trackers. These devices add extra layers of protection and may prevent theft."
+      id: "check-publication-date",
+      image: "/LearnImage/Misinformation3.png",
+      title: "Check the Date of Posts",
+      content: "Old stories or headlines can be shared out of context. Make sure the content is current and relevant."
     },
     {
-      id: "technology-solutions",
-      image: "/LearnImage/CrimePrevention4.png",
-      title: "Stay Alert to Suspicious Activity",
-      content: "Be mindful of your surroundings. Report any unusual behavior or individuals lingering near vehicles to authorities or security personnel."
+      id: "multiple-sources",
+      image: "/LearnImage/Misinformation4.png",
+      title: "Use Multiple Reliable Sources",
+      content: "Don't rely on just one outlet. Cross-check information across different credible platforms."
     }
+    
   ];
 
   // Load completed modules from IndexedDB on component mount

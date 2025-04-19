@@ -25,29 +25,30 @@ const SafeResponsibleInternetUse: React.FC = () => {
   // Define the slides for Anti-Carnapping content
   const SafeResponsibleInternetUseSlides: SlideProps[] = [
     {
-      id: "carnapping-awareness",
-      image: "/LearnImage/CrimePrevention1.png",
-      title: "Lock Your Car at All Times",
-      content: "Always lock your doors and close all windows before leaving your vehicle. Even a quick stop can be an opportunity for carnappers."
+      id: "think-before-clicking",
+      image: "/LearnImage/InternetSafety1.png",
+      title: "Think Before You Click",
+      content: "Avoid clicking on suspicious ads, links, or downloads. Always verify the source first."
     },
     {
-      id: "security-measures",
-      image: "/LearnImage/CrimePrevention2.png",
-      title: "Park in Safe, Well-Lit Areas",
-      content: "Choose parking spots that are visible, well-lit, and preferably have security cameras or guards to discourage thieves."
+      id: "respectful-behavior",
+      image: "/LearnImage/InternetSafety2.png",
+      title: "Be Respectful Online",
+      content: "Treat others with kindness and report cyberbullying or inappropriate content."
     },
     {
-      id: "parking-safety",
-      image: "/LearnImage/CrimePrevention3.png",
-      title: "Use Anti-Theft Devices",
-      content: "Equip your car with alarms, steering wheel locks, or GPS trackers. These devices add extra layers of protection and may prevent theft."
+      id: "screen-time-balance",
+      image: "/LearnImage/InternetSafety3.png",
+      title: "Maintain Screen Time Balance",
+      content: "Set healthy boundaries for using devices to avoid digital fatigue and improve focus."
     },
     {
-      id: "technology-solutions",
-      image: "/LearnImage/CrimePrevention4.png",
-      title: "Stay Alert to Suspicious Activity",
-      content: "Be mindful of your surroundings. Report any unusual behavior or individuals lingering near vehicles to authorities or security personnel."
+      id: "public-network-caution",
+      image: "/LearnImage/InternetSafety4.png",
+      title: "Be Cautious on Public Wi-Fi",
+      content: "Avoid entering personal or financial information when connected to public networks."
     }
+    
   ];
 
   // Load completed modules from IndexedDB on component mount
@@ -174,7 +175,7 @@ const SafeResponsibleInternetUse: React.FC = () => {
           {/* Learning module title */}
           <div className="w-full text-center mb-2">
             <h2 className="text-2xl font-bold text-gray-800">Safe and Responsible Internet Use</h2>
-            <p className="text-gray-600">Learn how to protect your vehicle from theft</p>
+            <p className="text-gray-600">Discover safe browsing habits and online etiquette.</p>
           </div>
         </div>
 

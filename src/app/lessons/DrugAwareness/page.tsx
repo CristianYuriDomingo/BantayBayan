@@ -25,29 +25,30 @@ const DrugAwareness: React.FC = () => {
   // Define the slides for Anti-Carnapping content
   const DrugAwarenessSlides: SlideProps[] = [
     {
-      id: "carnapping-awareness",
-      image: "/LearnImage/CrimePrevention1.png",
-      title: "Lock Your Car at All Times",
-      content: "Always lock your doors and close all windows before leaving your vehicle. Even a quick stop can be an opportunity for carnappers."
+      id: "know-the-risks",
+      image: "/LearnImage/DrugAwareness1.png",
+      title: "Understand the Risks of Drug Use",
+      content: "Drug use can have serious effects on your physical and mental health, relationships, and future opportunities."
     },
     {
-      id: "security-measures",
-      image: "/LearnImage/CrimePrevention2.png",
-      title: "Park in Safe, Well-Lit Areas",
-      content: "Choose parking spots that are visible, well-lit, and preferably have security cameras or guards to discourage thieves."
+      id: "peer-pressure",
+      image: "/LearnImage/DrugAwareness2.png",
+      title: "Resist Peer Pressure",
+      content: "It's okay to say no. Surround yourself with people who support your decisions and respect your boundaries."
     },
     {
-      id: "parking-safety",
-      image: "/LearnImage/CrimePrevention3.png",
-      title: "Use Anti-Theft Devices",
-      content: "Equip your car with alarms, steering wheel locks, or GPS trackers. These devices add extra layers of protection and may prevent theft."
+      id: "get-help-early",
+      image: "/LearnImage/DrugAwareness3.png",
+      title: "Seek Help When Needed",
+      content: "If you or someone you know is struggling with substance use, reach out to trusted adults or professionals."
     },
     {
-      id: "technology-solutions",
-      image: "/LearnImage/CrimePrevention4.png",
-      title: "Stay Alert to Suspicious Activity",
-      content: "Be mindful of your surroundings. Report any unusual behavior or individuals lingering near vehicles to authorities or security personnel."
+      id: "stay-informed",
+      image: "/LearnImage/DrugAwareness4.png",
+      title: "Stay Informed About Substances",
+      content: "Learn about the different types of drugs, their effects, and how to avoid being misled by false information."
     }
+    
   ];
 
   // Load completed modules from IndexedDB on component mount
@@ -174,7 +175,7 @@ const DrugAwareness: React.FC = () => {
           {/* Learning module title */}
           <div className="w-full text-center mb-2">
             <h2 className="text-2xl font-bold text-gray-800">Drug Awareness</h2>
-            <p className="text-gray-600">Learn how to protect your vehicle from theft</p>
+            <p className="text-gray-600">Understand the dangers of drugs and how to stay drug-free.</p>
           </div>
         </div>
 

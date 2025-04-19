@@ -25,31 +25,30 @@ const IllegalFirearmsAwareness: React.FC = () => {
   // Define the slides for Anti-Carnapping content
   const IllegalFirearmsAwarenessSlides: SlideProps[] = [
     {
-      id: "carnapping-awareness",
-      image: "/LearnImage/CaseFiling.png",
-      title: " Be Mindful of Your Belongings",
-      content: "Always keep your bags, phones, and valuables close to you, especially in crowded areas like markets or terminals. Thieves often strike when you're distracted."
+      id: "report-illegal-firearms",
+      image: "/LearnImage/CrimePrevention/9.png",
+      title: "Report Illegal Firearms",
+      content: "Possession of unlicensed firearms is a criminal offense. Report illegal gun activity to authorities. (RA 10591)"
     },
     {
-      id: "security-measures",
-      image: "/LearnImage/Security.png",
-      title: "Avoid Isolated or Dark Places",
-      content: "Walk in well-lit, populated areas—especially at night. If possible, travel in groups or with someone you trust"
+      id: "licensed-gun-ownership",
+      image: "/LearnImage/CrimePrevention/10.png",
+      title: "Know the Law on Gun Ownership",
+      content: "The Comprehensive Firearms and Ammunition Regulation Act (RA 10591) regulates firearm licensing, use, and ownership."
     },
     {
-      id: "parking-safety",
-      image: "/LearnImage/Parking.png",
-      title: " Stay Aware of Your Surroundings",
-      content: "Avoid using headphones or getting too absorbed in your phone when walking. Awareness is your first defense against robbers."
+      id: "gun-safety-education",
+      image: "/LearnImage/CrimePrevention/11.png",
+      title: "Promote Firearm Safety Education",
+      content: "Legal gun owners must undergo safety seminars and exams to promote responsible use."
     },
     {
-      id: "technology-solutions",
-      image: "/LearnImage/Tech.png",
-      title: "Report Suspicious Activity Immediately",
-      content: "If you see someone acting suspiciously or feel unsafe, report it to nearby authorities or barangay officials right away."
-
-
+      id: "firearms-and-crime",
+      image: "/LearnImage/CrimePrevention/12.png",
+      title: "Illegal Guns Fuel Crime",
+      content: "Unregulated firearms contribute to violent crime. Help prevent gun violence by spreading awareness."
     }
+    
   ];
 
   // Load completed modules from IndexedDB on component mount

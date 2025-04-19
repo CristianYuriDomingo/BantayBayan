@@ -25,29 +25,30 @@ const IdentityPrivacyProtection: React.FC = () => {
   // Define the slides for Anti-Carnapping content
   const IdentityPrivacyProtectionSlides: SlideProps[] = [
     {
-      id: "carnapping-awareness",
-      image: "/LearnImage/CrimePrevention1.png",
-      title: "Lock Your Car at All Times",
-      content: "Always lock your doors and close all windows before leaving your vehicle. Even a quick stop can be an opportunity for carnappers."
+      id: "limit-personal-info",
+      image: "/LearnImage/Privacy1.png",
+      title: "Limit What You Share Online",
+      content: "Don’t post sensitive personal details like your address, full birthdate, or ID numbers."
     },
     {
-      id: "security-measures",
-      image: "/LearnImage/CrimePrevention2.png",
-      title: "Park in Safe, Well-Lit Areas",
-      content: "Choose parking spots that are visible, well-lit, and preferably have security cameras or guards to discourage thieves."
+      id: "check-permissions",
+      image: "/LearnImage/Privacy2.png",
+      title: "Review App Permissions",
+      content: "Only give apps the permissions they truly need. Disable location or microphone access if unnecessary."
     },
     {
-      id: "parking-safety",
-      image: "/LearnImage/CrimePrevention3.png",
-      title: "Use Anti-Theft Devices",
-      content: "Equip your car with alarms, steering wheel locks, or GPS trackers. These devices add extra layers of protection and may prevent theft."
+      id: "shred-documents",
+      image: "/LearnImage/Privacy3.png",
+      title: "Safely Dispose of Sensitive Documents",
+      content: "Shred old bills, IDs, or documents to prevent identity theft."
     },
     {
-      id: "technology-solutions",
-      image: "/LearnImage/CrimePrevention4.png",
-      title: "Stay Alert to Suspicious Activity",
-      content: "Be mindful of your surroundings. Report any unusual behavior or individuals lingering near vehicles to authorities or security personnel."
+      id: "social-engineering-awareness",
+      image: "/LearnImage/Privacy4.png",
+      title: "Be Aware of Social Engineering",
+      content: "Scammers may impersonate people or create fake emergencies to steal your information."
     }
+    
   ];
 
   // Load completed modules from IndexedDB on component mount
@@ -174,7 +175,7 @@ const IdentityPrivacyProtection: React.FC = () => {
           {/* Learning module title */}
           <div className="w-full text-center mb-2">
             <h2 className="text-2xl font-bold text-gray-800">Identity and Privacy Protection</h2>
-            <p className="text-gray-600">Learn how to protect your vehicle from theft</p>
+            <p className="text-gray-600">Protect your identity and keep your private info secure.</p>
           </div>
         </div>
 

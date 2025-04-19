@@ -25,29 +25,30 @@ const ScamFraudAwareness: React.FC = () => {
   // Define the slides for Anti-Carnapping content
   const ScamFraudAwarenessSlides: SlideProps[] = [
     {
-      id: "carnapping-awareness",
-      image: "/LearnImage/CrimePrevention1.png",
-      title: "Lock Your Car at All Times",
-      content: "Always lock your doors and close all windows before leaving your vehicle. Even a quick stop can be an opportunity for carnappers."
+      id: "verify-before-paying",
+      image: "/LearnImage/ScamAwareness1.png",
+      title: "Verify Before Sending Money",
+      content: "Double-check details when asked for payments, especially through email or SMS."
     },
     {
-      id: "security-measures",
-      image: "/LearnImage/CrimePrevention2.png",
-      title: "Park in Safe, Well-Lit Areas",
-      content: "Choose parking spots that are visible, well-lit, and preferably have security cameras or guards to discourage thieves."
+      id: "too-good-to-be-true",
+      image: "/LearnImage/ScamAwareness2.png",
+      title: "Watch Out for Unrealistic Offers",
+      content: "Scammers often lure victims with prizes, discounts, or job offers that sound too good to be true."
     },
     {
-      id: "parking-safety",
-      image: "/LearnImage/CrimePrevention3.png",
-      title: "Use Anti-Theft Devices",
-      content: "Equip your car with alarms, steering wheel locks, or GPS trackers. These devices add extra layers of protection and may prevent theft."
+      id: "fake-websites",
+      image: "/LearnImage/ScamAwareness3.png",
+      title: "Avoid Fake Websites",
+      content: "Look for secure URLs (https://) and check reviews to avoid phishing or fraudulent sites."
     },
     {
-      id: "technology-solutions",
-      image: "/LearnImage/CrimePrevention4.png",
-      title: "Stay Alert to Suspicious Activity",
-      content: "Be mindful of your surroundings. Report any unusual behavior or individuals lingering near vehicles to authorities or security personnel."
+      id: "report-scams",
+      image: "/LearnImage/ScamAwareness4.png",
+      title: "Report Scams Immediately",
+      content: "If you encounter or fall victim to a scam, report it to authorities or cybercrime units."
     }
+    
   ];
 
   // Load completed modules from IndexedDB on component mount
@@ -174,7 +175,7 @@ const ScamFraudAwareness: React.FC = () => {
           {/* Learning module title */}
           <div className="w-full text-center mb-2">
             <h2 className="text-2xl font-bold text-gray-800">Scam and Fraud Awareness</h2>
-            <p className="text-gray-600">Learn how to protect your vehicle from theft</p>
+            <p className="text-gray-600">Identify common scams and avoid falling victim to fraud.</p>
           </div>
         </div>
 

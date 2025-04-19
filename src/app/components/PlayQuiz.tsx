@@ -46,6 +46,10 @@ export default function PlayQuiz({ topic }: { topic: string }) {
   const [showFeedback, setShowFeedback] = useState(false);
   const [answerStatus, setAnswerStatus] = useState<"correct" | "incorrect" | null>(null);
   const [isButtonActive, setIsButtonActive] = useState(false);
+  
+  // Timer states
+  const [timeLeft, setTimeLeft] = useState(30); // 30 seconds per question
+  const [timerRunning, setTimerRunning] = useState(true);
 
   const isLastQuestion = currentQuestion === questions.length - 1;
 
@@ -54,15 +58,54 @@ export default function PlayQuiz({ topic }: { topic: string }) {
     setProgressWidth(((currentQuestion + 1) / questions.length) * 100);
   }, [currentQuestion, questions.length]);
 
+  // Timer effect
+  useEffect(() => {
+    // Reset timer when question changes
+    setTimeLeft(30);
+    setTimerRunning(true);
+
+    // Only run timer when feedback is not shown
+    let timer: NodeJS.Timeout;
+    if (timerRunning && !showFeedback) {
+      timer = setInterval(() => {
+        setTimeLeft((prevTime) => {
+          if (prevTime <= 1) {
+            clearInterval(timer);
+            setTimerRunning(false);
+            // Auto-select wrong answer if time runs out
+            if (!selectedAnswer) {
+              setAnswerStatus("incorrect");
+              setShowFeedback(true);
+            }
+            return 0;
+          }
+          return prevTime - 1;
+        });
+      }, 1000);
+    }
+
+    return () => {
+      if (timer) clearInterval(timer);
+    };
+  }, [currentQuestion, showFeedback, timerRunning, selectedAnswer]);
+
+  // Pause timer when feedback is shown
+  useEffect(() => {
+    if (showFeedback) {
+      setTimerRunning(false);
+    }
+  }, [showFeedback]);
+
   const handleAnswerSelect = (option: string) => {
     setSelectedAnswer(option);
     const isCorrect = option === questions[currentQuestion].correctAnswer;
     setAnswerStatus(isCorrect ? "correct" : "incorrect");
     setShowFeedback(true);
+    setTimerRunning(false); // Stop timer when answer is selected
   };
 
   const handleNext = () => {
-    if (!selectedAnswer) return;
+    if (!selectedAnswer && !showFeedback) return;
     
     // Update score if correct
     if (answerStatus === "correct") {
@@ -76,11 +119,24 @@ export default function PlayQuiz({ topic }: { topic: string }) {
 
     if (!isLastQuestion) {
       setCurrentQuestion(currentQuestion + 1);
+      setTimerRunning(true); // Restart timer for next question
     } else {
       // Redirect to the result page
       const finalScore = score + (answerStatus === "correct" ? 1 : 0);
       router.push(`/Quiz/${topic}/result?score=${finalScore}&total=${questions.length}&topic=${encodeURIComponent(topic)}`);
     }
+  };
+
+  // Format time for display
+  const formatTime = (seconds: number) => {
+    return `${String(Math.floor(seconds / 60)).padStart(2, '0')}:${String(seconds % 60).padStart(2, '0')}`;
+  };
+
+  // Calculate timer color based on time left
+  const getTimerColor = () => {
+    if (timeLeft > 20) return "text-green-600";
+    if (timeLeft > 10) return "text-yellow-500";
+    return "text-red-600";
   };
 
   if (questions.length === 0) {
@@ -123,6 +179,13 @@ export default function PlayQuiz({ topic }: { topic: string }) {
         {/* Progress Bar */}
         <div className="w-full h-2 bg-blue-100">
           <div className="bg-blue-500 h-full transition-all duration-300" style={{ width: `${progressWidth}%` }}></div>
+        </div>
+
+        {/* Timer Display */}
+        <div className="flex justify-center mt-4">
+          <div className={`font-bold text-2xl ${getTimerColor()}`}>
+            {formatTime(timeLeft)}
+          </div>
         </div>
 
         {/* Question Container */}
@@ -168,10 +231,10 @@ export default function PlayQuiz({ topic }: { topic: string }) {
                 <button
                   key={index}
                   className={`w-full py-4 px-6 rounded-2xl text-lg font-medium transition-all duration-300 ${buttonStyle} ${
-                    showFeedback ? "cursor-not-allowed" : "cursor-pointer"
+                    showFeedback || timeLeft === 0 ? "cursor-not-allowed" : "cursor-pointer"
                   }`}
-                  onClick={() => !showFeedback && handleAnswerSelect(option)}
-                  disabled={showFeedback}
+                  onClick={() => !showFeedback && timeLeft > 0 && handleAnswerSelect(option)}
+                  disabled={showFeedback || timeLeft === 0}
                 >
                   {option}
                 </button>
@@ -186,7 +249,7 @@ export default function PlayQuiz({ topic }: { topic: string }) {
             }`}>
               {answerStatus === "correct" 
                 ? "✅ Correct! Great job!" 
-                : `❌ Incorrect. The correct answer is: ${questions[currentQuestion].correctAnswer}`}
+                : `❌ ${selectedAnswer ? "Incorrect" : "Time's up!"}. The correct answer is: ${questions[currentQuestion].correctAnswer}`}
             </div>
           )}
 
@@ -194,19 +257,19 @@ export default function PlayQuiz({ topic }: { topic: string }) {
           <div className="flex justify-center mt-8">
             <button
               className={`relative px-8 py-3 text-base font-medium text-white bg-[#2d87ff] rounded-xl transition-all duration-150 ease-out ${
-                !selectedAnswer ? 'opacity-60 cursor-not-allowed' : ''
+                (!selectedAnswer && !showFeedback) ? 'opacity-60 cursor-not-allowed' : ''
               } ${
                 isButtonActive ? 'translate-y-1 shadow-none' : 'shadow-[0_4px_0_0_#2563eb]'
               }`}
-              onMouseDown={() => selectedAnswer && setIsButtonActive(true)}
+              onMouseDown={() => (selectedAnswer || showFeedback) && setIsButtonActive(true)}
               onMouseUp={() => {
-                if (selectedAnswer) {
+                if (selectedAnswer || showFeedback) {
                   setIsButtonActive(false);
                   handleNext();
                 }
               }}
               onMouseLeave={() => setIsButtonActive(false)}
-              disabled={!selectedAnswer}
+              disabled={!selectedAnswer && !showFeedback}
             >
               {isLastQuestion ? "Finish Quiz" : "Next Question"}
             </button>

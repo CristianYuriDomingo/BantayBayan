@@ -24,7 +24,13 @@ const Quiz: React.FC = () => {
 
 
     const topics = [
+       
+        { title: "Crime Prevention", link: "/Quiz/cyber-security/start", imageSrc: "/QuizImage/PoliceTape.png" },
         { title: "Cyber Security", link: "/Quiz/cyber-security/start", imageSrc: "/QuizImage/PoliceTape.png" },
+        { title: "Emergency Hotline", link: "/Quiz/cyber-security/start", imageSrc: "/QuizImage/PoliceTape.png" },
+        { title: "Drug Awareness", link: "/Quiz/cyber-security/start", imageSrc: "/QuizImage/PoliceTape.png" },
+        { title: "Crime Report", link: "/Quiz/cyber-security/start", imageSrc: "/QuizImage/PoliceTape.png" },
+        { title: "Terrorist Awareness", link: "/Quiz/cyber-security/start", imageSrc: "/QuizImage/PoliceTape.png" },
         { title: "Drug Prevention", link: "/Quiz/drug-prevention/start", imageSrc: "/QuizImage/PoliceTape.png" },
         { title: "Anti Terrorist", link: "/Quiz/anti-terrorist/start", imageSrc: "/QuizImage/PoliceTape.png" },
         { title: "Vote", link: "/Quiz/vote/start", imageSrc: "/QuizImage/PoliceTape.png" },
@@ -252,16 +258,13 @@ const Quiz: React.FC = () => {
                     </div>
 
                     {/* Right column - 30% */}
-                    <div className="w-full lg:w-[30%]">
-                       
-                        <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg p-5 flex flex-col h-full">
-                        <QuizCard/><br></br>
-                            <h2 className="text-lg font-bold text-gray-800 dark:text-gray-200 text-center mb-3">
-                                Quiz History
-                            </h2>
-                            <div className="border-t border-gray-300 dark:border-gray-600 mt-2 pt-3 flex-grow">
-                                <QuizHistory />
-                            </div>
+                    <div className="w-full lg:w-[30%] lg:sticky lg:top-4 h-screen bg-white dark:bg-gray-800 p-4 rounded-lg shadow flex flex-col gap-4 overflow-hidden">
+                        <QuizCard />
+                        <h2 className="text-lg font-bold text-gray-800 dark:text-gray-200 text-center mb-3">
+                            Quiz History
+                        </h2>
+                        <div className="border-t border-gray-300 dark:border-gray-600 mt-2 pt-3 flex-grow">
+                            <QuizHistory />
                         </div>
                     </div>
                 </div>
