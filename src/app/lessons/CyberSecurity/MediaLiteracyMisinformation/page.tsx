@@ -26,25 +26,25 @@ const MediaLiteracyMisinformation: React.FC = () => {
   const MediaLiteracyMisinformationSlides: SlideProps[] = [
     {
       id: "fact-check-sources",
-      image: "/LearnImage/Misinformation1.png",
+      image: "/LearnImage/CyberSecurity/37.png",
       title: "Always Fact-Check Information",
       content: "Before you share something online, verify it with reputable sources."
     },
     {
       id: "spot-deepfakes",
-      image: "/LearnImage/Misinformation2.png",
+      image: "/LearnImage/CyberSecurity/38.png",
       title: "Learn to Identify Deepfakes",
       content: "Some fake videos or images are designed to mislead. Question anything that looks suspiciously edited."
     },
     {
       id: "check-publication-date",
-      image: "/LearnImage/Misinformation3.png",
+      image: "/LearnImage/CyberSecurity/39.png",
       title: "Check the Date of Posts",
       content: "Old stories or headlines can be shared out of context. Make sure the content is current and relevant."
     },
     {
       id: "multiple-sources",
-      image: "/LearnImage/Misinformation4.png",
+      image: "/LearnImage/CyberSecurity/40.png",
       title: "Use Multiple Reliable Sources",
       content: "Don't rely on just one outlet. Cross-check information across different credible platforms."
     }
@@ -175,7 +175,8 @@ const MediaLiteracyMisinformation: React.FC = () => {
           {/* Learning module title */}
           <div className="w-full text-center mb-2">
             <h2 className="text-2xl font-bold text-gray-800">Media Literacy and Misinformation</h2>
-            <p className="text-gray-600">Learn how to protect your vehicle from theft</p>
+            <p className="text-gray-600">Learn to spot fake news and verify online information.
+            </p>
           </div>
         </div>
 

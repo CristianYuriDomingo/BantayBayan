@@ -26,25 +26,25 @@ const IdentityPrivacyProtection: React.FC = () => {
   const IdentityPrivacyProtectionSlides: SlideProps[] = [
     {
       id: "limit-personal-info",
-      image: "/LearnImage/Privacy1.png",
+      image: "/LearnImage/CyberSecurity/33.png",
       title: "Limit What You Share Online",
       content: "Don’t post sensitive personal details like your address, full birthdate, or ID numbers."
     },
     {
       id: "check-permissions",
-      image: "/LearnImage/Privacy2.png",
+      image: "/LearnImage/CyberSecurity/34.png",
       title: "Review App Permissions",
       content: "Only give apps the permissions they truly need. Disable location or microphone access if unnecessary."
     },
     {
       id: "shred-documents",
-      image: "/LearnImage/Privacy3.png",
+      image: "/LearnImage/CyberSecurity/35.png",
       title: "Safely Dispose of Sensitive Documents",
       content: "Shred old bills, IDs, or documents to prevent identity theft."
     },
     {
       id: "social-engineering-awareness",
-      image: "/LearnImage/Privacy4.png",
+      image: "/LearnImage/CyberSecurity/36.png",
       title: "Be Aware of Social Engineering",
       content: "Scammers may impersonate people or create fake emergencies to steal your information."
     }

@@ -26,25 +26,25 @@ const ScamFraudAwareness: React.FC = () => {
   const ScamFraudAwarenessSlides: SlideProps[] = [
     {
       id: "verify-before-paying",
-      image: "/LearnImage/ScamAwareness1.png",
+      image: "/LearnImage/CyberSecurity/29.png",
       title: "Verify Before Sending Money",
       content: "Double-check details when asked for payments, especially through email or SMS."
     },
     {
       id: "too-good-to-be-true",
-      image: "/LearnImage/ScamAwareness2.png",
+      image: "/LearnImage/CyberSecurity/30.png",
       title: "Watch Out for Unrealistic Offers",
       content: "Scammers often lure victims with prizes, discounts, or job offers that sound too good to be true."
     },
     {
       id: "fake-websites",
-      image: "/LearnImage/ScamAwareness3.png",
+      image: "/LearnImage/CyberSecurity/31.png",
       title: "Avoid Fake Websites",
       content: "Look for secure URLs (https://) and check reviews to avoid phishing or fraudulent sites."
     },
     {
       id: "report-scams",
-      image: "/LearnImage/ScamAwareness4.png",
+      image: "/LearnImage/CyberSecurity/32.png",
       title: "Report Scams Immediately",
       content: "If you encounter or fall victim to a scam, report it to authorities or cybercrime units."
     }

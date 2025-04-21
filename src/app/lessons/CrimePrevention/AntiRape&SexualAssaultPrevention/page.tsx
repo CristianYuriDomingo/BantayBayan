@@ -26,25 +26,25 @@ const AntiRapeSexualAssaultPrevention: React.FC = () => {
   const AntiRapeSexualAssaultPreventionSlides: SlideProps[] = [
     {
       id: "trust-your-instincts",
-      image: "/LearnImage/AntiRape5.png",
+      image: "/LearnImage/CrimePrevention/17.png",
       title: "Trust Your Instincts",
       content: "If something feels wrong, don’t ignore it. Leave the situation or seek help right away."
     },
     {
       id: "stay-safe-in-social-settings",
-      image: "/LearnImage/AntiRape6.png",
+      image: "/LearnImage/CrimePrevention/18.png",
       title: "Stay Safe in Social Settings",
       content: "Watch your drink, stay with trusted friends, and plan how to get home safely."
     },
     {
       id: "educate-others",
-      image: "/LearnImage/AntiRape7.png",
+      image: "/LearnImage/CrimePrevention/19.png",
       title: "Educate Others About Respect",
       content: "Spread awareness on the importance of respect, boundaries, and empathy in relationships."
     },
     {
       id: "create-safe-environments",
-      image: "/LearnImage/AntiRape8.png",
+      image: "/LearnImage/CrimePrevention/20.png",
       title: "Build Safe Communities",
       content: "Encourage open dialogue and zero tolerance for harassment in schools, homes, and workplaces."
     }

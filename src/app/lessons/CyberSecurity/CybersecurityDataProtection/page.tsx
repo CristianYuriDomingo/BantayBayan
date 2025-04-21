@@ -26,25 +26,25 @@
     const CybersecurityDataProtectionSlides: SlideProps[] = [
         {
             id: "strong-passwords",
-            image: "/LearnImage/CyberSecurity1.png",
+            image: "/LearnImage/CrimePrevention/21.png",
             title: "Use Strong, Unique Passwords",
             content: "Create complex passwords using a mix of letters, numbers, and symbols. Avoid using the same password across multiple accounts."
           },
           {
             id: "software-updates",
-            image: "/LearnImage/CyberSecurity2.png",
+            image: "/LearnImage/CrimePrevention/22.png",
             title: "Keep Software Up to Date",
             content: "Update your operating system and apps regularly to patch vulnerabilities that hackers might exploit."
           },
           {
             id: "2fa-protection",
-            image: "/LearnImage/CyberSecurity3.png",
+            image: "/LearnImage/CrimePrevention/23.png",
             title: "Enable Two-Factor Authentication",
             content: "Add an extra layer of security by using 2FA on your online accounts."
           },
           {
             id: "secure-wifi",
-            image: "/LearnImage/CyberSecurity4.png",
+            image: "/LearnImage/CrimePrevention/24.png",
             title: "Secure Your Wi-Fi Network",
             content: "Set a strong password and encryption on your home Wi-Fi to prevent unauthorized access."
           }

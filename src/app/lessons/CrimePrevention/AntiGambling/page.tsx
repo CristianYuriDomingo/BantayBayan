@@ -26,25 +26,25 @@ const AntiGambling: React.FC = () => {
   const AntiGamblingSlides: SlideProps[] = [
     {
       id: "illegal-gambling-law",
-      image: "/LearnImage/AntiGambling1.png",
+      image: "/LearnImage/CrimePrevention/13.png",
       title: "Illegal Gambling is Punishable by Law",
       content: "Under Presidential Decree No. 1602, illegal gambling is a criminal offense in the Philippines."
     },
     {
       id: "online-gambling-risks",
-      image: "/LearnImage/AntiGambling2.png",
+      image: "/LearnImage/CrimePrevention/14.png",
       title: "Beware of Online Gambling Scams",
       content: "Unlicensed gambling websites may lead to scams and identity theft. Stick to legal platforms if necessary."
     },
     {
       id: "gambling-addiction",
-      image: "/LearnImage/AntiGambling3.png",
+      image: "/LearnImage/CrimePrevention/15.png",
       title: "Gambling Can Be Addictive",
       content: "Excessive gambling leads to financial and emotional distress. Seek help if needed."
     },
     {
       id: "youth-gambling-awareness",
-      image: "/LearnImage/AntiGambling4.png",
+      image: "/LearnImage/CrimePrevention/16.png",
       title: "Protect Youth from Gambling",
       content: "Educate young people about the dangers of betting games and online casinos."
     }

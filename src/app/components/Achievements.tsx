@@ -3,15 +3,31 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import AchievementProgress from "../components/AchievementProgress";
 import AchievementsList from "./AchivementsList";
+import BadgeCollection from "../components/BadgeCollection";
 
+// Define interfaces for type safety
+interface Category {
+  id: string;
+  name: string;
+}
+
+interface Achievement {
+  id: number;
+  title: string;
+  description: string;
+  icon: string;
+  progress: number;
+  category: string;
+  rarity: 'common' | 'rare' | 'epic' | 'legendary';
+  xp: number;
+}
 
 const Achievements: React.FC = () => {
-    const [isSidebarOpen, setSidebarOpen] = useState(false);
-    const [isDropdownVisible, setDropdownVisible] = useState(true);
-    const [isClient, setIsClient] = useState(false);
-    const [selectedCategory, setSelectedCategory] = useState("all");
+    const [isSidebarOpen, setSidebarOpen] = useState<boolean>(false);
+    const [isDropdownVisible, setDropdownVisible] = useState<boolean>(true);
+    const [isClient, setIsClient] = useState<boolean>(false);
+    const [selectedCategory, setSelectedCategory] = useState<string>("all");
     const router = useRouter();
 
     useEffect(() => {
@@ -22,15 +38,14 @@ const Achievements: React.FC = () => {
         return null; // Render nothing on the server
     }
 
-    const categories = [
+    const categories: Category[] = [
         { id: "all", name: "All Achievements" },
         { id: "learning", name: "Learning" },
         { id: "quizzes", name: "Quizzes" },
-        { id: "quests", name: "Quests" },
-        { id: "social", name: "Community" }
+        { id: "quests", name: "Quests" }
     ];
       
-    const achievements = [
+    const achievements: Achievement[] = [
         // Learning achievements
         { 
             id: 1, 
@@ -323,9 +338,9 @@ const Achievements: React.FC = () => {
                         />
                     </div>
 
-                    {/* Right column - 30% - Achievement Stats */}
+                    {/* Right column - 30% - Badge Collection */}
                     <div className="w-full lg:w-[30%]">
-                        <AchievementProgress achievements={achievements} />
+                        <BadgeCollection achievements={achievements} />
                     </div>
                 </div>
             </div>
