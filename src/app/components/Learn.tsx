@@ -41,15 +41,15 @@ const Learn: React.FC = () => {
     { title: "Media Literacy & Misinformation Awareness", path: "/lessons/CyberSecurity/MediaLiteracyMisinformation" },
   ];
   const lessonsEmergencyHotline = [
-    { title: "Palayan City Emergency Hotline", path: "/lessons/CyberSecurity/CybersecurityDataProtection" },
+    { title: "Palayan City Emergency Hotline", path: "/lessons/EmergencyHotline" },
    
   ];
   const lessonsDrugAwareness = [
-    { title: "Drug Awareness and Prevention", path: "/lessons/CyberSecurity/CybersecurityDataProtection" },
+    { title: "Drug Awareness and Prevention", path: "/lessons/DrugAwareness" },
    
   ];
   const lessonsReportCrime = [
-    { title: "How to Report Crime", path: "/lessons/CyberSecurity/CybersecurityDataProtection" },
+    { title: "How to Report Crime", path: "/lessons/ReportCrime" },
    
   ];
   const lessonsTrafficRules = [
@@ -59,7 +59,7 @@ const Learn: React.FC = () => {
     { title: "Driving Under Influence", path: "/lessons/TrafficRules/DrivingUnderInfluence" },
   ];
   const lessonsAntiTerorist = [
-    { title: "Basic Traffic Rules", path: "/lessons/TrafficRules/BasicTrafficRules" },
+    { title: "Basic Traffic Rules", path: "/lessons/AntiTerorist" },
    
   ];
   const lessonsEmergencyPreparedness = [

@@ -3,41 +3,226 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
-const sampleQuestions = [
+// Cybersecurity Quiz Questions
+const cybersecurityQuestions = [
   {
     id: 1,
-    topic: "cyber-security",
-    question: "What is cybersecurity?",
-    options: ["Protection of data", "Online shopping", "Gaming", "Cooking"],
-    correctAnswer: "Protection of data",
+    topic: "Cyber-Security",
+    question: "What should you use to create complex passwords?",
+    options: ["Only lowercase letters", "A mix of letters, numbers, and symbols", "Your name and birthdate", "The same password for all accounts"],
+    correctAnswer: "A mix of letters, numbers, and symbols",
     difficulty: "Easy",
-    image: "/LessonImage/2.png",
+    image: "/LearnImage/CyberSecurity/21.png",
   },
   {
     id: 2,
-    topic: "cyber-security",
-    question: "What is phishing?",
-    options: ["A type of fish", "A cyber attack", "A game", "A cooking technique"],
-    correctAnswer: "A cyber attack",
-    difficulty: "Medium",
-    image: "/images/phishing.png",
+    topic: "Cyber-Security",
+    question: "Why is it important to keep your software up to date?",
+    options: ["To get new features only", "To patch vulnerabilities that hackers might exploit", "To use more storage space", "It's not important"],
+    correctAnswer: "To patch vulnerabilities that hackers might exploit",
+    difficulty: "Easy",
+    image: "/LearnImage/CyberSecurity/22.png",
   },
   {
     id: 3,
-    topic: "drug-prevention",
-    question: "What is drug abuse?",
-    options: ["Using medicine correctly", "Excessive use of drugs", "Eating healthy", "Sleeping early"],
-    correctAnswer: "Excessive use of drugs",
+    topic: "Cyber-Security",
+    question: "What does 2FA stand for?",
+    options: ["Two-Factor Authentication", "Two-Form Application", "Two-Face Authorization", "Two-Free Accounts"],
+    correctAnswer: "Two-Factor Authentication",
+    difficulty: "Medium",
+    image: "/LearnImage/CyberSecurity/23.png",
+  },
+  {
+    id: 4,
+    topic: "Cyber-Security",
+    question: "How can you secure your Wi-Fi network?",
+    options: ["Leave it open for everyone", "Use a simple password like '123456'", "Set a strong password and encryption", "Disconnect when not in use"],
+    correctAnswer: "Set a strong password and encryption",
+    difficulty: "Medium",
+    image: "/LearnImage/CyberSecurity/24.png",
+  },
+  {
+    id: 5,
+    topic: "Cyber-Security",
+    question: "What personal information should you avoid posting online?",
+    options: ["Your favorite color", "Your pet's name", "Your full address and ID numbers", "Your hobbies"],
+    correctAnswer: "Your full address and ID numbers",
     difficulty: "Easy",
-    image: "/LessonImage/drug.png",
+    image: "/LearnImage/CyberSecurity/33.png",
+  },
+  {
+    id: 6,
+    topic: "Cyber-Security",
+    question: "Why should you review app permissions?",
+    options: ["To make apps run faster", "To only give apps the permissions they truly need", "To see who created the app", "It's not necessary"],
+    correctAnswer: "To only give apps the permissions they truly need",
+    difficulty: "Medium",
+    image: "/LearnImage/CyberSecurity/34.png",
+  },
+  {
+    id: 7,
+    topic: "Cyber-Security",
+    question: "What should you do with old bills and IDs?",
+    options: ["Keep them forever", "Throw them in the trash", "Shred them", "Post pictures of them online"],
+    correctAnswer: "Shred them",
+    difficulty: "Easy",
+    image: "/LearnImage/CyberSecurity/35.png",
+  },
+  {
+    id: 8,
+    topic: "Cyber-Security",
+    question: "What is social engineering in cybersecurity?",
+    options: [
+      "Building social media platforms", 
+      "Impersonating people to steal information", 
+      "Making friends online", 
+      "Creating social networks"
+    ],
+    correctAnswer: "Impersonating people to steal information",
+    difficulty: "Hard",
+    image: "/LearnImage/CyberSecurity/36.png",
+  },
+  {
+    id: 9,
+    topic: "Cyber-Security",
+    question: "What should you do before sharing information online?",
+    options: ["Share it immediately", "Verify it with reputable sources", "Ask your friends", "Add your own details to it"],
+    correctAnswer: "Verify it with reputable sources",
+    difficulty: "Medium",
+    image: "/LearnImage/CyberSecurity/37.png",
+  },
+  {
+    id: 10,
+    topic: "Cyber-Security",
+    question: "What are deepfakes?",
+    options: ["Deep sea creatures", "Fake profiles", "Manipulated videos or images designed to mislead", "Deep web browsers"],
+    correctAnswer: "Manipulated videos or images designed to mislead",
+    difficulty: "Hard",
+    image: "/LearnImage/CyberSecurity/38.png",
+  },
+  {
+    id: 11,
+    topic: "Cyber-Security",
+    question: "Why is it important to check the date of online posts?",
+    options: ["To see if it's your birthday", "To make sure content is current and relevant", "Dates don't matter", "To check if it's a holiday"],
+    correctAnswer: "To make sure content is current and relevant",
+    difficulty: "Easy",
+    image: "/LearnImage/CyberSecurity/39.png",
+  },
+  {
+    id: 12,
+    topic: "Cyber-Security",
+    question: "What should you do when checking information online?",
+    options: ["Use one source only", "Use multiple reliable sources", "Believe everything you read", "Ignore the sources"],
+    correctAnswer: "Use multiple reliable sources",
+    difficulty: "Medium",
+    image: "/LearnImage/CyberSecurity/40.png",
+  },
+  {
+    id: 13,
+    topic: "Cyber-Security",
+    question: "What should you do before clicking on links or downloads?",
+    options: ["Click immediately", "Verify the source first", "Share with friends", "Ignore them completely"],
+    correctAnswer: "Verify the source first",
+    difficulty: "Easy",
+    image: "/LearnImage/CyberSecurity/25.png",
+  },
+  {
+    id: 14,
+    topic: "Cyber-Security",
+    question: "What should you do if you encounter cyberbullying?",
+    options: ["Join in", "Ignore it always", "Report it", "Share it with others"],
+    correctAnswer: "Report it",
+    difficulty: "Medium",
+    image: "/LearnImage/CyberSecurity/26.png",
+  },
+  {
+    id: 15,
+    topic: "Cyber-Security",
+    question: "Why should you limit screen time?",
+    options: ["To save electricity", "To avoid digital fatigue and improve focus", "Screens are always harmful", "It's not necessary"],
+    correctAnswer: "To avoid digital fatigue and improve focus",
+    difficulty: "Medium",
+    image: "/LearnImage/CyberSecurity/28.png",
+  },
+  {
+    id: 16,
+    topic: "Cyber-Security",
+    question: "What should you avoid doing on public Wi-Fi?",
+    options: ["Browsing news", "Checking the weather", "Entering personal or financial information", "Using social media"],
+    correctAnswer: "Entering personal or financial information",
+    difficulty: "Medium",
+    image: "/LearnImage/CyberSecurity/27.png",
+  },
+  {
+    id: 17,
+    topic: "Cyber-Security",
+    question: "What should you do when asked for payments through email or SMS?",
+    options: ["Pay immediately", "Double-check details", "Ignore all payment requests", "Share the request with friends"],
+    correctAnswer: "Double-check details",
+    difficulty: "Medium",
+    image: "/LearnImage/CyberSecurity/29.png",
+  },
+  {
+    id: 18,
+    topic: "Cyber-Security",
+    question: "What's often a sign of a scam?",
+    options: ["Clear contact information", "Offers that sound too good to be true", "Professional website design", "Slow website loading"],
+    correctAnswer: "Offers that sound too good to be true",
+    difficulty: "Easy",
+    image: "/LearnImage/CyberSecurity/30.png",
+  },
+  {
+    id: 19,
+    topic: "Cyber-Security",
+    question: "How can you identify a secure website?",
+    options: ["By its colorful design", "By looking for https:// in the URL", "By its popularity", "By its loading speed"],
+    correctAnswer: "By looking for https:// in the URL",
+    difficulty: "Medium",
+    image: "/LearnImage/CyberSecurity/31.png",
+  },
+  {
+    id: 20,
+    topic: "Cyber-Security",
+    question: "What should you do if you encounter a scam?",
+    options: ["Keep it to yourself", "Only tell family members", "Report it to authorities or cybercrime units", "Share it on social media"],
+    correctAnswer: "Report it to authorities or cybercrime units",
+    difficulty: "Easy",
+    image: "/LearnImage/CyberSecurity/32.png",
   },
 ];
+
+// Crime Prevention Quiz Questions - Sample placeholder, replace with your actual content
+const crimePreventionQuestions = [
+  {
+    id: 1,
+    topic: "Crime-Prevention",
+    question: "What is the best way to secure your home?",
+    options: ["Leave doors unlocked", "Install proper locks and security systems", "Hide the key under a mat", "Never lock your doors"],
+    correctAnswer: "Install proper locks and security systems",
+    difficulty: "Easy",
+    image: "/LearnImage/CrimePrevention/1.png",
+  },
+  {
+    id: 2,
+    topic: "Crime-Prevention",
+    question: "When walking alone at night, you should:",
+    options: ["Use well-lit paths", "Take shortcuts through dark alleys", "Look distracted on your phone", "Wear headphones with loud music"],
+    correctAnswer: "Use well-lit paths",
+    difficulty: "Medium",
+    image: "/LearnImage/CrimePrevention/2.png",
+  },
+  // Add more crime prevention questions as needed
+];
+
+// Combine all question types into one array
+const allQuestions = [...cybersecurityQuestions, ...crimePreventionQuestions];
 
 export default function PlayQuiz({ topic }: { topic: string }) {
   const router = useRouter();
 
   // Filter questions based on the topic
-  const questions = sampleQuestions.filter(q => q.topic === topic);
+  const questions = allQuestions.filter(q => q.topic === topic);
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
@@ -189,48 +374,48 @@ export default function PlayQuiz({ topic }: { topic: string }) {
         </div>
 
         {/* Question Container */}
-        <div className="px-6 py-8">
-          {/* Question Image */}
-          <div className="w-full flex justify-center mb-8">
-            <div className="w-full max-w-xl rounded-xl overflow-hidden shadow-md">
+        <div className="px-6 py-4">
+          {/* Question Image - Minimized with no shadow/border */}
+          <div className="w-full flex justify-center mb-4">
+            <div className="w-48 h-48 flex items-center justify-center">
               <Image 
                 src={questions[currentQuestion].image} 
                 alt="Question illustration" 
-                width={800}
-                height={400}
-                className="w-full object-cover"
+                width={180}
+                height={180}
+                className="object-contain"
                 priority
               />
             </div>
           </div>
 
           {/* Question Text */}
-          <h2 className="text-2xl font-bold text-gray-800 mb-8 text-center">{questions[currentQuestion].question}</h2>
+          <h2 className="text-xl font-bold text-gray-800 mb-6 text-center">{questions[currentQuestion].question}</h2>
 
           {/* Answer Options */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+          <div className="grid grid-cols-1 gap-3 mb-6">
             {questions[currentQuestion].options.map((option, index) => {
-              let buttonStyle = "bg-blue-100 text-blue-600 hover:bg-blue-200 hover:scale-105";
+              let buttonStyle = "bg-blue-100 text-blue-600 hover:bg-blue-200";
               
               if (selectedAnswer === option) {
                 if (showFeedback) {
                   // Show green if correct, red if incorrect
                   buttonStyle = option === questions[currentQuestion].correctAnswer 
-                    ? "bg-green-500 text-white shadow-md transform scale-105" 
-                    : "bg-red-500 text-white shadow-md";
+                    ? "bg-green-500 text-white" 
+                    : "bg-red-500 text-white";
                 } else {
                   // Selected but feedback not yet shown
-                  buttonStyle = "bg-blue-500 text-white shadow-md transform scale-105";
+                  buttonStyle = "bg-blue-500 text-white";
                 }
               } else if (showFeedback && option === questions[currentQuestion].correctAnswer) {
                 // Always highlight the correct answer when showing feedback
-                buttonStyle = "bg-green-500 text-white shadow-md";
+                buttonStyle = "bg-green-500 text-white";
               }
               
               return (
                 <button
                   key={index}
-                  className={`w-full py-4 px-6 rounded-2xl text-lg font-medium transition-all duration-300 ${buttonStyle} ${
+                  className={`w-full py-3 px-4 rounded-lg text-base font-medium transition-all duration-200 ${buttonStyle} ${
                     showFeedback || timeLeft === 0 ? "cursor-not-allowed" : "cursor-pointer"
                   }`}
                   onClick={() => !showFeedback && timeLeft > 0 && handleAnswerSelect(option)}
@@ -244,7 +429,7 @@ export default function PlayQuiz({ topic }: { topic: string }) {
 
           {/* Feedback Message */}
           {showFeedback && (
-            <div className={`text-center mb-6 py-3 px-4 rounded-lg font-medium shadow-sm ${
+            <div className={`text-center mb-4 py-2 px-3 rounded-lg font-medium ${
               answerStatus === "correct" ? "bg-green-100 text-green-800 border-l-4 border-green-500" : "bg-red-100 text-red-800 border-l-4 border-red-500"
             }`}>
               {answerStatus === "correct" 
@@ -253,22 +438,17 @@ export default function PlayQuiz({ topic }: { topic: string }) {
             </div>
           )}
 
-          {/* Next/Finish Button with custom style */}
-          <div className="flex justify-center mt-8">
+          {/* Next/Finish Button with more compact style */}
+          <div className="flex justify-center mt-4 mb-4">
             <button
-              className={`relative px-8 py-3 text-base font-medium text-white bg-[#2d87ff] rounded-xl transition-all duration-150 ease-out ${
-                (!selectedAnswer && !showFeedback) ? 'opacity-60 cursor-not-allowed' : ''
-              } ${
-                isButtonActive ? 'translate-y-1 shadow-none' : 'shadow-[0_4px_0_0_#2563eb]'
+              className={`px-6 py-2 text-base font-medium text-white bg-blue-500 rounded-lg transition-all duration-150 ${
+                (!selectedAnswer && !showFeedback) ? 'opacity-60 cursor-not-allowed' : 'hover:bg-blue-600'
               }`}
-              onMouseDown={() => (selectedAnswer || showFeedback) && setIsButtonActive(true)}
-              onMouseUp={() => {
+              onClick={() => {
                 if (selectedAnswer || showFeedback) {
-                  setIsButtonActive(false);
                   handleNext();
                 }
               }}
-              onMouseLeave={() => setIsButtonActive(false)}
               disabled={!selectedAnswer && !showFeedback}
             >
               {isLastQuestion ? "Finish Quiz" : "Next Question"}

@@ -24,30 +24,31 @@ const EmergencyHotline: React.FC = () => {
 
   // Define the slides for Anti-Carnapping content
   const EmergencyHotlineSlides: SlideProps[] = [
-    {
-      id: "carnapping-awareness",
-      image: "/LearnImage/CrimePrevention1.png",
-      title: "Lock Your Car at All Times",
-      content: "Always lock your doors and close all windows before leaving your vehicle. Even a quick stop can be an opportunity for carnappers."
-    },
-    {
-      id: "security-measures",
-      image: "/LearnImage/CrimePrevention2.png",
-      title: "Park in Safe, Well-Lit Areas",
-      content: "Choose parking spots that are visible, well-lit, and preferably have security cameras or guards to discourage thieves."
-    },
-    {
-      id: "parking-safety",
-      image: "/LearnImage/CrimePrevention3.png",
-      title: "Use Anti-Theft Devices",
-      content: "Equip your car with alarms, steering wheel locks, or GPS trackers. These devices add extra layers of protection and may prevent theft."
-    },
-    {
-      id: "technology-solutions",
-      image: "/LearnImage/CrimePrevention4.png",
-      title: "Stay Alert to Suspicious Activity",
-      content: "Be mindful of your surroundings. Report any unusual behavior or individuals lingering near vehicles to authorities or security personnel."
-    }
+   {
+  "id": "cdrmm-palayan",
+  "image": "/LearnImage/EmergencyHotline1.png",
+  "title": "City Disaster Risk Reduction Management",
+  "content": "Palayan City Rescue\n (044)-990-4357\n 0920-574-1581 / 0966-910-9674\nFor quick disaster response and emergencies in Palayan City."
+},
+{
+  "id": "health-office-palayan",
+  "image": "/LearnImage/EmergencyHotline2.png",
+  "title": "City Health Office",
+  "content": "City Infirmary Hospital\n 0917-107-3808 / 0917-801-8247\nFor health-related concerns and medical emergencies."
+},
+{
+  "id": "pnp-palayan",
+  "image": "/LearnImage/EmergencyHotline3.png",
+  "title": "City Police Station",
+  "content": "Palayan City PNP Office\n 0998-598-5430 / 0955-683-2498\nContact for law enforcement assistance and reporting crimes."
+},
+{
+  "id": "bfp-palayan",
+  "image": "/LearnImage/EmergencyHotline4.png",
+  "title": "City Fire Station",
+  "content": "Palayan City BFP Station\n (044)-940-1027\n 0943-066-9962 / 0935-956-9228\nFor fire-related emergencies and rescue operations."
+}
+
   ];
 
   // Load completed modules from IndexedDB on component mount

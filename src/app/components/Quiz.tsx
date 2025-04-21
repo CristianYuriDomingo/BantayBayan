@@ -21,20 +21,21 @@ const Quiz: React.FC = () => {
     if (!isClient) {
         return null; // Render nothing on the server 
     }
-
+    
 
     const topics = [
        
-        { title: "Crime Prevention", link: "/Quiz/cyber-security/start", imageSrc: "/QuizImage/PoliceTape.png" },
-        { title: "Cyber Security", link: "/Quiz/cyber-security/start", imageSrc: "/QuizImage/PoliceTape.png" },
-        { title: "Emergency Hotline", link: "/Quiz/cyber-security/start", imageSrc: "/QuizImage/PoliceTape.png" },
-        { title: "Drug Awareness", link: "/Quiz/cyber-security/start", imageSrc: "/QuizImage/PoliceTape.png" },
-        { title: "Crime Report", link: "/Quiz/cyber-security/start", imageSrc: "/QuizImage/PoliceTape.png" },
-        { title: "Terrorist Awareness", link: "/Quiz/cyber-security/start", imageSrc: "/QuizImage/PoliceTape.png" },
-        { title: "Drug Prevention", link: "/Quiz/drug-prevention/start", imageSrc: "/QuizImage/PoliceTape.png" },
-        { title: "Anti Terrorist", link: "/Quiz/anti-terrorist/start", imageSrc: "/QuizImage/PoliceTape.png" },
-        { title: "Vote", link: "/Quiz/vote/start", imageSrc: "/QuizImage/PoliceTape.png" },
-        { title: "Case Filing", link: "/Quiz/case-filing/start", imageSrc: "/QuizImage/PoliceTape.png" },
+        { title: "Crime Prevention", link: "/Quiz/Crime-Prevention/start", imageSrc: "/QuizImage/PoliceTape.png" },
+        { title: "Cyber Security", link: "/Quiz/Cyber-Security/start", imageSrc: "/QuizImage/PoliceTape.png" },
+        { title: "Emergency Hotline", link: "/Quiz/Emergency-Hotline/start", imageSrc: "/QuizImage/PoliceTape.png" },
+        { title: "Drug Awareness", link: "/Quiz/Drug-Awareness/start", imageSrc: "/QuizImage/PoliceTape.png" },
+        { title: "Crime Report", link: "/Quiz/Crime-Report/start", imageSrc: "/QuizImage/PoliceTape.png" },
+        { title: "Terrorist Awareness", link: "/Quiz/Terrorist-Awareness/start", imageSrc: "/QuizImage/PoliceTape.png" },
+        { title: "Traffic Rules", link: "/Quiz/Traffic-Rules/start", imageSrc: "/QuizImage/PoliceTape.png" },
+        { title: "Emergency Preparedness", link: "/Quiz/Emergency-Preparedness/start", imageSrc: "/QuizImage/PoliceTape.png" },
+        { title: "Voter Education", link: "/Quiz/Voter-Education/start", imageSrc: "/QuizImage/PoliceTape.png" },
+        { title: "Transport Safety", link: "/Quiz/Transpor-Safety/start", imageSrc: "/QuizImage/PoliceTape.png" },
+        { title: "Anti Smoking", link: "/Quiz/Anti-Smoking/start", imageSrc: "/QuizImage/PoliceTape.png" },
     ];
 
     return (
