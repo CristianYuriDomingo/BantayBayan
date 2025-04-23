@@ -20,7 +20,7 @@ const EmergencyHotline: React.FC = () => {
   const router = useRouter();
 
   // Define the module ID
-  const MODULE_ID = "emergency-hotline";
+  const MODULE_ID = "emergency-hotlines";
 
   // Define the slides for Anti-Carnapping content
   const EmergencyHotlineSlides: SlideProps[] = [

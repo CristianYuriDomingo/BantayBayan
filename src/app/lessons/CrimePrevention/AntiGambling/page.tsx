@@ -153,7 +153,7 @@ const AntiGambling: React.FC = () => {
             <div className="relative">
               <SpeechBubble
                 imageSrc="/MainImage/PibiTeach.png"
-                messages={["Be Aware and Stay Prepared", "Enjoy Reading!"]}
+                messages={["", ""]}
               />
             </div>
           </div>
@@ -188,7 +188,7 @@ const AntiGambling: React.FC = () => {
                 themeColor="blue"
                 completedModules={completedModules} 
                 onModuleComplete={handleFinishModule} 
-                finishButtonText="Complete Anti-Carnapping Module"
+                finishButtonText="Complete Anti Gambling Module"
                 completedButtonText="✓ Module Completed"
                 continueButtonText="Next Tip"
                 backButtonText="Previous Tip"

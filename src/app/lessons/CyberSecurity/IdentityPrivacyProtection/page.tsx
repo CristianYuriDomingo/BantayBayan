@@ -188,7 +188,7 @@ const IdentityPrivacyProtection: React.FC = () => {
                 themeColor="blue"
                 completedModules={completedModules} 
                 onModuleComplete={handleFinishModule} 
-                finishButtonText="Identity and Privacy Protection Module"
+                finishButtonText="Complete Identity and Privacy Protection Module"
                 completedButtonText="✓ Module Completed"
                 continueButtonText="Next Tip"
                 backButtonText="Previous Tip"

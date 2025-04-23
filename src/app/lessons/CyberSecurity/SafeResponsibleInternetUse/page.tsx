@@ -26,25 +26,25 @@ const SafeResponsibleInternetUse: React.FC = () => {
   const SafeResponsibleInternetUseSlides: SlideProps[] = [
     {
       id: "think-before-clicking",
-      image: "/LearnImage/CrimePrevention/25.png",
+      image: "/LearnImage/CyberSecurity/25.png",
       title: "Think Before You Click",
       content: "Avoid clicking on suspicious ads, links, or downloads. Always verify the source first."
     },
     {
       id: "respectful-behavior",
-      image: "/LearnImage/CrimePrevention/26.png",
+      image: "/LearnImage/CyberSecurity/26.png",
       title: "Be Respectful Online",
       content: "Treat others with kindness and report cyberbullying or inappropriate content."
     },
     {
       id: "screen-time-balance",
-      image: "/LearnImage/CrimePrevention/28.png",
+      image: "/LearnImage/CyberSecurity/28.png",
       title: "Maintain Screen Time Balance",
       content: "Set healthy boundaries for using devices to avoid digital fatigue and improve focus."
     },
     {
       id: "public-network-caution",
-      image: "/LearnImage/CrimePrevention/27.png",
+      image: "/LearnImage/CyberSecurity/27.png",
       title: "Be Cautious on Public Wi-Fi",
       content: "Avoid entering personal or financial information when connected to public networks."
     }
@@ -153,7 +153,7 @@ const SafeResponsibleInternetUse: React.FC = () => {
             <div className="relative">
               <SpeechBubble
                 imageSrc="/MainImage/PibiTeach.png"
-                messages={["Be Aware and Stay Prepared", "Enjoy Reading!"]}
+                messages={["", "Enjoy Reading!"]}
               />
             </div>
           </div>

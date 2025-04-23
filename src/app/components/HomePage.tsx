@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import Footer from "./Footer";
-import LetterCard from "./LetterCard";
 import { getUsersFromIndexedDB } from "../../../lib/userDB";
 
 const HomePage = () => {
@@ -249,22 +248,22 @@ const HomePage = () => {
           </div>
           <div>
             <Image
-              src="/HomePageImage/safe-community.png"
+              src="/HomePageImage/13.png"
               alt="Safe Community"
               width={400}
               height={300}
-              className="shadow-md mx-auto"
+              className="mx-auto"
             />
           </div>
 
           {/* Section 2 */}
           <div>
             <Image
-              src="/HomePageImage/expert-guidance.png"
+              src="/HomePageImage/14.png"
               alt="Expert Guidance"
               width={400}
               height={300}
-              className="shadow-md mx-auto"
+              className="mx-auto"
             />
           </div>
           <div>
@@ -287,11 +286,11 @@ const HomePage = () => {
           </div>
           <div>
             <Image
-              src="/HomePageImage/empowered-community.png"
+              src="/HomePageImage/15.png"
               alt="Empowered Community"
               width={400}
               height={300}
-              className="shadow-md mx-auto"
+              className="mx-auto"
             />
           </div>
         </div>

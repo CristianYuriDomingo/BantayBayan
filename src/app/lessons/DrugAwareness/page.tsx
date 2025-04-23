@@ -90,7 +90,7 @@ const DrugAwareness: React.FC = () => {
       // Complete the module in IndexedDB with a single moduleId for the whole anti-carnapping topic
       const badge = await completeModule({ 
         moduleId: MODULE_ID, 
-        moduleName: "Anti-Carnapping Module" 
+        moduleName: "Drug Awareness Module" 
       });
       
       console.log("Module completed, badge earned:", badge);

@@ -90,7 +90,7 @@ const IllegalFirearmsAwareness: React.FC = () => {
       // Complete the module in IndexedDB with a single moduleId for the whole anti-carnapping topic
       const badge = await completeModule({ 
         moduleId: MODULE_ID, 
-        moduleName: "Anti Rape & Sexual Assault Prevention Module" 
+        moduleName: "Illegal Firearms and Awareness Module" 
       });
       
       console.log("Module completed, badge earned:", badge);
@@ -153,7 +153,7 @@ const IllegalFirearmsAwareness: React.FC = () => {
             <div className="relative">
               <SpeechBubble
                 imageSrc="/MainImage/PibiTeach.png"
-                messages={["Be Aware and Stay Prepared", "Enjoy Reading!"]}
+                messages={["", "Enjoy Reading!"]}
               />
             </div>
           </div>
@@ -189,7 +189,7 @@ const IllegalFirearmsAwareness: React.FC = () => {
                 themeColor="blue"
                 completedModules={completedModules} 
                 onModuleComplete={handleFinishModule} 
-                finishButtonText="Complete Anti- Rape & SexualAssault Prevention Module"
+                finishButtonText="Complete Illegal Firearms Awareness Module"
                 completedButtonText="✓ Module Completed"
                 continueButtonText="Next Tip"
                 backButtonText="Previous Tip"

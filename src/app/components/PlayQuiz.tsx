@@ -3,8 +3,19 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
+// Define the Question type
+interface Question {
+  id: number;
+  topic: string;
+  question: string;
+  options: string[];
+  correctAnswer: string;
+  difficulty: string;
+  image: string;
+}
+
 // Cybersecurity Quiz Questions
-const cybersecurityQuestions = [
+const cybersecurityQuestions: Question[] = [
   {
     id: 1,
     topic: "Cyber-Security",
@@ -193,7 +204,7 @@ const cybersecurityQuestions = [
 ];
 
 // Crime Prevention Quiz Questions - Sample placeholder, replace with your actual content
-const crimePreventionQuestions = [
+const crimePreventionQuestions: Question[] = [
   {
     id: 1,
     topic: "Crime-Prevention",
@@ -216,13 +227,31 @@ const crimePreventionQuestions = [
 ];
 
 // Combine all question types into one array
-const allQuestions = [...cybersecurityQuestions, ...crimePreventionQuestions];
+const allQuestions: Question[] = [...cybersecurityQuestions, ...crimePreventionQuestions];
+
+// Function to shuffle array (Fisher-Yates algorithm)
+function shuffleArray(array: Question[]): Question[] {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+}
 
 export default function PlayQuiz({ topic }: { topic: string }) {
   const router = useRouter();
 
-  // Filter questions based on the topic
-  const questions = allQuestions.filter(q => q.topic === topic);
+  // Filter questions based on the topic and shuffle them
+  const [questions, setQuestions] = useState<Question[]>([]);
+  
+  // Initialize questions on component mount
+  useEffect(() => {
+    // Filter questions by topic
+    const topicQuestions = allQuestions.filter(q => q.topic === topic);
+    // Shuffle the filtered questions
+    setQuestions(shuffleArray(topicQuestions));
+  }, [topic]);
 
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
@@ -236,11 +265,11 @@ export default function PlayQuiz({ topic }: { topic: string }) {
   const [timeLeft, setTimeLeft] = useState(30); // 30 seconds per question
   const [timerRunning, setTimerRunning] = useState(true);
 
-  const isLastQuestion = currentQuestion === questions.length - 1;
-
   // Update progress bar on question change
   useEffect(() => {
-    setProgressWidth(((currentQuestion + 1) / questions.length) * 100);
+    if (questions.length > 0) {
+      setProgressWidth(((currentQuestion + 1) / questions.length) * 100);
+    }
   }, [currentQuestion, questions.length]);
 
   // Timer effect
@@ -251,7 +280,7 @@ export default function PlayQuiz({ topic }: { topic: string }) {
 
     // Only run timer when feedback is not shown
     let timer: NodeJS.Timeout;
-    if (timerRunning && !showFeedback) {
+    if (timerRunning && !showFeedback && questions.length > 0) {
       timer = setInterval(() => {
         setTimeLeft((prevTime) => {
           if (prevTime <= 1) {
@@ -272,7 +301,7 @@ export default function PlayQuiz({ topic }: { topic: string }) {
     return () => {
       if (timer) clearInterval(timer);
     };
-  }, [currentQuestion, showFeedback, timerRunning, selectedAnswer]);
+  }, [currentQuestion, showFeedback, timerRunning, selectedAnswer, questions.length]);
 
   // Pause timer when feedback is shown
   useEffect(() => {
@@ -324,16 +353,18 @@ export default function PlayQuiz({ topic }: { topic: string }) {
     return "text-red-600";
   };
 
+  // Only proceed if questions are loaded
   if (questions.length === 0) {
     return (
       <div className="flex justify-center items-center min-h-screen bg-gray-50">
         <div className="text-center text-xl text-gray-600 p-8 bg-white rounded-xl shadow-md">
-          No questions available for {topic.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}.
+          Loading questions for {topic.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}...
         </div>
       </div>
     );
   }
 
+  const isLastQuestion = currentQuestion === questions.length - 1;
   const formattedTopic = topic.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
 
   return (
@@ -394,7 +425,7 @@ export default function PlayQuiz({ topic }: { topic: string }) {
 
           {/* Answer Options */}
           <div className="grid grid-cols-1 gap-3 mb-6">
-            {questions[currentQuestion].options.map((option, index) => {
+            {questions[currentQuestion].options.map((option: string, index: number) => {
               let buttonStyle = "bg-blue-100 text-blue-600 hover:bg-blue-200";
               
               if (selectedAnswer === option) {

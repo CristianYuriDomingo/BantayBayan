@@ -52,32 +52,36 @@ const Learn: React.FC = () => {
     { title: "How to Report Crime", path: "/lessons/ReportCrime" },
    
   ];
+
+  const lessonsAntiTerorist = [
+    { title: "Basic Traffic Rules", path: "/lessons/AntiTerorist" },
+   
+  ];
   const lessonsTrafficRules = [
     { title: "Basic Traffic Rules", path: "/lessons/TrafficRules/BasicTrafficRules" },
     { title: "Road Safety Tips", path: "/lessons/TrafficRules/RoadSafetyTips" },
     { title: "Pedestrian Safety", path: "/lessons/TrafficRules/PedestrianSafety" },
     { title: "Driving Under Influence", path: "/lessons/TrafficRules/DrivingUnderInfluence" },
   ];
-  const lessonsAntiTerorist = [
-    { title: "Basic Traffic Rules", path: "/lessons/AntiTerorist" },
-   
-  ];
+ 
   const lessonsEmergencyPreparedness = [
-    { title: "Basic Traffic Rules", path: "/lessons/TrafficRules/BasicTrafficRules" },
-    { title: "Road Safety Tips", path: "/lessons/TrafficRules/RoadSafetyTips" },
-    { title: "Pedestrian Safety", path: "/lessons/TrafficRules/PedestrianSafety" },
-    { title: "Driving Under Influence", path: "/lessons/TrafficRules/DrivingUnderInfluence" },
+    { title: "Emergency Response", path: "/lessons/EmergencyPreparedness/EmergencyResponse" },
+    { title: "Evacuation Procedure", path: "/lessons/EmergencyPreparedness/EvacuationProcedure" },
+    { title: "Fire and Earthquake Drills", path: "/lessons/EmergencyPreparedness/Fire&EarthquakeDrills" },
+    { title: "First Aid Basic", path: "/lessons/EmergencyPreparedness/FirstAidBasic" },
+    { title: "Disaster Awareness", path: "/lessons/EmergencyPreparedness/DisasterAwareness" },
+
   ];
   const lessonsVoterEducation = [
-    { title: "How to Report Crime", path: "/lessons/CyberSecurity/CybersecurityDataProtection" },
+    { title: "Voter Education", path: "/lessons/VoterEducation" },
    
   ];
   const lessonsPublicTransport = [
-    { title: "Public Transport Safety Tips", path: "/lessons/CyberSecurity/CybersecurityDataProtection" },
+    { title: "Public Transport Safety Tips", path: "/lessons/PublicTransport" },
    
   ];
   const lessonsAntiSmoking = [
-    { title: "Smoking Prevention", path: "/lessons/CyberSecurity/CybersecurityDataProtection" },
+    { title: "Smoking Prevention", path: "/lessons/AntiSmoking" },
    
   ];
 

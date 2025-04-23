@@ -153,7 +153,7 @@ const AntiRapeSexualAssaultPrevention: React.FC = () => {
             <div className="relative">
               <SpeechBubble
                 imageSrc="/MainImage/PibiTeach.png"
-                messages={["Be Aware and Stay Prepared", "Enjoy Reading!"]}
+                messages={["", "Enjoy Reading!"]}
               />
             </div>
           </div>
@@ -176,7 +176,7 @@ const AntiRapeSexualAssaultPrevention: React.FC = () => {
           <div className="w-full text-center mb-2">
         <h2 className="text-2xl font-bold text-gray-800">Anti Rape & Sexual Assault Prevention</h2>
         <h2 className="text-2xl font-bold text-gray-800"></h2>
-            <p className="text-gray-600">Learn how to protect your vehicle from theft</p>
+            <p className="text-gray-600"></p>
           </div>
         </div>
 

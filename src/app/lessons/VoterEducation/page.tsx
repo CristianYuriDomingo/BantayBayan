@@ -9,7 +9,7 @@ import Image from "next/image";
 import { completeModule, getCompletedModules } from "../../../../lib/moduleDB";
 import CustomToast from "../../components/CustomToast";
 
-const AntiCarnapping: React.FC = () => {
+const VoterEducation: React.FC = () => {
   const [isClient, setIsClient] = useState(false);
   const [completedModules, setCompletedModules] = useState<string[]>([]);
   const [toast, setToast] = useState({
@@ -20,10 +20,10 @@ const AntiCarnapping: React.FC = () => {
   const router = useRouter();
 
   // Define the module ID
-  const MODULE_ID = "anti-carnapping";
+  const MODULE_ID = "voter-education";
 
   // Define the slides for Anti-Carnapping content
-  const antiCarnappingSlides: SlideProps[] = [
+  const VoterEducationSlides: SlideProps[] = [
     {
       id: "carnapping-awareness",
       image: "/LearnImage/CrimePrevention1.png",
@@ -89,7 +89,7 @@ const AntiCarnapping: React.FC = () => {
       // Complete the module in IndexedDB with a single moduleId for the whole anti-carnapping topic
       const badge = await completeModule({ 
         moduleId: MODULE_ID, 
-        moduleName: "Anti-Carnapping Module" 
+        moduleName: "Voter Education Module" 
       });
       
       console.log("Module completed, badge earned:", badge);
@@ -152,7 +152,7 @@ const AntiCarnapping: React.FC = () => {
             <div className="relative">
               <SpeechBubble
                 imageSrc="/MainImage/PibiTeach.png"
-                messages={["Be Aware and Stay Prepared", "Enjoy Reading!"]}
+                messages={["", "Enjoy Reading!"]}
               />
             </div>
           </div>
@@ -173,8 +173,8 @@ const AntiCarnapping: React.FC = () => {
 
           {/* Learning module title */}
           <div className="w-full text-center mb-2">
-            <h2 className="text-2xl font-bold text-gray-800">Anti Carnapping</h2>
-            <p className="text-gray-600">Learn how to protect your vehicle from theft</p>
+            <h2 className="text-2xl font-bold text-gray-800">Voter Education</h2>
+            <p className="text-gray-600"></p>
           </div>
         </div>
 
@@ -183,11 +183,11 @@ const AntiCarnapping: React.FC = () => {
           <div className="w-full max-w-6xl bg-white rounded-2xl shadow-lg p-4 md:p-0 overflow-hidden">
             {isClient && (
               <CarouselComponent 
-                slides={antiCarnappingSlides}
+                slides={VoterEducationSlides}
                 themeColor="blue"
                 completedModules={completedModules} 
                 onModuleComplete={handleFinishModule} 
-                finishButtonText="Complete Anti-Carnapping Module"
+                finishButtonText="Complete Voter Education Module"
                 completedButtonText="✓ Module Completed"
                 continueButtonText="Next Tip"
                 backButtonText="Previous Tip"
@@ -206,4 +206,4 @@ const AntiCarnapping: React.FC = () => {
   );
 };
 
-export default AntiCarnapping;
+export default VoterEducation;

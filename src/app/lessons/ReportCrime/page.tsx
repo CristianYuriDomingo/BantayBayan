@@ -89,7 +89,7 @@ const ReportCrime: React.FC = () => {
       // Complete the module in IndexedDB with a single moduleId for the whole anti-carnapping topic
       const badge = await completeModule({ 
         moduleId: MODULE_ID, 
-        moduleName: "Anti-Carnapping Module" 
+        moduleName: "Crime Report Module" 
       });
       
       console.log("Module completed, badge earned:", badge);
@@ -152,7 +152,7 @@ const ReportCrime: React.FC = () => {
             <div className="relative">
               <SpeechBubble
                 imageSrc="/MainImage/PibiTeach.png"
-                messages={["Be Aware and Stay Prepared", "Enjoy Reading!"]}
+                messages={["", "Enjoy Reading!"]}
               />
             </div>
           </div>
@@ -173,8 +173,8 @@ const ReportCrime: React.FC = () => {
 
           {/* Learning module title */}
           <div className="w-full text-center mb-2">
-            <h2 className="text-2xl font-bold text-gray-800">Reporting Crime</h2>
-            <p className="text-gray-600">Learn how to protect your vehicle from theft</p>
+            <h2 className="text-2xl font-bold text-gray-800">Crime Report</h2>
+            <p className="text-gray-600"></p>
           </div>
         </div>
 

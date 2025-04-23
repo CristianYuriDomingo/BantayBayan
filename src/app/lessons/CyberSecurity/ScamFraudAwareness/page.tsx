@@ -188,7 +188,7 @@ const ScamFraudAwareness: React.FC = () => {
                 themeColor="blue"
                 completedModules={completedModules} 
                 onModuleComplete={handleFinishModule} 
-                finishButtonText="Complete ScamFraudAwareness Module"
+                finishButtonText="Complete Scam and Fraud Awareness Module"
                 completedButtonText="✓ Module Completed"
                 continueButtonText="Next Tip"
                 backButtonText="Previous Tip"

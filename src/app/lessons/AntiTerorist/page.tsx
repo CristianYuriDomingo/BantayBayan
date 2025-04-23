@@ -90,7 +90,7 @@ const AntiTerorist: React.FC = () => {
       // Complete the module in IndexedDB with a single moduleId for the whole anti-carnapping topic
       const badge = await completeModule({ 
         moduleId: MODULE_ID, 
-        moduleName: "Anti-Carnapping Module" 
+        moduleName: "Anti-Terrorist Module" 
       });
       
       console.log("Module completed, badge earned:", badge);
@@ -188,7 +188,7 @@ const AntiTerorist: React.FC = () => {
                 themeColor="blue"
                 completedModules={completedModules} 
                 onModuleComplete={handleFinishModule} 
-                finishButtonText="Complete How to Report Crime Module"
+                finishButtonText="Complete Terrorism Awareness Module"
                 completedButtonText="✓ Module Completed"
                 continueButtonText="Next Tip"
                 backButtonText="Previous Tip"

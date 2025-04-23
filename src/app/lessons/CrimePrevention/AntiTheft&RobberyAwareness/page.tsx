@@ -91,7 +91,7 @@ const AntiTheftRobberyAwareness: React.FC = () => {
       // Complete the module in IndexedDB with a single moduleId for the whole anti-carnapping topic
       const badge = await completeModule({ 
         moduleId: MODULE_ID, 
-        moduleName: "Anti-Thef and Robbery Awareness Module" 
+        moduleName: "Anti-Theft and Robbery Awareness Module" 
       });
       
       console.log("Module completed, badge earned:", badge);
@@ -154,7 +154,7 @@ const AntiTheftRobberyAwareness: React.FC = () => {
             <div className="relative">
               <SpeechBubble
                 imageSrc="/MainImage/PibiTeach.png"
-                messages={["Be Aware and Stay Prepared", "Enjoy Reading!"]}
+                messages={["", "Enjoy Reading!"]}
               />
             </div>
           </div>
@@ -190,7 +190,7 @@ const AntiTheftRobberyAwareness: React.FC = () => {
                 themeColor="blue"
                 completedModules={completedModules} 
                 onModuleComplete={handleFinishModule} 
-                finishButtonText="Complete Anti- Rape & SexualAssault Prevention Module"
+                finishButtonText="Complete Anti Theft and Robbery Awarenes Module"
                 completedButtonText="✓ Module Completed"
                 continueButtonText="Next Tip"
                 backButtonText="Previous Tip"
