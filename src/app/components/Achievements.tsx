@@ -328,19 +328,19 @@ const Achievements: React.FC = () => {
                 
                 {/* Achievements Content */}
                 <div className="flex flex-col lg:flex-row w-full gap-6 pt-2 mt-2">
-                    {/* Left column - 70% - Achievements List */}
-                    <div className="w-full lg:w-[70%]">
+                    {/* Left column - 60% - Badge Collection */}
+                    <div className="w-full lg:w-[60%]">
+                        <BadgeCollection achievements={achievements} />
+                    </div>
+
+                    {/* Right column - 40% - Achievements List */}
+                    <div className="w-full lg:w-[40%]">
                         <AchievementsList 
                             filteredAchievements={filteredAchievements} 
                             categories={categories}
                             selectedCategory={selectedCategory}
                             setSelectedCategory={setSelectedCategory}
                         />
-                    </div>
-
-                    {/* Right column - 30% - Badge Collection */}
-                    <div className="w-full lg:w-[30%]">
-                        <BadgeCollection achievements={achievements} />
                     </div>
                 </div>
             </div>

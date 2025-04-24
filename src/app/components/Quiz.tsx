@@ -256,8 +256,7 @@ const Quiz: React.FC = () => {
 
               {/* Quiz Category Section - CENTRALIZED HEADING */}
               <div className="w-full">
-                <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">Quiz Categories</h2>
-
+               
                 {/* Quiz Topic Cards */}
                 <div className="w-full flex flex-col gap-4">
                   {visibleTopics.map((topic, index) => (
