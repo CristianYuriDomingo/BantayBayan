@@ -15,7 +15,7 @@ const LearnCard: React.FC<LearnCardProps> = ({ imageSrc, title, lessons, buttonT
 
   return (
     <>
-      <div className="relative w-40 h-56 sm:w-52 sm:h-68 md:w-60 md:h-80 rounded-lg overflow-hidden text-black transform-gpu shadow-lg transition-transform duration-300 hover:scale-105 hover:shadow-2xl bg-white">
+      <div className="group relative w-40 h-56 sm:w-52 sm:h-68 md:w-60 md:h-80 rounded-lg overflow-hidden text-black transform-gpu shadow-lg transition-transform duration-300 hover:scale-105 hover:shadow-2xl bg-white">
         <div className="relative w-full h-full">
           <Image
             src={imageSrc}
@@ -26,8 +26,8 @@ const LearnCard: React.FC<LearnCardProps> = ({ imageSrc, title, lessons, buttonT
           />
         </div>
 
-        <span className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-[#e0f7ff] via-transparent to-transparent backdrop-blur-md h-[30%] grid grid-rows-2 gap-1 p-3 items-center">
-          <span className="text-base sm:text-lg font-bold text-[#2d87ff] drop-shadow-md leading-tight truncate">{title}</span>
+        <span className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-[#e0f7ff] via-transparent to-transparent backdrop-blur-md h-[35%] grid grid-rows-2 gap-1 p-3 items-center">
+          <span className="text-base sm:text-lg font-bold text-[#2d87ff] drop-shadow-md leading-tight line-clamp-2">{title}</span>
           <span className="text-xs sm:text-sm text-[#2d87ff] drop-shadow-md">{lessons}</span>
         </span>
 
