@@ -24,6 +24,7 @@ const LearnCard: React.FC<LearnCardProps> = ({
   const [completedModules, setCompletedModules] = useState<string[]>([]);
   const [badges, setBadges] = useState<{badgeImage: string, badgeTitle: string}[]>([]);
   const [allCompleted, setAllCompleted] = useState(false);
+  const [imageError, setImageError] = useState(false);
 
   // Check if the modules are completed when component mounts
   useEffect(() => {
@@ -70,13 +71,21 @@ const LearnCard: React.FC<LearnCardProps> = ({
     <>
       <div className="group relative w-40 h-56 sm:w-52 sm:h-68 md:w-60 md:h-80 rounded-lg overflow-hidden text-black transform-gpu shadow-lg transition-transform duration-300 hover:scale-105 hover:shadow-2xl bg-white">
         <div className="relative w-full h-full">
-          <Image
-            src={imageSrc}
-            alt={title}
-            layout="fill"
-            objectFit="cover"
-            className="transition-transform duration-300 hover:scale-110 hover:-rotate-3"
-          />
+          {!imageError ? (
+            <Image
+              src={imageSrc}
+              alt={title}
+              layout="fill"
+              objectFit="cover"
+              className="transition-transform duration-300 hover:scale-110 hover:-rotate-3"
+              onError={() => setImageError(true)}
+              unoptimized // Try this if your images are external or not properly processed by Next.js
+            />
+          ) : (
+            <div className="w-full h-full flex items-center justify-center bg-gray-200">
+              <span className="text-gray-500">Image not available</span>
+            </div>
+          )}
           
           {/* Badge container - horizontal row at top left */}
           {badges.length > 0 && (
@@ -89,6 +98,7 @@ const LearnCard: React.FC<LearnCardProps> = ({
                       alt={badge.badgeTitle}
                       layout="fill"
                       objectFit="contain"
+                      unoptimized // Try this if your badge images aren't loading
                     />
                   </div>
                   {/* Tooltip on hover */}

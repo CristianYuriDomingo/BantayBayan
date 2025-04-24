@@ -26,25 +26,25 @@
     const CybersecurityDataProtectionSlides: SlideProps[] = [
         {
             id: "strong-passwords",
-            image: "/LearnImage/CrimePrevention/21.png",
+            image: "/LearnImage/CyberSecurity/21.png",
             title: "Use Strong, Unique Passwords",
             content: "Create complex passwords using a mix of letters, numbers, and symbols. Avoid using the same password across multiple accounts."
           },
           {
             id: "software-updates",
-            image: "/LearnImage/CrimePrevention/22.png",
+            image: "/LearnImage/CyberSecurity/22.png",
             title: "Keep Software Up to Date",
             content: "Update your operating system and apps regularly to patch vulnerabilities that hackers might exploit."
           },
           {
             id: "2fa-protection",
-            image: "/LearnImage/CrimePrevention/23.png",
+            image: "/LearnImage/CyberSecurity/23.png",
             title: "Enable Two-Factor Authentication",
             content: "Add an extra layer of security by using 2FA on your online accounts."
           },
           {
             id: "secure-wifi",
-            image: "/LearnImage/CrimePrevention/24.png",
+            image: "/LearnImage/CyberSecurity/24.png",
             title: "Secure Your Wi-Fi Network",
             content: "Set a strong password and encryption on your home Wi-Fi to prevent unauthorized access."
           }
@@ -103,7 +103,7 @@
         // Show badge notification if a badge was earned
         if (badge) {
             console.log("Displaying toast for badge:", badge);
-            showToast(`🎉 Badge Earned: ${badge}!`, "success");
+            showToast(`🎉 Badge Earned: ${badge.title}!`, "success");
         } else {
             console.log("No badge earned for this module");
         }

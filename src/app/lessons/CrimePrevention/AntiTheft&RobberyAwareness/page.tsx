@@ -104,7 +104,7 @@ const AntiTheftRobberyAwareness: React.FC = () => {
       // Show badge notification if a badge was earned
       if (badge) {
         console.log("Displaying toast for badge:", badge);
-        showToast(`🎉 Badge Earned: ${badge}!`, "success");
+        showToast(`🎉 Badge Earned: ${badge.title}!`, "success");
       } else {
         console.log("No badge earned for this module");
       }
