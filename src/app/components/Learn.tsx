@@ -306,6 +306,7 @@ const Learn: React.FC = () => {
                 title="Crime Prevention"
                 lessons={countLessons(lessonsCrimePrevention)}
                 buttonText="Learn"
+                moduleId={["anti-carnapping", "anti-theft", "illegal-firearms-awareness", "anti-gambling", "anti-rape-and-sexual-assault-prevention"]}
                 modalContent={
                   <div>
                     <h3 className="text-xl font-semibold">Crime Prevention</h3>
@@ -330,6 +331,7 @@ const Learn: React.FC = () => {
                 title="Digital & Cyber Safety"
                 lessons={countLessons(lessonsCyberSecurity)}
                 buttonText="Learn"
+                moduleId={["cybersecurity-data-protection", "identity-privacy-protection", "media-literacy-misinformation", "safe-responsible-internet-use"]}
                 modalContent={
                   <div>
                     <h3 className="text-xl font-semibold">Digital & Cyber Safety</h3>
@@ -354,6 +356,7 @@ const Learn: React.FC = () => {
                 title="Palayan City Hotlines"
                 lessons={countLessons(lessonsEmergencyHotline)}
                 buttonText="Learn"
+                moduleId="emergency-hotlines"
                 modalContent={
                   <div>
                     <h3 className="text-xl font-semibold">  Palayan City Hotlines</h3>
@@ -379,6 +382,7 @@ const Learn: React.FC = () => {
                 title="Drug Awareness & Prevention"
                 lessons={countLessons(lessonsDrugAwareness)}
                 buttonText="Learn"
+                moduleId="drug-awareness"
                 modalContent={
                   <div>
                     <h3 className="text-xl font-semibold">Drug Awareness And Prevention</h3>
