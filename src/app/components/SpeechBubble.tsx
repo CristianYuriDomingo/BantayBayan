@@ -32,7 +32,7 @@ export default function SpeechBubble({ imageSrc, messages, typingSpeed = 50, del
     <div className="flex items-center space-x-4 p-4">
       {/* Character Image - Now wrapped in a fixed div with ref */}
       <div ref={imageRef} className="flex-shrink-0">
-        <Image src={imageSrc} alt="Character" width={80} height={80} className="rounded-full" />
+        <Image src={imageSrc} alt="Character" width={80} height={80} />
       </div>
 
       {/* Speech Bubble - Slightly more radius but still boxy like Duolingo */}

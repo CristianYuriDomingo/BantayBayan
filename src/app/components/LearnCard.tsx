@@ -12,6 +12,11 @@ interface LearnCardProps {
   moduleId?: string | string[]; // Can be a single moduleId or array of moduleIds
 }
 
+interface Badge {
+  badgeImage: string;
+  badgeTitle: string;
+}
+
 const LearnCard: React.FC<LearnCardProps> = ({ 
   imageSrc, 
   title, 
@@ -21,11 +26,13 @@ const LearnCard: React.FC<LearnCardProps> = ({
   moduleId
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [badgeModalOpen, setBadgeModalOpen] = useState(false);
   const [completedModules, setCompletedModules] = useState<string[]>([]);
-  const [badges, setBadges] = useState<{badgeImage: string, badgeTitle: string}[]>([]);
+  const [badges, setBadges] = useState<Badge[]>([]);
   const [allCompleted, setAllCompleted] = useState(false);
   const [imageError, setImageError] = useState(false);
-
+  const [selectedBadge, setSelectedBadge] = useState<Badge | null>(null);
+  
   // Check if the modules are completed when component mounts
   useEffect(() => {
     const checkModuleStatus = async () => {
@@ -35,7 +42,7 @@ const LearnCard: React.FC<LearnCardProps> = ({
         // Handle either single moduleId or array of moduleIds
         const moduleIds = Array.isArray(moduleId) ? moduleId : [moduleId];
         const completed: string[] = [];
-        const badgesList: {badgeImage: string, badgeTitle: string}[] = [];
+        const badgesList: Badge[] = [];
         
         // Check each module's completion status
         for (const id of moduleIds) {
@@ -67,6 +74,12 @@ const LearnCard: React.FC<LearnCardProps> = ({
     checkModuleStatus();
   }, [moduleId]);
 
+  // Function to handle badge click
+  const handleBadgeClick = (badge: Badge) => {
+    setSelectedBadge(badge);
+    setBadgeModalOpen(true);
+  };
+
   return (
     <>
       <div className="group relative w-40 h-56 sm:w-52 sm:h-68 md:w-60 md:h-80 rounded-lg overflow-hidden text-black transform-gpu shadow-lg transition-transform duration-300 hover:scale-105 hover:shadow-2xl bg-white">
@@ -89,28 +102,29 @@ const LearnCard: React.FC<LearnCardProps> = ({
           
           {/* Badge container - horizontal row at top left */}
           {badges.length > 0 && (
-            <div className="absolute top-2 left-2 flex space-x-1 z-10">
+            <div className="absolute top-2 left-2 flex space-x-2 z-20">
               {badges.slice(0, 3).map((badge, index) => (
-                <div key={index} className="w-8 h-8 sm:w-10 sm:h-10 filter drop-shadow-lg group-hover:scale-110 transition-transform duration-200">
+                <div 
+                  key={index} 
+                  className="relative w-6 h-6 sm:w-8 sm:h-8 filter drop-shadow-lg transition-transform duration-200 hover:scale-110 cursor-pointer"
+                  onClick={() => handleBadgeClick(badge)}
+                >
                   <div className="relative w-full h-full">
                     <Image
                       src={badge.badgeImage}
                       alt={badge.badgeTitle}
                       layout="fill"
                       objectFit="contain"
-                      unoptimized // Try this if your badge images aren't loading
+                      unoptimized
                     />
-                  </div>
-                  {/* Tooltip on hover */}
-                  <div className="absolute bottom-full left-0 mb-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
-                    <div className="bg-white text-xs px-2 py-1 rounded shadow-md">
-                      {badge.badgeTitle}
-                    </div>
                   </div>
                 </div>
               ))}
               {badges.length > 3 && (
-                <div className="w-8 h-8 sm:w-10 sm:h-10 bg-blue-100 rounded-full flex items-center justify-center text-xs sm:text-sm font-semibold text-blue-600">
+                <div 
+                  className="w-6 h-6 sm:w-8 sm:h-8 bg-blue-100 rounded-full flex items-center justify-center text-xs sm:text-sm font-semibold text-blue-600 cursor-pointer"
+                  onClick={() => setIsModalOpen(true)}
+                >
                   +{badges.length - 3}
                 </div>
               )}
@@ -138,9 +152,30 @@ const LearnCard: React.FC<LearnCardProps> = ({
         </span>
       </div>
 
-      {/* Modal Component */}
+      {/* Main Content Modal */}
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         {modalContent}
+      </Modal>
+
+      {/* Badge Detail Modal */}
+      <Modal isOpen={badgeModalOpen} onClose={() => setBadgeModalOpen(false)}>
+        {selectedBadge && (
+          <div className="p-4 flex flex-col items-center">
+            <div className="w-24 h-24 mb-4 relative">
+              <Image
+                src={selectedBadge.badgeImage}
+                alt={selectedBadge.badgeTitle}
+                layout="fill"
+                objectFit="contain"
+                unoptimized
+              />
+            </div>
+            <h2 className="text-xl font-bold mb-2">{selectedBadge.badgeTitle}</h2>
+            <p className="text-center">
+              You've earned this badge for completing this learning module!
+            </p>
+          </div>
+        )}
       </Modal>
     </>
   );

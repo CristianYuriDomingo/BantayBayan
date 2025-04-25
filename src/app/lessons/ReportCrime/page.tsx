@@ -174,7 +174,7 @@ const ReportCrime: React.FC = () => {
           {/* Learning module title */}
           <div className="w-full text-center mb-2">
             <h2 className="text-2xl font-bold text-gray-800">Crime Report</h2>
-            <p className="text-gray-600"></p>
+            <p className="text-gray-600">Know the steps to report crimes safely and effectively.</p>
           </div>
         </div>
 

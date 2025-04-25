@@ -174,8 +174,8 @@ const EmergencyHotline: React.FC = () => {
 
           {/* Learning module title */}
           <div className="w-full text-center mb-2">
-            <h2 className="text-2xl font-bold text-gray-800">Emergency Hotlines</h2>
-            <p className="text-gray-600">Learn how to protect your vehicle from theft</p>
+            <h2 className="text-2xl font-bold text-gray-800">Palayan City Emergency Hotline</h2>
+            <p className="text-gray-600">Quick access to emergency services in Palayan City.</p>
           </div>
         </div>
 

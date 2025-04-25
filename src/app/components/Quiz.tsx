@@ -32,7 +32,7 @@ const Quiz: React.FC = () => {
     { title: "Traffic Rules", link: "/Quiz/Traffic-Rules/start", imageSrc: "/QuizImage/PoliceTape.png" },
     { title: "Emergency Preparedness", link: "/Quiz/Emergency-Preparedness/start", imageSrc: "/QuizImage/PoliceTape.png" },
     { title: "Voter Education", link: "/Quiz/Voter-Education/start", imageSrc: "/QuizImage/PoliceTape.png" },
-    { title: "Transport Safety", link: "/Quiz/Transpor-Safety/start", imageSrc: "/QuizImage/PoliceTape.png" },
+    { title: "Transport Safety", link: "/Quiz/Transport-Safety/start", imageSrc: "/QuizImage/PoliceTape.png" },
     { title: "Anti Smoking", link: "/Quiz/Anti-Smoking/start", imageSrc: "/QuizImage/PoliceTape.png" },
     { title: "Crime Report", link: "/Quiz/Crime-Report/start", imageSrc: "/QuizImage/PoliceTape.png" },
   ];

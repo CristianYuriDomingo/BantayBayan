@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import AchievementsList from "./AchivementsList";
 import BadgeCollection from "../components/BadgeCollection";
+import AchievementCard from "./AchievementCard"; // Import the AchievementCard component
 
 // Define interfaces for type safety
 interface Category {
@@ -305,8 +306,8 @@ const Achievements: React.FC = () => {
                 </div>
             </aside>
 
-            {/* Main Content - Added proper spacing */}
-            <div className="flex-1 p-4 sm:ml-72 md:ml-80">
+            {/* Main Content */}
+            <div className="flex-1 p-4 sm:ml-72 md:ml-80 h-screen overflow-hidden">
                 <button
                     onClick={() => setSidebarOpen(!isSidebarOpen)}
                     className="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none"
@@ -325,16 +326,20 @@ const Achievements: React.FC = () => {
                         ></path>
                     </svg>
                 </button>
-                
+
                 {/* Achievements Content */}
-                <div className="flex flex-col lg:flex-row w-full gap-6 pt-2 mt-2">
+                <div className="flex flex-col lg:flex-row w-full gap-6 pt-2 mt-2 h-[calc(100vh-80px)]">
                     {/* Left column - 60% - Badge Collection */}
-                    <div className="w-full lg:w-[60%]">
+                    <div className="w-full lg:w-[60%] overflow-y-auto pb-4">
                         <BadgeCollection achievements={achievements} />
                     </div>
 
                     {/* Right column - 40% - Achievements List */}
-                    <div className="w-full lg:w-[40%]">
+                    <div className="w-full lg:w-[40%] flex flex-col">
+                        {/* Achievement Card */}
+                        <AchievementCard />
+                        
+                        {/* Achievements List */}
                         <AchievementsList 
                             filteredAchievements={filteredAchievements} 
                             categories={categories}
@@ -344,7 +349,7 @@ const Achievements: React.FC = () => {
                     </div>
                 </div>
             </div>
-        </div>  
+        </div>
     );
 };
 

@@ -9,6 +9,7 @@ import SearchBar from "./SearchBar";
 import CompletedModules from "./CompletedModules";
 import RecentActivity from "./RecentActivity";
 import RecommendedNext from "./RecommendedNext";
+import LessonButton from "./LessonButton"; // Added LessonButton import
 
 const Learn: React.FC = () => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
@@ -301,7 +302,7 @@ const Learn: React.FC = () => {
             </div>
 
             <div className="flex flex-wrap justify-center gap-4 p-4">
-            <LearnCard
+              <LearnCard
                 imageSrc="/LearnImage/CrimePrevention.png"
                 title="Crime Prevention"
                 lessons={countLessons(lessonsCrimePrevention)}
@@ -312,16 +313,22 @@ const Learn: React.FC = () => {
                     <h3 className="text-xl font-semibold">Crime Prevention</h3>
                     <p className="text-gray-600 mb-4">Choose a Lesson</p>
                     <ul className="space-y-3">
-                      {lessonsCrimePrevention.map((lesson, index) => (
-                        <li key={index}>
-                          <button
-                            className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300"
-                            onClick={() => router.push(lesson.path)}
-                          >
-                            {lesson.title}
-                          </button>
-                        </li>
-                      ))}
+                      {lessonsCrimePrevention.map((lesson, index) => {
+                        // Map the lesson to the corresponding moduleId
+                        const moduleIds = ["anti-carnapping", "anti-theft", "illegal-firearms-awareness", "anti-gambling", "anti-rape-and-sexual-assault-prevention"];
+                        const moduleId = moduleIds[index] || "unknown";
+                        
+                        return (
+                          <li key={index}>
+                            <LessonButton
+                              moduleId={moduleId}
+                              onClick={() => router.push(lesson.path)}
+                            >
+                              {lesson.title}
+                            </LessonButton>
+                          </li>
+                        );
+                      })}
                     </ul>
                   </div>
                 }
@@ -331,27 +338,33 @@ const Learn: React.FC = () => {
                 title="Digital & Cyber Safety"
                 lessons={countLessons(lessonsCyberSecurity)}
                 buttonText="Learn"
-                moduleId={["cybersecurity-data-protection", "identity-privacy-protection", "media-literacy-misinformation", "safe-responsible-internet-use"]}
+                moduleId={["cybersecurity-data-protection", "identity-privacy-protection", "media-literacy-misinformation", "safe-responsible-internet-use", "scam-fraud-awareness"]}
                 modalContent={
                   <div>
                     <h3 className="text-xl font-semibold">Digital & Cyber Safety</h3>
                     <p className="text-gray-600 mb-4">Choose a Lesson</p>
                     <ul className="space-y-3">
-                      {lessonsCyberSecurity.map((lesson, index) => (
-                        <li key={index}>
-                          <button
-                            className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300"
-                            onClick={() => router.push(lesson.path)}
-                          >
-                            {lesson.title}
-                          </button>
-                        </li>
-                      ))}
+                      {lessonsCyberSecurity.map((lesson, index) => {
+                        // Map the lesson to the corresponding moduleId
+                        const moduleIds = ["cybersecurity-data-protection", "safe-responsible-internet-use", "scam-fraud-awareness", "identity-privacy-protection", "media-literacy-misinformation"];
+                        const moduleId = moduleIds[index] || "unknown";
+                        
+                        return (
+                          <li key={index}>
+                            <LessonButton
+                              moduleId={moduleId}
+                              onClick={() => router.push(lesson.path)}
+                            >
+                              {lesson.title}
+                            </LessonButton>
+                          </li>
+                        );
+                      })}
                     </ul>
                   </div>
                 }
               />
-                <LearnCard
+              <LearnCard
                 imageSrc="/LearnImage/EmergencyHotlineNumbers.png"
                 title="Palayan City Hotlines"
                 lessons={countLessons(lessonsEmergencyHotline)}
@@ -359,17 +372,17 @@ const Learn: React.FC = () => {
                 moduleId="emergency-hotlines"
                 modalContent={
                   <div>
-                    <h3 className="text-xl font-semibold">  Palayan City Hotlines</h3>
+                    <h3 className="text-xl font-semibold">Palayan City Hotlines</h3>
                     <p className="text-gray-600 mb-4">Choose a Lesson</p>
                     <ul className="space-y-3">
                       {lessonsEmergencyHotline.map((lesson, index) => (
                         <li key={index}>
-                          <button
-                            className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300"
+                          <LessonButton
+                            moduleId="emergency-hotlines"
                             onClick={() => router.push(lesson.path)}
                           >
                             {lesson.title}
-                          </button>
+                          </LessonButton>
                         </li>
                       ))}
                     </ul>
@@ -390,12 +403,12 @@ const Learn: React.FC = () => {
                     <ul className="space-y-3">
                       {lessonsDrugAwareness.map((lesson, index) => (
                         <li key={index}>
-                          <button
-                            className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300"
+                          <LessonButton
+                            moduleId="drug-awareness"
                             onClick={() => router.push(lesson.path)}
                           >
                             {lesson.title}
-                          </button>
+                          </LessonButton>
                         </li>
                       ))}
                     </ul>
@@ -407,6 +420,7 @@ const Learn: React.FC = () => {
                 title="How To Report a Crime"
                 lessons={countLessons(lessonsReportCrime)}
                 buttonText="Learn"
+                moduleId="report-crime"
                 modalContent={
                   <div>
                     <h3 className="text-xl font-semibold">How to Report a Crime</h3>
@@ -414,12 +428,12 @@ const Learn: React.FC = () => {
                     <ul className="space-y-3">
                       {lessonsReportCrime.map((lesson, index) => (
                         <li key={index}>
-                          <button
-                            className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300"
+                          <LessonButton
+                            moduleId="report-crime"
                             onClick={() => router.push(lesson.path)}
                           >
                             {lesson.title}
-                          </button>
+                          </LessonButton>
                         </li>
                       ))}
                     </ul>
@@ -431,69 +445,84 @@ const Learn: React.FC = () => {
                 title="Anti Terrorist Awareness"
                 lessons={countLessons(lessonsAntiTerorist)}
                 buttonText="Learn"
+                moduleId="anti-terrorist"
                 modalContent={
                   <div>
-                    <h3 className="text-xl font-semibold">Anti Terorrist</h3>
+                    <h3 className="text-xl font-semibold">Anti Terrorist</h3>
                     <p className="text-gray-600 mb-4">Choose a Lesson</p>
                     <ul className="space-y-3">
                       {lessonsAntiTerorist.map((lesson, index) => (
                         <li key={index}>
-                          <button
-                            className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300"
+                          <LessonButton
+                            moduleId="anti-terrorist"
                             onClick={() => router.push(lesson.path)}
                           >
                             {lesson.title}
-                          </button>
+                          </LessonButton>
                         </li>
                       ))}
                     </ul>
                   </div>
                 }
               />
-                <LearnCard
+              <LearnCard
                 imageSrc="/LearnImage/Traffic.png"
                 title="Traffic Rules & Road Safety"
                 lessons={countLessons(lessonsTrafficRules)}
                 buttonText="Learn"
+                moduleId={["basic-traffic-rules", "road-safety-tips", "pedestrian-safety", "driving-under-influence"]}
                 modalContent={
                   <div>
                     <h3 className="text-xl font-semibold">Traffic Rules and Road Safety</h3>
                     <p className="text-gray-600 mb-4">Choose a Lesson</p>
                     <ul className="space-y-3">
-                      {lessonsTrafficRules.map((lesson, index) => (
-                        <li key={index}>
-                          <button
-                            className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300"
-                            onClick={() => router.push(lesson.path)}
-                          >
-                            {lesson.title}
-                          </button>
-                        </li>
-                      ))}
+                      {lessonsTrafficRules.map((lesson, index) => {
+                        // Map the lesson to the corresponding moduleId
+                        const moduleIds = ["basic-traffic-rules", "road-safety-tips", "pedestrian-safety", "driving-under-influence"];
+                        const moduleId = moduleIds[index] || "unknown";
+                        
+                        return (
+                          <li key={index}>
+                            <LessonButton
+                              moduleId={moduleId}
+                              onClick={() => router.push(lesson.path)}
+                            >
+                              {lesson.title}
+                            </LessonButton>
+                          </li>
+                        );
+                      })}
                     </ul>
                   </div>
                 }
               />
-                <LearnCard
+              <LearnCard
                 imageSrc="/LearnImage/Emergency.png"
                 title="Emergency Preparedness &  Response"
                 lessons={countLessons(lessonsEmergencyPreparedness)}
                 buttonText="Learn"
+                moduleId={["emergency-response", "evacuation-procedure", "fire-earthquake-drills", "first-aid-basic", "disaster-awareness"]}
                 modalContent={
                   <div>
                     <h3 className="text-xl font-semibold">Disaster Preparedness & Emergency Response</h3>
                     <p className="text-gray-600 mb-4">Choose a Lesson</p>
                     <ul className="space-y-3">
-                      {lessonsEmergencyPreparedness.map((lesson, index) => (
-                        <li key={index}>
-                          <button
-                            className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300"
-                            onClick={() => router.push(lesson.path)}
-                          >
-                            {lesson.title}
-                          </button>
-                        </li>
-                      ))}
+                      {lessonsEmergencyPreparedness.map((lesson, index) => {
+                        // Map the lesson to the corresponding moduleId
+                        const moduleIds = ["emergency-response", "evacuation-procedure", "fire-earthquake-drills", "first-aid-basic", "disaster-awareness"];
+                        const moduleId = moduleIds[index] || "unknown";
+                        
+                        return (
+                          <li key={index}>
+                            <LessonButton
+                              moduleId={moduleId}
+                              onClick={() => router.push(lesson.path)}
+                            >
+                              {lesson.title}
+                            </LessonButton>
+                          </li>
+                        );
+                      })}
                     </ul>
                   </div>
                 }
@@ -503,6 +532,7 @@ const Learn: React.FC = () => {
                 title="Voter Education"
                 lessons={countLessons(lessonsVoterEducation)}
                 buttonText="Learn"
+                moduleId="voter-education"
                 modalContent={
                   <div>
                     <h3 className="text-xl font-semibold">Voter Education</h3>
@@ -510,23 +540,24 @@ const Learn: React.FC = () => {
                     <ul className="space-y-3">
                       {lessonsVoterEducation.map((lesson, index) => (
                         <li key={index}>
-                          <button
-                            className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300"
+                          <LessonButton
+                            moduleId="voter-education"
                             onClick={() => router.push(lesson.path)}
                           >
                             {lesson.title}
-                          </button>
+                          </LessonButton>
                         </li>
                       ))}
                     </ul>
                   </div>
                 }
               />
-               <LearnCard
+              <LearnCard
                 imageSrc="/LearnImage/PublicTransport.png"
                 title="Public Transport Safety Tips"
                 lessons={countLessons(lessonsPublicTransport)}
                 buttonText="Learn"
+                moduleId="public-transport-safety"
                 modalContent={
                   <div>
                     <h3 className="text-xl font-semibold">Public Transport Safety Tips</h3>
@@ -534,23 +565,24 @@ const Learn: React.FC = () => {
                     <ul className="space-y-3">
                       {lessonsPublicTransport.map((lesson, index) => (
                         <li key={index}>
-                          <button
-                            className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300"
+                          <LessonButton
+                            moduleId="public-transport-safety"
                             onClick={() => router.push(lesson.path)}
                           >
                             {lesson.title}
-                          </button>
+                          </LessonButton>
                         </li>
                       ))}
                     </ul>
                   </div>
                 }
               />
-               <LearnCard
+              <LearnCard
                 imageSrc="/LearnImage/NoSmoking.png"
                 title="Anti-Smoking in Public Places"
                 lessons={countLessons(lessonsAntiSmoking)}
                 buttonText="Learn"
+                moduleId="anti-smoking"
                 modalContent={
                   <div>
                     <h3 className="text-xl font-semibold">Anti-Smoking in Public Places</h3>
@@ -558,12 +590,12 @@ const Learn: React.FC = () => {
                     <ul className="space-y-3">
                       {lessonsAntiSmoking.map((lesson, index) => (
                         <li key={index}>
-                          <button
-                            className="w-full text-left p-3 bg-[#2d87ff] text-white rounded-md hover:bg-[#1a5bbf] transition-colors duration-300"
+                          <LessonButton
+                            moduleId="anti-smoking"
                             onClick={() => router.push(lesson.path)}
                           >
                             {lesson.title}
-                          </button>
+                          </LessonButton>
                         </li>
                       ))}
                     </ul>
@@ -574,20 +606,18 @@ const Learn: React.FC = () => {
           </div>
           
           {/* Right column - 30% */}
-          <div className="w-full lg:w-[30%] lg:sticky lg:top-4 h-screen bg-white dark:bg-gray-800 p-4 rounded-lg shadow flex flex-col gap-4 overflow-hidden">
+          <div className="w-full lg:w-[30%] lg:sticky lg:top-4 h-fit max-h-screen bg-white dark:bg-gray-800 p-4 rounded-lg shadow flex flex-col gap-4 overflow-y-auto">
             <LearnCard2 />
             <CompletedModules />
             <RecommendedNext />
-            <div className="flex-1 overflow-y-auto">
+            <div className="flex-shrink-0">
               <RecentActivity />
             </div>
           </div>
         </div>
       </div>
       </div>
-
     </div>
-    
   );
 };
 

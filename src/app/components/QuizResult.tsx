@@ -4,7 +4,35 @@ import { useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import { useEffect, useState, useRef } from "react";
 import { getUsersFromIndexedDB } from "../../../lib/userDB";
-import { saveResultToIndexedDB } from "../../../lib/quizDb";
+import { saveResultToIndexedDB, QUIZ_BADGES } from "../../../lib/quizDb";
+
+// Define the QuizResult type locally
+interface QuizResult {
+  username: string;
+  topic: string;
+  score: number;
+  total: number;
+  percentage: number;
+  date: string;
+  badgeLevel: string;
+  badgeCompletion: number;
+  badgeTitle: string;
+  badgeImage: string;
+}
+
+interface BadgeProgressInfo {
+  label: string;
+  completion: number;
+}
+
+interface BadgeDisplayInfo {
+  label: string;
+  image: string;
+  title: string;
+}
+
+// Type for the QUIZ_BADGES import
+type QuizBadges = Record<string, { title: string; imagePath: string }>;
 
 export default function QuizResult() {
   const router = useRouter();
@@ -12,32 +40,42 @@ export default function QuizResult() {
   const [username, setUsername] = useState("");
   const [isActive, setIsActive] = useState<"retry" | "back" | null>(null);
   const didSaveResultRef = useRef(false);
+  const [badgeInfo, setBadgeInfo] = useState<BadgeDisplayInfo>({
+    label: "",
+    image: "/badges/default.png",
+    title: ""
+  });
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   const score = Number(searchParams.get("score"));
   const total = Number(searchParams.get("total"));
   const topic = searchParams.get("topic") || "Unknown Topic";
   const percentage = Math.round((score / total) * 100);
 
-  let badge = {
-    label: "1/3 Badge",
-    image: "/badges/one_third.png",
+  // Determine badge progress level
+  const getBadgeProgressLevel = (): BadgeProgressInfo => {
+    if (percentage < 50) {
+      return {
+        label: "1/3 Badge",
+        completion: 0.33,
+      };
+    } else if (percentage >= 50 && percentage < 80) {
+      return {
+        label: "Half Badge",
+        completion: 0.5,
+      };
+    } else if (percentage >= 80 && percentage < 100) {
+      return {
+        label: "Almost Full Badge",
+        completion: 0.8,
+      };
+    } else {
+      return {
+        label: "Full Badge",
+        completion: 1.0,
+      };
+    }
   };
-  if (percentage >= 50 && percentage < 80) {
-    badge = {
-      label: "Half Badge",
-      image: "/badges/half.png",
-    };
-  } else if (percentage >= 80 && percentage < 100) {
-    badge = {
-      label: "Almost Full Badge",
-      image: "/badges/almost.png",
-    };
-  } else if (percentage === 100) {
-    badge = {
-      label: "Full Badge",
-      image: "/badges/full.png",
-    };
-  }
 
   useEffect(() => {
     const fetchAndSaveResult = async () => {
@@ -49,21 +87,54 @@ export default function QuizResult() {
         const latestUser = users[users.length - 1];
         setUsername(latestUser.username);
 
-        const resultData = {
+        // Get topic-specific badge info
+        const topicKey = topic.toLowerCase();
+        
+        // Type casting for QUIZ_BADGES
+        const badgesMap = QUIZ_BADGES as unknown as QuizBadges;
+        
+        // Log available badges for debugging
+        console.log("Available badges:", Object.keys(badgesMap));
+        console.log("Looking for topic:", topicKey);
+        
+        const topicBadgeInfo = badgesMap[topicKey] || {
+          title: 'Quiz Completion Badge',
+          imagePath: '/badges/default.png'
+        };
+        
+        console.log("Selected badge info:", topicBadgeInfo);
+
+        // Add badge progress level
+        const progressLevel = getBadgeProgressLevel();
+        
+        const badgeImagePath = topicBadgeInfo.imagePath;
+        console.log("Badge image path:", badgeImagePath);
+        
+        setBadgeInfo({
+          label: progressLevel.label,
+          image: badgeImagePath,
+          title: topicBadgeInfo.title
+        });
+
+        const resultData: QuizResult = {
           username: latestUser.username,
           topic,
           score,
           total,
           percentage,
           date: new Date().toISOString(),
-          badge: badge.label,
+          badgeLevel: progressLevel.label,
+          badgeCompletion: progressLevel.completion,
+          badgeTitle: topicBadgeInfo.title,
+          badgeImage: badgeImagePath
         };
-        await saveResultToIndexedDB(resultData);
-        console.log("Result saved:", resultData);
+        
+        const savedResult = await saveResultToIndexedDB(resultData);
+        console.log("Result saved:", savedResult);
       }
     };
     fetchAndSaveResult();
-  }, [score, total, percentage, badge.label, topic]);
+  }, [score, total, percentage, topic]);
 
   // Format topic string for display
   const formattedTopic = topic
@@ -72,30 +143,82 @@ export default function QuizResult() {
     .join(" ");
 
   // Get congratulatory message based on score
-  const getMessage = () => {
+  const getMessage = (): string => {
     if (percentage === 100) return `Perfect Score!`;
     if (percentage >= 80) return `Excellent Work!`;
     if (percentage >= 50) return `Good Job!`;
     return `Nice Try!`;
   };
 
+  // Get badge display style based on completion percentage
+  const getBadgeStyle = (): React.CSSProperties => {
+    const progressLevel = getBadgeProgressLevel();
+    return {
+      clipPath: `polygon(0 0, 100% 0, 100% ${progressLevel.completion * 100}%, 0 ${progressLevel.completion * 100}%)`
+    };
+  };
+
   return (
     <div className="w-full max-w-lg bg-white rounded-3xl shadow-lg overflow-hidden">
       {/* Header with badge image */}
       <div className="bg-blue-50 p-6 flex flex-col items-center">
-        <Image
-          src={badge.image}
-          alt="Badge"
-          width={100}
-          height={100}
-          className="mb-4"
-        />
+        {/* Badge Container with Visual Fill Level */}
+        <div className="relative w-36 h-36 mb-4">
+          {/* Background Badge (Gray) */}
+          <div className="absolute inset-0 flex items-center justify-center">
+            <Image
+              src={badgeInfo.image}
+              alt="Badge Background"
+              width={120}
+              height={120}
+              className="opacity-30"
+              onLoad={() => setImageLoaded(true)}
+              onError={(e) => {
+                console.error("Error loading badge image:", e);
+                // Fallback to default badge if the image fails to load
+                setBadgeInfo(prev => ({
+                  ...prev,
+                  image: "/badges/default.png"
+                }));
+              }}
+            />
+          </div>
+          
+          {/* Filled Badge (Colored portion) */}
+          <div 
+            className="absolute inset-0 flex items-center justify-center overflow-hidden"
+            style={getBadgeStyle()}
+          >
+            <Image
+              src={badgeInfo.image}
+              alt="Badge Achievement"
+              width={120}
+              height={120}
+              onError={(e) => console.error("Error loading colored badge:", e)}
+            />
+          </div>
+          
+          {/* Fallback if images don't load */}
+          {!imageLoaded && (
+            <div className="absolute inset-0 flex items-center justify-center bg-blue-100 rounded-full">
+              <span className="text-blue-600 font-bold text-xl">{Math.round(percentage)}%</span>
+            </div>
+          )}
+        </div>
+        
         <h1 className="text-3xl font-bold text-blue-600 text-center">
           {getMessage()}
         </h1>
         <p className="text-lg text-gray-700 mt-1">
           {username ? `Well done, ${username}!` : "Well done!"}
         </p>
+        
+        {/* Display badge title for more context */}
+        {badgeInfo.title && (
+          <p className="text-sm text-blue-500 mt-1">
+            {badgeInfo.title}
+          </p>
+        )}
       </div>
 
       {/* Results section */}
@@ -125,7 +248,7 @@ export default function QuizResult() {
           {/* Badge */}
           <div className="flex justify-between items-center">
             <span className="text-gray-600">Badge:</span>
-            <span className="font-medium">{badge.label}</span>
+            <span className="font-medium">{badgeInfo.label}</span>
           </div>
           
           {/* Progress bar */}
@@ -149,7 +272,7 @@ export default function QuizResult() {
               onMouseDown={() => setIsActive("retry")}
               onMouseUp={() => {
                 setIsActive(null);
-                router.push(`/PlayQuiz/${topic}`); // Update the route here
+                router.push(`/PlayQuiz/${topic}`);
               }}
               onMouseLeave={() => setIsActive(null)}
             >

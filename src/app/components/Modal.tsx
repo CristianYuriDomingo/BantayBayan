@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
+import { isModuleCompleted } from "../../../lib/moduleDB"; // Adjust path as needed
 
 interface ModalProps {
   isOpen: boolean;

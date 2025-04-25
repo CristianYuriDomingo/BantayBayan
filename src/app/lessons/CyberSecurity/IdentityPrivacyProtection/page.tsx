@@ -20,7 +20,7 @@ const IdentityPrivacyProtection: React.FC = () => {
   const router = useRouter();
 
   // Define the module ID
-  const MODULE_ID = "idetity-privacy-protection";
+  const MODULE_ID = "identity-privacy-protection";
 
   // Define the slides for Anti-Carnapping content
   const IdentityPrivacyProtectionSlides: SlideProps[] = [
