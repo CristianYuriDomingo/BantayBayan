@@ -153,7 +153,7 @@ return (
             <div className="relative">
             <SpeechBubble
                 imageSrc="/MainImage/PibiTeach.png"
-                messages={["Be Aware and Stay Prepared", "Enjoy Reading!"]}
+                messages={["Respond Quickly, Stay Safe", "Enjoy Reading!"]}
             />
             </div>
         </div>
@@ -174,8 +174,8 @@ return (
 
         {/* Learning module title */}
         <div className="w-full text-center mb-2">
-            <h2 className="text-2xl font-bold text-gray-800">Cybersecurity and Data Protection</h2>
-            <p className="text-gray-600">Learn how to protect your digital information from threats.</p>
+            <h2 className="text-2xl font-bold text-gray-800">Emergency Response</h2>
+            <p className="text-gray-600">Learn how to act swiftly and effectively during emergencies to protect yourself and others.</p>
         </div>
         </div>
 

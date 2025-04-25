@@ -307,7 +307,7 @@ const Achievements: React.FC = () => {
             </aside>
 
             {/* Main Content */}
-            <div className="flex-1 p-4 sm:ml-72 md:ml-80 h-screen overflow-hidden">
+            <div className="flex-1 p-4 sm:ml-72 md:ml-80">
                 <button
                     onClick={() => setSidebarOpen(!isSidebarOpen)}
                     className="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none"
@@ -328,9 +328,9 @@ const Achievements: React.FC = () => {
                 </button>
 
                 {/* Achievements Content */}
-                <div className="flex flex-col lg:flex-row w-full gap-6 pt-2 mt-2 h-[calc(100vh-80px)]">
+                <div className="flex flex-col lg:flex-row w-full gap-6 pt-2 mt-2">
                     {/* Left column - 60% - Badge Collection */}
-                    <div className="w-full lg:w-[60%] overflow-y-auto pb-4">
+                    <div className="w-full lg:w-[60%] pb-4">
                         <BadgeCollection achievements={achievements} />
                     </div>
 

@@ -153,7 +153,7 @@ const IllegalFirearmsAwareness: React.FC = () => {
             <div className="relative">
               <SpeechBubble
                 imageSrc="/MainImage/PibiTeach.png"
-                messages={["", "Enjoy Reading!"]}
+                messages={["Be Informed and Stay Safe", "Enjoy Reading!"]}
               />
             </div>
           </div>

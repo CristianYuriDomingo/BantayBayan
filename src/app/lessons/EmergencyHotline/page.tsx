@@ -153,7 +153,7 @@ const EmergencyHotline: React.FC = () => {
             <div className="relative">
               <SpeechBubble
                 imageSrc="/MainImage/PibiTeach.png"
-                messages={["Be Aware and Stay Prepared", "Enjoy Reading!"]}
+                messages={["Save These Numbers, Stay Safe", "Quick Access to Help!"]}
               />
             </div>
           </div>
@@ -175,7 +175,7 @@ const EmergencyHotline: React.FC = () => {
           {/* Learning module title */}
           <div className="w-full text-center mb-2">
             <h2 className="text-2xl font-bold text-gray-800">Palayan City Emergency Hotline</h2>
-            <p className="text-gray-600">Quick access to emergency services in Palayan City.</p>
+            <p className="text-gray-600">Quick access to emergency services in Palayan City for your safety and well-being.</p>
           </div>
         </div>
 

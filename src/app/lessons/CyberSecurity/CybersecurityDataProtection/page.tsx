@@ -1,4 +1,4 @@
-    "use client";
+"use client";
 
     import React, { useEffect, useState } from "react";
     import { useRouter } from "next/navigation";
@@ -153,7 +153,7 @@
                 <div className="relative">
                 <SpeechBubble
                     imageSrc="/MainImage/PibiTeach.png"
-                    messages={["Be Aware and Stay Prepared", "Enjoy Reading!"]}
+                    messages={["Protect Your Data, Stay Secure", "Enjoy Reading!"]}
                 />
                 </div>
             </div>
@@ -175,7 +175,7 @@
             {/* Learning module title */}
             <div className="w-full text-center mb-2">
                 <h2 className="text-2xl font-bold text-gray-800">Cybersecurity and Data Protection</h2>
-                <p className="text-gray-600">Learn how to protect your digital information from threats.</p>
+                <p className="text-gray-600">Discover essential tips to safeguard your digital life and prevent cyber threats.</p>
             </div>
             </div>
 

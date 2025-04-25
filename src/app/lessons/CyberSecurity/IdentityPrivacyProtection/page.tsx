@@ -153,7 +153,7 @@ const IdentityPrivacyProtection: React.FC = () => {
             <div className="relative">
               <SpeechBubble
                 imageSrc="/MainImage/PibiTeach.png"
-                messages={["Be Aware and Stay Prepared", "Enjoy Reading!"]}
+                messages={["Protect Your Identity, Stay Safe", "Enjoy Reading!"]}
               />
             </div>
           </div>
@@ -175,7 +175,7 @@ const IdentityPrivacyProtection: React.FC = () => {
           {/* Learning module title */}
           <div className="w-full text-center mb-2">
             <h2 className="text-2xl font-bold text-gray-800">Identity and Privacy Protection</h2>
-            <p className="text-gray-600">Protect your identity and keep your private info secure.</p>
+            <p className="text-gray-600">Learn how to safeguard your personal information and prevent identity theft in the digital age.</p>
           </div>
         </div>
 

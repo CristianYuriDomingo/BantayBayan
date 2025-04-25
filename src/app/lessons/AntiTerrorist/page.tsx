@@ -26,30 +26,30 @@ const AntiTerorist: React.FC = () => {
   const AntiTeroristSlides: SlideProps[] = [
     {
       id: "report-suspicious-activity",
-      image: "/LearnImage/AntiTerrorism1.png",
-      title: "Report Suspicious Behavior",
-      content: "If you see unusual behavior or abandoned objects in public places, report them to authorities immediately."
+      image: "/LearnImage/AntiTerrorist/41.png",
+      title: "Identify and Report Recruitment Activities",
+      content: "Groups like the CPP-NPA actively recruit young people. If you notice suspicious attempts to persuade students or community members to join armed groups, report them immediately. Staying vigilant protects the future."
     },
     {
       id: "stay-alert-public-places",
-      image: "/LearnImage/AntiTerrorism2.png",
-      title: "Be Alert in Crowded Areas",
-      content: "Terrorist attacks often target crowded public areas. Stay aware of exits and surroundings."
+      image: "/LearnImage/AntiTerrorist/42.png",
+      title: "Stay Alert Against Terrorist Tactics",
+      content: "NPA recruiters often disguise themselves as activists to deceive the youth. Be cautious of organizations inviting you to secret meetings or training sessions. Always question the true purpose behind their advocacy."
     },
     {
       id: "don't-share-sensitive-info",
-      image: "/LearnImage/AntiTerrorism3.png",
-      title: "Avoid Sharing Sensitive Info",
-      content: "Be careful not to post detailed information about public events or security setups online."
+      image: "/LearnImage/AntiTerrorist/43.png",
+      title: "Be Careful When Sharing Information",
+      content: "False information is used by armed groups to manipulate the public. Be responsible when posting online. Do not let your voice be exploited to serve terrorist causes."
     },
     {
       id: "community-vigilance",
-      image: "/LearnImage/AntiTerrorism4.png",
-      title: "Promote Community Vigilance",
-      content: "Encourage a culture of awareness where everyone looks out for one another and isn’t afraid to speak up."
+      image: "/LearnImage/AntiTerrorist/44.png",
+      title: "Strengthen Community Vigilance",
+      content: "Fight against wrong ideologies through education and correct information. Encourage everyone to stay loyal to their country, their families, and their future. True activism stands for peace, not violence."
     }
-    
   ];
+  
 
   // Load completed modules from IndexedDB on component mount
   useEffect(() => {
@@ -174,8 +174,8 @@ const AntiTerorist: React.FC = () => {
 
           {/* Learning module title */}
           <div className="w-full text-center mb-2">
-            <h2 className="text-2xl font-bold text-gray-800"> Terrorism Awareness</h2>
-            <p className="text-gray-600">Recognize and respond to threats of terrorism safely.</p>
+            <h2 className="text-2xl font-bold text-gray-800">Terrorism Awareness</h2>
+            <p className="text-gray-600">Understand how to identify and respond to potential threats of terrorism to ensure safety for yourself and your community.</p>
           </div>
         </div>
 

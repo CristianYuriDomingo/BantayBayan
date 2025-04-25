@@ -152,7 +152,7 @@ const AntiSmoking: React.FC = () => {
             <div className="relative">
               <SpeechBubble
                 imageSrc="/MainImage/PibiTeach.png"
-                messages={["Be Aware and Stay Prepared", "Enjoy Reading!"]}
+                messages={["Say No to Smoking", "Protect Your Health and Others!"]}
               />
             </div>
           </div>
@@ -174,7 +174,7 @@ const AntiSmoking: React.FC = () => {
           {/* Learning module title */}
           <div className="w-full text-center mb-2">
             <h2 className="text-2xl font-bold text-gray-800">Anti Smoking</h2>
-            <p className="text-gray-600"></p>
+            <p className="text-gray-600">Learn about the dangers of smoking and how to promote a smoke-free environment for a healthier community.</p>
           </div>
         </div>
 

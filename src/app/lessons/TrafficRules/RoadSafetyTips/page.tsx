@@ -153,7 +153,7 @@ return (
             <div className="relative">
             <SpeechBubble
                 imageSrc="/MainImage/PibiTeach.png"
-                messages={["", "Enjoy Reading!"]}
+                messages={["Drive Smart, Stay Safe", "Enjoy Reading!"]}
             />
             </div>
         </div>
@@ -175,7 +175,7 @@ return (
         {/* Learning module title */}
         <div className="w-full text-center mb-2">
             <h2 className="text-2xl font-bold text-gray-800">Road Safety Tips</h2>
-            <p className="text-gray-600"></p>
+            <p className="text-gray-600">Discover essential tips to ensure safety and responsibility while on the road.</p>
         </div>
         </div>
 

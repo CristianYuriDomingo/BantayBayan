@@ -153,7 +153,7 @@ const MediaLiteracyMisinformation: React.FC = () => {
             <div className="relative">
               <SpeechBubble
                 imageSrc="/MainImage/PibiTeach.png"
-                messages={["Be Aware and Stay Prepared", "Enjoy Reading!"]}
+                messages={["Think Before You Share", "Stay Informed and Responsible!"]}
               />
             </div>
           </div>
@@ -175,8 +175,7 @@ const MediaLiteracyMisinformation: React.FC = () => {
           {/* Learning module title */}
           <div className="w-full text-center mb-2">
             <h2 className="text-2xl font-bold text-gray-800">Media Literacy and Misinformation</h2>
-            <p className="text-gray-600">Learn to spot fake news and verify online information.
-            </p>
+            <p className="text-gray-600">Learn to spot fake news and verify online information to promote responsible digital behavior.</p>
           </div>
         </div>
 

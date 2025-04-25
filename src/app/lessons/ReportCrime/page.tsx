@@ -152,7 +152,7 @@ const ReportCrime: React.FC = () => {
             <div className="relative">
               <SpeechBubble
                 imageSrc="/MainImage/PibiTeach.png"
-                messages={["", "Enjoy Reading!"]}
+                messages={["Report Safely, Act Responsibly", "Enjoy Reading!"]}
               />
             </div>
           </div>

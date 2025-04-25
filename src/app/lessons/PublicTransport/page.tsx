@@ -152,7 +152,7 @@ const PublicTransport: React.FC = () => {
             <div className="relative">
               <SpeechBubble
                 imageSrc="/MainImage/PibiTeach.png"
-                messages={["", "Enjoy Reading!"]}
+                messages={["Travel Safely, Stay Alert", "Enjoy Reading!"]}
               />
             </div>
           </div>
@@ -174,7 +174,7 @@ const PublicTransport: React.FC = () => {
           {/* Learning module title */}
           <div className="w-full text-center mb-2">
             <h2 className="text-2xl font-bold text-gray-800">Public Transport Safety</h2>
-            <p className="text-gray-600"></p>
+            <p className="text-gray-600">Learn essential tips to stay safe while using public transportation.</p>
           </div>
         </div>
 

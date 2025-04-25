@@ -154,7 +154,7 @@ const AntiTheftRobberyAwareness: React.FC = () => {
             <div className="relative">
               <SpeechBubble
                 imageSrc="/MainImage/PibiTeach.png"
-                messages={["", "Enjoy Reading!"]}
+                messages={["Stay Alert and Be Safe", "Enjoy Reading!"]}
               />
             </div>
           </div>

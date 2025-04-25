@@ -55,7 +55,7 @@ const Learn: React.FC = () => {
   ];
 
   const lessonsAntiTerorist = [
-    { title: "Basic Traffic Rules", path: "/lessons/AntiTerorist" },
+    { title: "Anti Terrorism", path: "/lessons/AntiTerrorist" },
    
   ];
   const lessonsTrafficRules = [

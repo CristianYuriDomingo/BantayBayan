@@ -152,7 +152,7 @@ const VoterEducation: React.FC = () => {
             <div className="relative">
               <SpeechBubble
                 imageSrc="/MainImage/PibiTeach.png"
-                messages={["", "Enjoy Reading!"]}
+                messages={["Vote Wisely, Shape the Future", "Enjoy Reading!"]}
               />
             </div>
           </div>
@@ -174,7 +174,7 @@ const VoterEducation: React.FC = () => {
           {/* Learning module title */}
           <div className="w-full text-center mb-2">
             <h2 className="text-2xl font-bold text-gray-800">Voter Education</h2>
-            <p className="text-gray-600"></p>
+            <p className="text-gray-600">Learn the importance of voting and how to make informed decisions during elections.</p>
           </div>
         </div>
 

@@ -153,7 +153,7 @@ const SafeResponsibleInternetUse: React.FC = () => {
             <div className="relative">
               <SpeechBubble
                 imageSrc="/MainImage/PibiTeach.png"
-                messages={["", "Enjoy Reading!"]}
+                messages={["Browse Safely, Act Responsibly", "Enjoy Reading!"]}
               />
             </div>
           </div>
@@ -175,7 +175,7 @@ const SafeResponsibleInternetUse: React.FC = () => {
           {/* Learning module title */}
           <div className="w-full text-center mb-2">
             <h2 className="text-2xl font-bold text-gray-800">Safe and Responsible Internet Use</h2>
-            <p className="text-gray-600">Discover safe browsing habits and online etiquette.</p>
+            <p className="text-gray-600">Discover safe browsing habits and online etiquette to ensure a secure and respectful online experience.</p>
           </div>
         </div>
 

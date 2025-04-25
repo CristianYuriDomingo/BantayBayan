@@ -158,20 +158,6 @@ const ScamFraudAwareness: React.FC = () => {
             </div>
           </div>
 
-          {/* Enhanced separator with icon */}
-          <div className="relative w-full mb-2 flex items-center justify-center">
-            <div className="absolute h-px bg-gradient-to-r from-transparent via-gray-400 to-transparent w-full"></div>
-            <div className="relative bg-white p-2 rounded-full shadow-sm z-10">
-              <Image
-                src="/MainImage/Pibi.png"
-                alt="Icon"
-                width={20}
-                height={20}
-                className="h-8 w-auto"
-              />
-            </div>
-          </div>
-
           {/* Learning module title */}
           <div className="w-full text-center mb-2">
             <h2 className="text-2xl font-bold text-gray-800">Scam and Fraud Awareness</h2>

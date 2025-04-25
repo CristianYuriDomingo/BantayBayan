@@ -153,7 +153,7 @@ const AntiRapeSexualAssaultPrevention: React.FC = () => {
             <div className="relative">
               <SpeechBubble
                 imageSrc="/MainImage/PibiTeach.png"
-                messages={["", "Enjoy Reading!"]}
+                messages={["Stay Safe and Empowered", "Enjoy Reading!"]}
               />
             </div>
           </div>

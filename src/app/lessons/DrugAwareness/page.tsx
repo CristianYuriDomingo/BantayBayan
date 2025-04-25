@@ -153,7 +153,7 @@ const DrugAwareness: React.FC = () => {
             <div className="relative">
               <SpeechBubble
                 imageSrc="/MainImage/PibiTeach.png"
-                messages={["Be Aware and Stay Prepared", "Enjoy Reading!"]}
+                messages={["Be Aware and Stay Drug-Free", "Enjoy Reading!"]}
               />
             </div>
           </div>
