@@ -4,7 +4,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
 import { useEffect, useState, useRef } from "react";
 import { getUsersFromIndexedDB } from "../../../lib/userDB";
-import { saveResultToIndexedDB, QUIZ_BADGES } from "../../../lib/quizDb";
+import { saveResultToIndexedDB, QUIZ_BADGES } from "../../../lib/quizDB";
 
 // Type definitions
 interface QuizResult {

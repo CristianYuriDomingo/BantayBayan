@@ -1,81 +1,133 @@
 "use client";
 
-import React from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import Image from "next/image";
-import { useSearchParams } from "next/navigation";
-import { getUsersFromIndexedDB } from "../../../../../lib/userDB";
-import { saveResultToIndexedDB } from "../../../../../lib/quizDb";
-import { useRouter } from "next/navigation";
 import { useEffect, useState, useRef } from "react";
+import { getUsersFromIndexedDB } from "../../../../../lib/userDB";
+import { saveResultToIndexedDB, QUIZ_BADGES } from "../../../../../lib/quizDB";
 
-const ResultPage = () => {
+// Type definitions
+interface QuizResult {
+  username: string;
+  topic: string;
+  score: number;
+  total: number;
+  percentage: number;
+  date: string;
+  badgeLevel: string;
+  badgeCompletion: number;
+  badgeTitle: string;
+  badgeImage: string;
+}
+
+interface BadgeProgressInfo {
+  label: string;
+  completion: number;
+}
+
+interface BadgeInfo {
+  label: string;
+  completion: number;
+  title: string;
+  image: string;
+}
+
+export default function QuizResult() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [username, setUsername] = useState("");
   const [isActive, setIsActive] = useState<"retry" | "back" | null>(null);
   const didSaveResultRef = useRef(false);
+  const [badgeInfo, setBadgeInfo] = useState<BadgeInfo>({
+    label: "Loading...",
+    completion: 0.5,
+    title: "Loading badge information...",
+    image: "/badges/default.png"
+  });
+  const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageFailed, setImageFailed] = useState(false);
 
-  const score = Number(searchParams.get("score"));
-  const total = Number(searchParams.get("total"));
+  const score = Number(searchParams.get("score") || 0);
+  const total = Number(searchParams.get("total") || 1);
   const topic = searchParams.get("topic") || "Unknown Topic";
   const percentage = Math.round((score / total) * 100);
 
-  // Badge progress logic - determine how much of the badge to show
-  const getBadgeInfo = () => {
+  // Determine badge progress level
+  const getBadgeProgressLevel = (): BadgeProgressInfo => {
     if (percentage < 50) {
       return {
         label: "1/3 Badge",
-        fillPercentage: 33,
-        clipPath: "polygon(0 0, 100% 0, 100% 33%, 0 33%)"
+        completion: 0.33,
       };
     } else if (percentage >= 50 && percentage < 80) {
       return {
         label: "Half Badge",
-        fillPercentage: 50,
-        clipPath: "polygon(0 0, 100% 0, 100% 50%, 0 50%)"
+        completion: 0.5,
       };
     } else if (percentage >= 80 && percentage < 100) {
       return {
         label: "Almost Full Badge",
-        fillPercentage: 80,
-        clipPath: "polygon(0 0, 100% 0, 100% 80%, 0 80%)"
+        completion: 0.8,
       };
     } else {
       return {
         label: "Full Badge",
-        fillPercentage: 100,
-        clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)"
+        completion: 1.0,
       };
     }
   };
-
-  const badgeInfo = getBadgeInfo();
 
   useEffect(() => {
     const fetchAndSaveResult = async () => {
       if (didSaveResultRef.current) return;
       didSaveResultRef.current = true;
 
-      const users = await getUsersFromIndexedDB();
-      if (users.length > 0) {
-        const latestUser = users[users.length - 1];
-        setUsername(latestUser.username);
+      try {
+        const users = await getUsersFromIndexedDB();
+        if (users.length > 0) {
+          const latestUser = users[users.length - 1];
+          setUsername(latestUser.username);
 
-        const resultData = {
-          username: latestUser.username,
-          topic,
-          score,
-          total,
-          percentage,
-          date: new Date().toISOString(),
-          badge: badgeInfo.label,
-        };
-        await saveResultToIndexedDB(resultData);
-        console.log("Result saved:", resultData);
+          // Get topic-specific badge info - normalize the topic key
+          const topicKey = topic.toLowerCase().replace(/\s+/g, '-');
+          
+          // Get badge info for this topic or use default
+          const badgeData = (QUIZ_BADGES as Record<string, {title: string, imagePath: string}>)[topicKey] || 
+                           (QUIZ_BADGES as Record<string, {title: string, imagePath: string}>)["default"];
+          
+          // Combine badge progress with topic-specific badge data
+          const progressLevel = getBadgeProgressLevel();
+          
+          setBadgeInfo({
+            label: progressLevel.label,
+            completion: progressLevel.completion,
+            title: badgeData.title,
+            image: badgeData.imagePath
+          });
+
+          const resultData: QuizResult = {
+            username: latestUser.username,
+            topic,
+            score,
+            total,
+            percentage,
+            date: new Date().toISOString(),
+            badgeLevel: progressLevel.label,
+            badgeCompletion: progressLevel.completion,
+            badgeTitle: badgeData.title,
+            badgeImage: badgeData.imagePath
+          };
+          
+          await saveResultToIndexedDB(resultData);
+          console.log("Result saved:", resultData);
+        }
+      } catch (error) {
+        console.error("Error saving quiz result:", error);
       }
     };
+    
     fetchAndSaveResult();
-  }, [score, total, percentage, badgeInfo.label, topic]);
+  }, [score, total, percentage, topic]);
 
   // Format topic string for display
   const formattedTopic = topic
@@ -84,7 +136,7 @@ const ResultPage = () => {
     .join(" ");
 
   // Get congratulatory message based on score
-  const getMessage = () => {
+  const getMessage = (): string => {
     if (percentage === 100) return `Perfect Score!`;
     if (percentage >= 80) return `Excellent Work!`;
     if (percentage >= 50) return `Good Job!`;
@@ -126,27 +178,54 @@ const ResultPage = () => {
             <div className="relative w-36 h-36 mb-4">
               {/* Background Badge (Gray) */}
               <div className="absolute inset-0 flex items-center justify-center">
-                <Image
-                  src="/badges/full.png"
-                  alt="Badge Background"
-                  width={120}
-                  height={120}
-                  className="opacity-30"
-                />
+                {!imageFailed ? (
+                  <Image
+                    src={badgeInfo.image}
+                    alt="Badge Background"
+                    width={120}
+                    height={120}
+                    className="opacity-30"
+                    onLoad={() => setImageLoaded(true)}
+                    onError={() => {
+                      console.error("Error loading badge image:", badgeInfo.image);
+                      setImageFailed(true);
+                    }}
+                    priority
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center bg-blue-100 rounded-full opacity-30">
+                    <span className="text-blue-600 font-bold text-xl">{Math.round(percentage)}%</span>
+                  </div>
+                )}
               </div>
               
               {/* Filled Badge (Colored portion) */}
-              <div 
-                className="absolute inset-0 flex items-center justify-center overflow-hidden"
-                style={{ clipPath: badgeInfo.clipPath }}
-              >
-                <Image
-                  src="/badges/full.png"
-                  alt="Badge Achievement"
-                  width={120}
-                  height={120}
-                />
-              </div>
+              {!imageFailed && (
+                <div 
+                  className="absolute inset-0 flex items-center justify-center overflow-hidden"
+                  style={{ 
+                    clipPath: `polygon(0 0, 100% 0, 100% ${badgeInfo.completion * 100}%, 0 ${badgeInfo.completion * 100}%)`
+                  }}
+                >
+                  <Image
+                    src={badgeInfo.image}
+                    alt="Badge Achievement"
+                    width={120}
+                    height={120}
+                    onError={() => setImageFailed(true)}
+                    priority
+                  />
+                </div>
+              )}
+              
+              {/* Fallback if images don't load */}
+              {(imageFailed || (!imageLoaded && !badgeInfo.image)) && (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="bg-blue-500 rounded-full w-24 h-24 flex items-center justify-center">
+                    <span className="text-white font-bold text-xl">{Math.round(percentage)}%</span>
+                  </div>
+                </div>
+              )}
             </div>
             
             <h1 className="text-3xl font-bold text-blue-600 text-center">
@@ -154,6 +233,11 @@ const ResultPage = () => {
             </h1>
             <p className="text-lg text-gray-700 mt-1">
               {username ? `Well done, ${username}!` : "Well done!"}
+            </p>
+            
+            {/* Display badge title for more context */}
+            <p className="text-sm text-blue-500 mt-1">
+              {badgeInfo.title}
             </p>
           </div>
 
@@ -208,7 +292,7 @@ const ResultPage = () => {
                   onMouseDown={() => setIsActive("retry")}
                   onMouseUp={() => {
                     setIsActive(null);
-                    router.push(`/Quiz/${topic}`);
+                    router.push(`/PlayQuiz/${topic}`);
                   }}
                   onMouseLeave={() => setIsActive(null)}
                 >
@@ -237,6 +321,4 @@ const ResultPage = () => {
       </div>
     </div>
   );
-};
-
-export default ResultPage;
+}
