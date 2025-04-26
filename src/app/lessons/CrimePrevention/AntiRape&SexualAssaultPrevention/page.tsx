@@ -174,9 +174,8 @@ const AntiRapeSexualAssaultPrevention: React.FC = () => {
 
           {/* Learning module title */}
           <div className="w-full text-center mb-2">
-        <h2 className="text-2xl font-bold text-gray-800">Anti Rape & Sexual Assault Prevention</h2>
-        <h2 className="text-2xl font-bold text-gray-800"></h2>
-            <p className="text-gray-600"></p>
+            <h2 className="text-2xl font-bold text-gray-800">Anti Rape & Sexual Assault Prevention</h2>
+            <p className="text-gray-600">Learn how to stay safe and empower others to create a respectful and secure environment.</p>
           </div>
         </div>
 

@@ -20,6 +20,8 @@ type CarouselComponentProps = {
   continueButtonText?: string;
   backButtonText?: string;
   moduleId?: string; // Added to support the parent module ID
+  timerDuration?: number; // Added to configure timer duration in seconds
+  timerColor?: string; // Added to customize timer color
 };
 
 const CarouselComponent: React.FC<CarouselComponentProps> = ({
@@ -32,9 +34,13 @@ const CarouselComponent: React.FC<CarouselComponentProps> = ({
   continueButtonText = "Continue Reading",
   backButtonText = "Back",
   moduleId = "anti-carnapping", // Default module ID
+  timerDuration = 10, // Default timer duration in seconds
+  timerColor = "red", // Default timer color
 }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
+  const [timeRemaining, setTimeRemaining] = useState(timerDuration);
+  const [canProceed, setCanProceed] = useState(false);
 
   // Check screen size on mount and when window resizes
   useEffect(() => {
@@ -52,12 +58,39 @@ const CarouselComponent: React.FC<CarouselComponentProps> = ({
     return () => window.removeEventListener('resize', checkScreenSize);
   }, []);
 
+  // Timer effect when slide changes
+  useEffect(() => {
+    // Reset timer for each new slide
+    setTimeRemaining(timerDuration);
+    setCanProceed(false);
+    
+    // Start countdown
+    const timer = setInterval(() => {
+      setTimeRemaining((prev) => {
+        if (prev <= 1) {
+          clearInterval(timer);
+          setCanProceed(true);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    // Cleanup timer
+    return () => clearInterval(timer);
+  }, [currentSlide, timerDuration]);
+
   const nextSlide = () => {
-    setCurrentSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
+    if (canProceed || isModuleCompleted()) {
+      setCurrentSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
+    }
   };
 
   const prevSlide = () => {
-    setCurrentSlide((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
+    // Only allow going back if not on the first slide
+    if (currentSlide > 0) {
+      setCurrentSlide((prev) => prev - 1);
+    }
   };
 
   const handleFinish = () => {
@@ -72,6 +105,15 @@ const CarouselComponent: React.FC<CarouselComponentProps> = ({
     return completedModules.includes(moduleId);
   };
 
+  // Get button text based on timer
+  const getButtonText = () => {
+    if (canProceed) {
+      return continueButtonText;
+    } else {
+      return `Wait (${timeRemaining}s)`;
+    }
+  };
+
   return (
     <div className="w-full max-w-6xl mx-auto"> 
       {/* Desktop view - Side-by-side layout */}
@@ -79,22 +121,31 @@ const CarouselComponent: React.FC<CarouselComponentProps> = ({
         <div className="relative flex items-center h-[500px]">
           {/* Carousel content */}
           <div className="w-full overflow-hidden rounded-2xl shadow-lg relative">
-            {/* Previous button moved inside the carousel container with z-index */}
-            <button
-              onClick={prevSlide}
-              className={`absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-white bg-opacity-80 rounded-full w-12 h-12 flex items-center justify-center
-              focus:outline-none shadow-md
-              hover:bg-gray-50 hover:bg-opacity-90 active:bg-gray-100
-              hover:shadow-lg active:shadow-md
-              transform transition-all duration-200
-              active:scale-95 hover:scale-100
-              text-${themeColor}-500 hover:text-${themeColor}-600`}
-              aria-label="Previous slide"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M15 18l-6-6 6-6" />
-              </svg>
-            </button>
+            {/* Timer Notice at Top - Only shown when timer is active */}
+            {!canProceed && !isModuleCompleted() && (
+              <div className={`absolute top-0 left-0 right-0 z-30 bg-${timerColor}-500 text-white py-2 px-4 text-center font-medium`}>
+                Please continue reading. You can proceed in {timeRemaining} seconds.
+              </div>
+            )}
+
+            {/* Previous button - only visible if not on the first slide */}
+            {currentSlide > 0 && (
+              <button
+                onClick={prevSlide}
+                className={`absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-white bg-opacity-80 rounded-full w-12 h-12 flex items-center justify-center
+                focus:outline-none shadow-md
+                hover:bg-gray-50 hover:bg-opacity-90 active:bg-gray-100
+                hover:shadow-lg active:shadow-md
+                transform transition-all duration-200
+                active:scale-95 hover:scale-100
+                text-${themeColor}-500 hover:text-${themeColor}-600`}
+                aria-label="Previous slide"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M15 18l-6-6 6-6" />
+                </svg>
+              </button>
+            )}
 
             <div className="flex transition-transform duration-500 ease-in-out h-[500px]"
               style={{ transform: `translateX(-${currentSlide * 100}%)` }}>
@@ -138,22 +189,29 @@ const CarouselComponent: React.FC<CarouselComponentProps> = ({
               ))}
             </div>
 
-            {/* Next button moved inside the carousel container with z-index */}
-            <button
-              onClick={nextSlide}
-              className={`absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-white bg-opacity-80 rounded-full w-12 h-12 flex items-center justify-center
-              focus:outline-none shadow-md
-              hover:bg-gray-50 hover:bg-opacity-90 active:bg-gray-100
-              hover:shadow-lg active:shadow-md
-              transform transition-all duration-200
-              active:scale-95 hover:scale-100
-              text-${themeColor}-500 hover:text-${themeColor}-600`}
-              aria-label="Next slide"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M9 18l6-6-6-6" />
-              </svg>
-            </button>
+            {/* Next button - conditionally styled based on timer */}
+            {currentSlide < slides.length - 1 && (
+              <button
+                onClick={canProceed || isModuleCompleted() ? nextSlide : undefined}
+                className={`absolute right-4 top-1/2 -translate-y-1/2 z-20 rounded-full w-12 h-12 flex items-center justify-center
+                focus:outline-none shadow-md
+                transform transition-all duration-200
+                ${canProceed || isModuleCompleted()
+                  ? `bg-white bg-opacity-80
+                    hover:bg-gray-50 hover:bg-opacity-90 active:bg-gray-100
+                    hover:shadow-lg active:shadow-md  
+                    active:scale-95 hover:scale-100
+                    text-${themeColor}-500 hover:text-${themeColor}-600`
+                  : `bg-gray-300 bg-opacity-80 cursor-not-allowed text-gray-500`
+                }`}
+                aria-label="Next slide"
+                disabled={!canProceed && !isModuleCompleted()}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M9 18l6-6-6-6" />
+                </svg>
+              </button>
+            )}
           </div>
 
           {/* Progress indicator */}
@@ -163,15 +221,22 @@ const CarouselComponent: React.FC<CarouselComponentProps> = ({
               return (
                 <button
                   key={index}
-                  onClick={() => setCurrentSlide(index)}
+                  onClick={() => {
+                    if (index <= currentSlide || isModuleCompleted()) {
+                      setCurrentSlide(index);
+                    }
+                  }}
                   className={`h-2 rounded-full transition-all ${
                     currentSlide === index
                       ? `bg-${themeColor}-500 w-6` // Active dot is wider and theme colored
                       : isModuleCompleted()
                         ? 'bg-green-500 w-2' // All dots are green if module is completed
-                        : 'bg-gray-300 hover:bg-gray-400 w-2' // Inactive dots
+                        : index < currentSlide
+                          ? `bg-${themeColor}-300 w-2` // Past slides
+                          : 'bg-gray-300 hover:bg-gray-400 w-2 cursor-not-allowed' // Future slides
                   }`}
                   aria-label={`Go to slide ${index + 1}`}
+                  disabled={index > currentSlide && !isModuleCompleted()}
                 />
               );
             })}
@@ -184,6 +249,13 @@ const CarouselComponent: React.FC<CarouselComponentProps> = ({
         <div className="w-full px-4">
           {/* Card container with shadow */}
           <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
+            {/* Timer Notice at Top for mobile - Only shown when timer is active */}
+            {!canProceed && !isModuleCompleted() && (
+              <div className={`bg-${timerColor}-500 text-white py-2 px-4 text-center text-sm font-medium`}>
+                Please continue reading. You can proceed in {timeRemaining} seconds.
+              </div>
+            )}
+
             {/* Current slide content */}
             <div className="w-full aspect-square relative bg-white">
               <Image
@@ -216,13 +288,25 @@ const CarouselComponent: React.FC<CarouselComponentProps> = ({
                 </button>
               ) : (
                 <button
-                  onClick={nextSlide}
-                  className={`w-full bg-${themeColor}-500 hover:bg-${themeColor}-600 text-white font-bold py-3 px-4 rounded-lg 
-                  mb-4 transition-all border-b-4 border-${themeColor}-700
-                  hover:border-b-2 hover:mb-[18px] hover:translate-y-0.5
-                  active:border-b-0 active:mb-5 active:translate-y-1`}
+                  onClick={canProceed || isModuleCompleted() ? nextSlide : undefined}
+                  className={`w-full ${
+                    canProceed || isModuleCompleted()
+                      ? `bg-${themeColor}-500 hover:bg-${themeColor}-600 border-${themeColor}-700`
+                      : 'bg-gray-400 border-gray-500 cursor-not-allowed'
+                  } text-white font-bold py-3 px-4 rounded-lg 
+                  mb-4 transition-all border-b-4
+                  ${canProceed || isModuleCompleted() 
+                    ? `hover:border-b-2 hover:mb-[18px] hover:translate-y-0.5
+                      active:border-b-0 active:mb-5 active:translate-y-1`
+                    : ''
+                  }`}
+                  disabled={!canProceed && !isModuleCompleted()}
                 >
-                  {continueButtonText}
+                  {currentSlide === slides.length - 1 
+                    ? finishButtonText 
+                    : isModuleCompleted() 
+                      ? continueButtonText 
+                      : getButtonText()}
                 </button>
               )}
 

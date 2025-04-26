@@ -6,7 +6,7 @@ import { useEffect, useState, useRef } from "react";
 import { getUsersFromIndexedDB } from "../../../lib/userDB";
 import { saveResultToIndexedDB, QUIZ_BADGES } from "../../../lib/quizDb";
 
-// Define the QuizResult type locally
+// Type definitions
 interface QuizResult {
   username: string;
   topic: string;
@@ -31,9 +31,6 @@ interface BadgeDisplayInfo {
   title: string;
 }
 
-// Type for the QUIZ_BADGES import
-type QuizBadges = Record<string, { title: string; imagePath: string }>;
-
 export default function QuizResult() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -41,14 +38,15 @@ export default function QuizResult() {
   const [isActive, setIsActive] = useState<"retry" | "back" | null>(null);
   const didSaveResultRef = useRef(false);
   const [badgeInfo, setBadgeInfo] = useState<BadgeDisplayInfo>({
-    label: "",
+    label: "Loading...",
     image: "/badges/default.png",
-    title: ""
+    title: "Loading badge information..."
   });
   const [imageLoaded, setImageLoaded] = useState(false);
+  const [imageFailed, setImageFailed] = useState(false);
 
-  const score = Number(searchParams.get("score"));
-  const total = Number(searchParams.get("total"));
+  const score = Number(searchParams.get("score") || 0);
+  const total = Number(searchParams.get("total") || 1);
   const topic = searchParams.get("topic") || "Unknown Topic";
   const percentage = Math.round((score / total) * 100);
 
@@ -82,57 +80,56 @@ export default function QuizResult() {
       if (didSaveResultRef.current) return;
       didSaveResultRef.current = true;
 
-      const users = await getUsersFromIndexedDB();
-      if (users.length > 0) {
-        const latestUser = users[users.length - 1];
-        setUsername(latestUser.username);
+      try {
+        const users = await getUsersFromIndexedDB();
+        if (users.length > 0) {
+          const latestUser = users[users.length - 1];
+          setUsername(latestUser.username);
 
-        // Get topic-specific badge info
-        const topicKey = topic.toLowerCase();
-        
-        // Type casting for QUIZ_BADGES
-        const badgesMap = QUIZ_BADGES as unknown as QuizBadges;
-        
-        // Log available badges for debugging
-        console.log("Available badges:", Object.keys(badgesMap));
-        console.log("Looking for topic:", topicKey);
-        
-        const topicBadgeInfo = badgesMap[topicKey] || {
-          title: 'Quiz Completion Badge',
-          imagePath: '/badges/default.png'
-        };
-        
-        console.log("Selected badge info:", topicBadgeInfo);
+          // Get topic-specific badge info - normalize the topic key first
+          const topicKey = topic.toLowerCase().replace(/ /g, '-');
+          
+          console.log("Looking for topic:", topicKey);
+          console.log("Available badges:", Object.keys(QUIZ_BADGES));
+          
+          // Fixed TypeScript error by using type assertion
+          const topicBadgeInfo = (QUIZ_BADGES as Record<string, {title: string, imagePath: string}>)[topicKey] || {
+            title: 'Quiz Completion Badge',
+            imagePath: '/badges/default.png'
+          };
+          
+          console.log("Selected badge info:", topicBadgeInfo);
 
-        // Add badge progress level
-        const progressLevel = getBadgeProgressLevel();
-        
-        const badgeImagePath = topicBadgeInfo.imagePath;
-        console.log("Badge image path:", badgeImagePath);
-        
-        setBadgeInfo({
-          label: progressLevel.label,
-          image: badgeImagePath,
-          title: topicBadgeInfo.title
-        });
+          // Add badge progress level
+          const progressLevel = getBadgeProgressLevel();
+          
+          setBadgeInfo({
+            label: progressLevel.label,
+            image: topicBadgeInfo.imagePath,
+            title: topicBadgeInfo.title
+          });
 
-        const resultData: QuizResult = {
-          username: latestUser.username,
-          topic,
-          score,
-          total,
-          percentage,
-          date: new Date().toISOString(),
-          badgeLevel: progressLevel.label,
-          badgeCompletion: progressLevel.completion,
-          badgeTitle: topicBadgeInfo.title,
-          badgeImage: badgeImagePath
-        };
-        
-        const savedResult = await saveResultToIndexedDB(resultData);
-        console.log("Result saved:", savedResult);
+          const resultData: QuizResult = {
+            username: latestUser.username,
+            topic,
+            score,
+            total,
+            percentage,
+            date: new Date().toISOString(),
+            badgeLevel: progressLevel.label,
+            badgeCompletion: progressLevel.completion,
+            badgeTitle: topicBadgeInfo.title,
+            badgeImage: topicBadgeInfo.imagePath
+          };
+          
+          const savedResult = await saveResultToIndexedDB(resultData);
+          console.log("Result saved:", savedResult);
+        }
+      } catch (error) {
+        console.error("Error saving quiz result:", error);
       }
     };
+    
     fetchAndSaveResult();
   }, [score, total, percentage, topic]);
 
@@ -150,14 +147,6 @@ export default function QuizResult() {
     return `Nice Try!`;
   };
 
-  // Get badge display style based on completion percentage
-  const getBadgeStyle = (): React.CSSProperties => {
-    const progressLevel = getBadgeProgressLevel();
-    return {
-      clipPath: `polygon(0 0, 100% 0, 100% ${progressLevel.completion * 100}%, 0 ${progressLevel.completion * 100}%)`
-    };
-  };
-
   return (
     <div className="w-full max-w-lg bg-white rounded-3xl shadow-lg overflow-hidden">
       {/* Header with badge image */}
@@ -166,42 +155,52 @@ export default function QuizResult() {
         <div className="relative w-36 h-36 mb-4">
           {/* Background Badge (Gray) */}
           <div className="absolute inset-0 flex items-center justify-center">
-            <Image
-              src={badgeInfo.image}
-              alt="Badge Background"
-              width={120}
-              height={120}
-              className="opacity-30"
-              onLoad={() => setImageLoaded(true)}
-              onError={(e) => {
-                console.error("Error loading badge image:", e);
-                // Fallback to default badge if the image fails to load
-                setBadgeInfo(prev => ({
-                  ...prev,
-                  image: "/badges/default.png"
-                }));
-              }}
-            />
+            {!imageFailed ? (
+              <Image
+                src={badgeInfo.image}
+                alt="Badge Background"
+                width={120}
+                height={120}
+                className="opacity-30"
+                onLoad={() => setImageLoaded(true)}
+                onError={() => {
+                  console.error("Error loading badge image:", badgeInfo.image);
+                  setImageFailed(true);
+                }}
+                priority
+              />
+            ) : (
+              <div className="w-full h-full flex items-center justify-center bg-blue-100 rounded-full opacity-30">
+                <span className="text-blue-600 font-bold text-xl">{Math.round(percentage)}%</span>
+              </div>
+            )}
           </div>
           
           {/* Filled Badge (Colored portion) */}
-          <div 
-            className="absolute inset-0 flex items-center justify-center overflow-hidden"
-            style={getBadgeStyle()}
-          >
-            <Image
-              src={badgeInfo.image}
-              alt="Badge Achievement"
-              width={120}
-              height={120}
-              onError={(e) => console.error("Error loading colored badge:", e)}
-            />
-          </div>
+          {!imageFailed && (
+            <div 
+              className="absolute inset-0 flex items-center justify-center overflow-hidden"
+              style={{ 
+                clipPath: `polygon(0 0, 100% 0, 100% ${getBadgeProgressLevel().completion * 100}%, 0 ${getBadgeProgressLevel().completion * 100}%)`
+              }}
+            >
+              <Image
+                src={badgeInfo.image}
+                alt="Badge Achievement"
+                width={120}
+                height={120}
+                onError={() => setImageFailed(true)}
+                priority
+              />
+            </div>
+          )}
           
           {/* Fallback if images don't load */}
-          {!imageLoaded && (
-            <div className="absolute inset-0 flex items-center justify-center bg-blue-100 rounded-full">
-              <span className="text-blue-600 font-bold text-xl">{Math.round(percentage)}%</span>
+          {(imageFailed || (!imageLoaded && !badgeInfo.image)) && (
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="bg-blue-500 rounded-full w-24 h-24 flex items-center justify-center">
+                <span className="text-white font-bold text-xl">{Math.round(percentage)}%</span>
+              </div>
             </div>
           )}
         </div>
@@ -276,7 +275,7 @@ export default function QuizResult() {
               }}
               onMouseLeave={() => setIsActive(null)}
             >
-              Retry Quiz
+              Back to Quiz
             </button>
 
             <button

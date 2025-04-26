@@ -26,27 +26,27 @@ const EmergencyHotline: React.FC = () => {
   const EmergencyHotlineSlides: SlideProps[] = [
    {
   "id": "cdrmm-palayan",
-  "image": "/LearnImage/EmergencyHotline1.png",
+  "image": "/LearnImage/EmergencyHotline/45.png",
   "title": "City Disaster Risk Reduction Management",
   "content": "Palayan City Rescue\n (044)-990-4357\n 0920-574-1581 / 0966-910-9674\nFor quick disaster response and emergencies in Palayan City."
 },
 {
   "id": "health-office-palayan",
-  "image": "/LearnImage/EmergencyHotline2.png",
+  "image": "/LearnImage/EmergencyHotline/46.png",
   "title": "City Health Office",
   "content": "City Infirmary Hospital\n 0917-107-3808 / 0917-801-8247\nFor health-related concerns and medical emergencies."
 },
 {
   "id": "pnp-palayan",
-  "image": "/LearnImage/EmergencyHotline3.png",
-  "title": "City Police Station",
-  "content": "Palayan City PNP Office\n 0998-598-5430 / 0955-683-2498\nContact for law enforcement assistance and reporting crimes."
+  "image": "/LearnImage/EmergencyHotline/47.png",
+  "title": "City Fire Station",
+  "content": "Palayan City BFP Station\n (044)-940-1027\n 0943-066-9962 / 0935-956-9228\nFor fire-related emergencies and rescue operations."
 },
 {
   "id": "bfp-palayan",
-  "image": "/LearnImage/EmergencyHotline4.png",
-  "title": "City Fire Station",
-  "content": "Palayan City BFP Station\n (044)-940-1027\n 0943-066-9962 / 0935-956-9228\nFor fire-related emergencies and rescue operations."
+  "image": "/LearnImage/EmergencyHotline/48.png",
+  "title": "City Police Station",
+  "content": "Palayan City PNP Office\n 0998-598-5430 / 0955-683-2498\nContact for law enforcement assistance and reporting crimes."
 }
 
   ];

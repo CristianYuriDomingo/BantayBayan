@@ -11,6 +11,7 @@ const HomePage = () => {
   const [navOpen, setNavOpen] = useState(false);
   const [isUserExist, setIsUserExist] = useState(false);
   const [activeButton, setActiveButton] = useState<null | 'getStarted' | 'learnMore'>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
 
@@ -29,16 +30,43 @@ const HomePage = () => {
   }, []);
 
   const handleGetStarted = () => {
-    if (isUserExist) {
-      router.push("/Learn"); // Redirect to Dashboard if user exists
-    } else {
-      router.push("/Form"); // Redirect to Form for new users
-    }
+    setIsLoading(true);
+    
+    setTimeout(() => {
+      if (isUserExist) {
+        router.push("/Learn"); // Navigate to Learn page if user exists
+      } else {
+        router.push("/Form"); // Navigate to Form page if no user exists
+      }
+    }, 1500); // Short delay for the loader to be visible
   };
 
   const toggleNav = () => {
     setNavOpen(!navOpen);
   };
+
+  // Loader overlay
+  if (isLoading) {
+    return (
+      <div className="fixed inset-0 bg-white z-50 flex flex-col items-center justify-center">
+        <div className="w-full max-w-md px-4 text-center">
+          <div className="mb-6">
+            <Image
+              src="/MainImage/Pibi.png" // Use your app's logo or mascot
+              alt="Bantay Bayan"
+              width={80}
+              height={80}
+              className="mx-auto"
+            />
+          </div>
+          <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full mx-auto animate-spin mb-4"></div>
+          <h2 className="text-xl font-medium text-gray-800">
+            {isUserExist ? "Loading your safety lessons..." : "Preparing your registration..."}
+          </h2>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex flex-col min-h-screen">

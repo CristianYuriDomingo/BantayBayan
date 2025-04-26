@@ -9,19 +9,19 @@ import AchievementCard from "./AchievementCard"; // Import the AchievementCard c
 
 // Define interfaces for type safety
 interface Category {
-  id: string;
-  name: string;
+id: string;
+name: string;
 }
 
 interface Achievement {
-  id: number;
-  title: string;
-  description: string;
-  icon: string;
-  progress: number;
-  category: string;
-  rarity: 'common' | 'rare' | 'epic' | 'legendary';
-  xp: number;
+id: number;
+title: string;
+description: string;
+icon: string;
+progress: number;
+category: string;
+rarity: 'common' | 'rare' | 'epic' | 'legendary';
+xp: number;
 }
 
 const Achievements: React.FC = () => {
@@ -45,7 +45,7 @@ const Achievements: React.FC = () => {
         { id: "quizzes", name: "Quizzes" },
         { id: "quests", name: "Quests" }
     ];
-      
+    
     const achievements: Achievement[] = [
         // Learning achievements
         { 
@@ -194,7 +194,7 @@ const Achievements: React.FC = () => {
                             </a>
                         </li>
                         <li>
-                        <a
+                            <a
                                 href="/Quiz"
                                 className="flex items-center p-4 text-lg text-gray-900 rounded-lg dark:text-white hover:bg-blue-100 dark:hover:bg-gray-700"
                             >
@@ -210,7 +210,7 @@ const Achievements: React.FC = () => {
                         </li>
 
                         <li>
-                        <a
+                            <a
                                 href="#"
                                 className="flex items-center p-4 text-lg text-gray-900 rounded-lg dark:text-white bg-blue-100 dark:bg-gray-700 border border-blue-300 dark:border-gray-600"
                             >
@@ -334,18 +334,22 @@ const Achievements: React.FC = () => {
                         <BadgeCollection achievements={achievements} />
                     </div>
 
-                    {/* Right column - 40% - Achievements List */}
-                    <div className="w-full lg:w-[40%] flex flex-col">
+                    {/* Right column - 40% - Non-scrollable like Quiz component */}
+                    <div className="w-full lg:w-[40%] lg:sticky lg:top-4 h-fit max-h-screen flex flex-col gap-4">
                         {/* Achievement Card */}
-                        <AchievementCard />
+                        <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow backdrop-blur-sm bg-opacity-70">
+                            <AchievementCard />
+                        </div>
                         
                         {/* Achievements List */}
-                        <AchievementsList 
-                            filteredAchievements={filteredAchievements} 
-                            categories={categories}
-                            selectedCategory={selectedCategory}
-                            setSelectedCategory={setSelectedCategory}
-                        />
+                        <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow backdrop-blur-sm bg-opacity-70 flex-grow">
+                            <AchievementsList 
+                                filteredAchievements={filteredAchievements} 
+                                categories={categories}
+                                selectedCategory={selectedCategory}
+                                setSelectedCategory={setSelectedCategory}
+                            />
+                        </div>
                     </div>
                 </div>
             </div>
